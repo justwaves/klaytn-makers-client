@@ -1,3 +1,9 @@
 import React from "react";
 
-export default () => "write page";
+export default () => {
+  return (
+    <>
+      <>WritePage</>
+    </>
+  );
+};

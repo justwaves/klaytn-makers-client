@@ -48,6 +48,8 @@ const StyledButton = styled.button`
 
 const StyledLink = styled(Link)`
   ${buttonStyle}
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 `;
 
 const Button = props => {

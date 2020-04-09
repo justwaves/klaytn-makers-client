@@ -1,14 +1,91 @@
 import { createAction, handleActions } from "redux-actions";
+import produce from "immer";
+import { takeLatest } from "redux-saga/effects";
+import createRequestSaga, {
+  createRequestActionTypes,
+} from "lib/createRequestSaga";
+import * as authApi from "lib/api/auth";
 
-const LOGIN = "auth/LOGIN";
+const CHANGE_FIELD = "auth/CHANGE_FIELD";
+const INITIALIZE_FORM = "auth/INITIALIZE";
 
-export const loginAction = createAction(LOGIN);
+const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE] = createRequestActionTypes(
+  "auth/SIGNUP",
+);
+const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
+  "auth/LOGIN",
+);
 
-const initialState = {};
+export const changeField = createAction(
+  CHANGE_FIELD,
+  ({ form, key, value }) => ({
+    form,
+    key,
+    value,
+  }),
+);
+
+export const initializeForm = createAction(INITIALIZE_FORM, form => form);
+
+export const signup = createAction(SIGNUP, ({ username, password }) => ({
+  username,
+  password,
+}));
+
+export const login = createAction(LOGIN, ({ username, password }) => ({
+  username,
+  password,
+}));
+
+const signupSaga = createRequestSaga(SIGNUP, authApi.signup);
+const loginSaga = createRequestSaga(LOGIN, authApi.login);
+export function* authSaga() {
+  yield takeLatest(SIGNUP, signupSaga);
+  yield takeLatest(LOGIN, loginSaga);
+}
+
+const initialState = {
+  signup: {
+    username: "",
+    password: "",
+    passwordConfirm: "",
+  },
+  login: {
+    username: "",
+    password: "",
+  },
+  auth: null,
+  authError: null,
+};
 
 const auth = handleActions(
   {
-    [LOGIN]: (state, action) => state,
+    [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
+      produce(state, draft => {
+        draft[form][key] = value;
+      }),
+    [INITIALIZE_FORM]: (state, { payload: form }) => ({
+      ...state,
+      [form]: initialState[form],
+    }),
+    [SIGNUP_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      auth,
+      authError: null,
+    }),
+    [SIGNUP_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      auth,
+      authError: null,
+    }),
+    [LOGIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
   },
   initialState,
 );

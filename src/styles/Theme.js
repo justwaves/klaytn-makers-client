@@ -13,7 +13,7 @@ export default {
     gray: [
       "#f8f9fa",
       "#f1f3f5",
-      "#e9ecef",
+      "#e9ecef", // background color
       "#dee2e6",
       "#ced4da",
       "#adb5bd",

@@ -2,20 +2,22 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import { all } from "redux-saga/effects";
+import loading from "redux/modules/loading";
 import auth, { authSaga } from "redux/modules/auth";
 import user, { userSaga } from "redux/modules/user";
-import loading from "redux/modules/loading";
+import write, { writeSaga } from "redux/modules/write";
 
 const env = process.env.NODE_ENV;
 
 const rootReducer = combineReducers({
+  loading,
   auth,
   user,
-  loading,
+  write,
 });
 
 export function* rootSaga() {
-  yield all([authSaga(), userSaga()]);
+  yield all([authSaga(), userSaga(), writeSaga()]);
 }
 
 const sagaMiddleware = createSagaMiddleware();

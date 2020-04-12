@@ -15,3 +15,10 @@ export const listPosts = ({ page, username, tag }) => {
 
   return apiClient.get(`/api/posts?${queryString}`);
 };
+
+export const updatePost = ({ id, title, body, tags }) =>
+  apiClient.patch(`/api/posts/${id}`, {
+    title,
+    body,
+    tags,
+  });

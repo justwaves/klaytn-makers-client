@@ -6,6 +6,8 @@ import loading from "redux/modules/loading";
 import auth, { authSaga } from "redux/modules/auth";
 import user, { userSaga } from "redux/modules/user";
 import write, { writeSaga } from "redux/modules/write";
+import post, { postSaga } from "redux/modules/post";
+import posts, { postsSaga } from "redux/modules/posts";
 
 const env = process.env.NODE_ENV;
 
@@ -14,10 +16,12 @@ const rootReducer = combineReducers({
   auth,
   user,
   write,
+  post,
+  posts,
 });
 
 export function* rootSaga() {
-  yield all([authSaga(), userSaga(), writeSaga()]);
+  yield all([authSaga(), userSaga(), writeSaga(), postSaga(), postsSaga()]);
 }
 
 const sagaMiddleware = createSagaMiddleware();

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import { HelmetProvider } from "react-helmet-async";
 import GlobalStyles from "styles/GlobalStyles";
 import Theme from "styles/Theme";
 import store from "redux/store";
@@ -13,7 +14,9 @@ ReactDOM.render(
     <ThemeProvider theme={Theme}>
       <GlobalStyles />
       <BrowserRouter>
-        <App />
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
       </BrowserRouter>
     </ThemeProvider>
   </Provider>,

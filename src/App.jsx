@@ -1,7 +1,8 @@
 import React from "react";
-import Routes from "./Routes";
+import { Helmet } from "react-helmet-async";
 import { tempSetUser, check } from "redux/modules/user";
 import store from "redux/store";
+import Routes from "./Routes";
 
 function loadUser() {
   try {
@@ -18,6 +19,9 @@ loadUser();
 
 const App = () => (
   <>
+    <Helmet>
+      <title>klaytn makers</title>
+    </Helmet>
     <Routes />
   </>
 );

@@ -43,12 +43,16 @@ const PostViewerContainer = () => {
     }
   };
 
+  const ownPost = (user && user._id) === (post && post.user._id);
+
   return (
     <PostViewer
       post={post}
       loading={loading}
       error={error}
-      actionButtons={<PostActionButtons onEdit={onEdit} onRemove={onRemove} />}
+      actionButtons={
+        ownPost && <PostActionButtons onEdit={onEdit} onRemove={onRemove} />
+      }
       ownPost={user && user.id === post && post.id}
     />
   );

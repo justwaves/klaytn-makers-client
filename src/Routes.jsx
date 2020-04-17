@@ -5,6 +5,8 @@ import PostPage from "./pages/PostPage";
 import LoginPage from "pages/LoginPage";
 import SignupPage from "pages/SignupPage";
 import WritePage from "pages/WritePage";
+import TestPage from "pages/TestPage";
+import MainPage from "pages/MainPage";
 
 const Routes = () => (
   <Switch>
@@ -13,6 +15,8 @@ const Routes = () => (
     <Route path="/login" component={LoginPage} />
     <Route path="/signup" component={SignupPage} />
     <Route path="/write" component={WritePage} />
+    <Route path="/test" component={TestPage} />
+    <Route path="/main" component={MainPage} />
     <Redirect from="*" to="/" />
   </Switch>
 );

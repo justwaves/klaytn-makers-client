@@ -11,6 +11,7 @@ export default createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     box-sizing: border-box;
     min-height: 100%;
+    min-width: 360px;
   }
 
   * {

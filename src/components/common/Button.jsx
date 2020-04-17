@@ -29,9 +29,9 @@ const buttonStyle = css`
   ${props =>
     props.cyan &&
     css`
-      background: ${props => props.theme.color.cyan[5]};
+      background: ${props => props.theme.color.primary[0]};
       &:hover {
-        background: ${props => props.theme.color.cyan[4]};
+        background: ${props => props.theme.color.primary[1]};
       }
     `}
 

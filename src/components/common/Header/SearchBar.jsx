@@ -31,7 +31,6 @@ const StyledInput = styled.input`
   margin: 0;
   margin-left: 12px;
   border: 0;
-  color: ${props => props.theme.color.gray[5]};
 `;
 
 const SearchBar = () => (

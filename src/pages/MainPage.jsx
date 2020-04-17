@@ -1,10 +1,12 @@
 import React from "react";
-import HeaderContainer from "components/common/Header/HeaderContainer";
+import Header from "components/common/Header/Header";
 import ProductListContainer from "components/ProductList/ProductListContainer";
+import NavigationContainer from "components/common/Navigation/NavigationContainer";
 
 const MainPage = () => (
   <>
-    <HeaderContainer />
+    <Header />
+    <NavigationContainer />
     <ProductListContainer />
   </>
 );

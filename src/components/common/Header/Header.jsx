@@ -121,7 +121,7 @@ const Header = () => {
                 <Link to="/test">test</Link>
               </HiddenMenu>
               <HiddenMenu>
-                <Link to="/main">main</Link>
+                <Link to="/store/home">store</Link>
               </HiddenMenu>
               <HiddenMenu>
                 <Link to="/write">write</Link>

@@ -66,22 +66,22 @@ const Navigation = () => {
       <Wrapper>
         <ResponsiveNavigation>
           <NavItem>
-            <Link to="/main/home">
+            <Link to="/store/home">
               <NavBoder border={navName === "home" ? 1 : 0}>홈</NavBoder>
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/main/new">
+            <Link to="/store/new">
               <NavBoder border={navName === "new" ? 1 : 0}>신규</NavBoder>
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/main/popular">
+            <Link to="/store/popular">
               <NavBoder border={navName === "popular" ? 1 : 0}>인기</NavBoder>
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/main/finished">
+            <Link to="/store/finished">
               <NavBoder border={navName === "finished" ? 1 : 0}>마감</NavBoder>
             </Link>
           </NavItem>

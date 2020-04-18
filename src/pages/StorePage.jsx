@@ -3,7 +3,7 @@ import Header from "components/common/Header/Header";
 import ProductListContainer from "components/ProductList/ProductListContainer";
 import NavigationContainer from "components/common/Navigation/NavigationContainer";
 
-const MainPage = () => (
+const StorePage = () => (
   <>
     <Header />
     <NavigationContainer />
@@ -11,4 +11,4 @@ const MainPage = () => (
   </>
 );
 
-export default MainPage;
+export default StorePage;

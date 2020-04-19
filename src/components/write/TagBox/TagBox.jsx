@@ -3,20 +3,22 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   width: 100%;
-  border-top: 1px solid ${props => props.theme.color.gray[2]};
-  padding-top: 2rem;
+  padding-bottom: 2rem;
+  margin-top: 2rem;
 
   h4 {
     margin-top: 0;
     margin-bottom: 0.5rem;
+    color: ${props => props.theme.color.primary[4]};
+    font-weight: 500;
   }
 `;
 
 const TagForm = styled.form`
   border-radius: 4px;
   display: flex;
-  width: 20rem;
-  border: 1px solid ${props => props.theme.color.gray[9]};
+  width: 22.5rem;
+  border: 1px solid ${props => props.theme.color.gray[3]};
   overflow: hidden;
 
   input,
@@ -27,12 +29,12 @@ const TagForm = styled.form`
   }
 
   input {
-    padding: 0.5rem;
+    padding: 0.75rem 1rem;
     flex: 1;
   }
 
   button {
-    padding: 0rem 1.5rem;
+    padding: 0rem 2rem;
     cursor: pointer;
     background-color: ${props => props.theme.color.gray[8]};
     color: white;
@@ -46,12 +48,12 @@ const TagForm = styled.form`
 
 const TagListWrapper = styled.div`
   display: flex;
-  margin-top: 0.5rem;
+  margin: 0.75rem;
 `;
 
 const Tag = styled.div`
   margin-right: 0.5rem;
-  color: ${props => props.theme.color.gray[6]};
+  color: ${props => props.theme.color.primary[3]};
   cursor: pointer;
 
   &:hover {

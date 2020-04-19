@@ -2,44 +2,146 @@ import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 import Quill from "quill";
 import "quill/dist/quill.bubble.css";
-import Responsive from "components/common/Responsive";
+import TextareaAutosize from "react-autosize-textarea";
+import TagBox from "components/write/TagBox/TagBoxContainer";
 
-const Wrapper = styled(Responsive)`
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+import "date-fns";
+import Grid from "@material-ui/core/Grid";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+
+const Wrapper = styled.div`
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  div {
+    .MuiFormControl-marginNormal {
+      margin-top: 0;
+      border: 1px solid ${props => props.theme.color.gray[4]};
+      border-radius: 4px;
+      width: 16.5rem;
+      padding: 0.5rem 1.75rem;
+
+      .MuiInputBase-root {
+        &::before {
+          border: 0;
+        }
+
+        input {
+          text-align: end;
+        }
+      }
+    }
+  }
 `;
 
-const TitleInput = styled.input`
-  font-size: 3rem;
+const PageTitle = styled.h1`
+  font-size: 2rem;
+  margin-bottom: 4rem;
+  font-weight: 600;
+  text-align: center;
+`;
+
+const Label = styled.h4`
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: ${props => props.theme.color.primary[4]};
+  font-weight: 500;
+`;
+
+const EditorInput = styled.input`
+  font-size: 1rem;
   outline: none;
-  padding-bottom: 0.5rem;
+  padding: 0.75rem 1rem;
   border: none;
-  border-bottom: 1px solid ${props => props.theme.color.gray[4]};
-  margin-bottom: 2rem;
+  border: 1px solid ${props => props.theme.color.gray[3]};
+  border-radius: 4px;
+  margin-bottom: 1rem;
   width: 100%;
+`;
+
+const TitleInput = styled(EditorInput)``;
+
+const DescriptionInput = styled(TextareaAutosize)`
+  border: 1px solid ${props => props.theme.color.gray[3]};
+  border-radius: 4px;
+  min-height: 100px;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const InputContainer = styled.div`
+  border: 1px solid ${props => props.theme.color.gray[4]};
+  width: 16.5rem;
+  margin-bottom: 2rem;
+  border-radius: 4px;
+`;
+
+const PriceInput = styled(EditorInput)`
+  width: 12.5rem;
+  text-align: right;
+  margin-bottom: 0;
+  border: none;
+`;
+
+const TargetCountInput = styled(EditorInput)`
+  width: 12.5rem;
+  text-align: right;
+  margin-bottom: 0;
+  border: none;
+`;
+
+const Unit = styled.span`
+  height: 100%;
+  color: ${props => props.theme.color.gray[7]};
+  width: 3rem;
+`;
+
+const Divider = styled.div`
+  border-top: 1px solid ${props => props.theme.color.gray[5]};
+  margin-bottom: 2rem;
+  margin-top: 0.5rem;
 `;
 
 const QuillWrapper = styled.div`
   .ql-editor {
     padding: 0;
     min-height: 320px;
-    font-size: 1.125rem;
+    font-size: 1rem;
     line-height: 1.5;
+    margin-top: 1rem;
   }
 
   .ql-editor.ql-blank::before {
-    left: 0px;
+    left: 0;
+    font-size: 1rem;
   }
 `;
 
-const Editor = ({ title, body, onChangeField }) => {
+const Editor = ({
+  title,
+  body,
+  onChangeField,
+  handleDateChange,
+  selectedDate,
+}) => {
   const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
   const quillInstance = useRef(null); // Quill 인스턴스를 설정
 
   useEffect(() => {
     quillInstance.current = new Quill(quillElement.current, {
       theme: "bubble",
-      placeholder: "내용을 입력하세요...",
+      placeholder: "상품에 대한 자세한 내용을 적어주세요.",
       modules: {
         toolbar: [
           [{ header: "1" }, { header: "2" }],
@@ -71,14 +173,57 @@ const Editor = ({ title, body, onChangeField }) => {
 
   return (
     <Wrapper>
+      <PageTitle>상품 등록</PageTitle>
+      <Label>상품명</Label>
+      <TitleInput placeholder="상품명" onChange={onChangeTitle} value={title} />
+      <Label>상품 설명</Label>
+      <DescriptionInput
+        placeholder="60자 이상 120자 이하"
+        onChange={onChangeTitle}
+        value={title}
+        maxRows={3}
+        maxlength={120}
+      />
+      <Label>사진 URL</Label>
       <TitleInput
-        placeholder="제목을 입력하세요"
+        placeholder="https://"
         onChange={onChangeTitle}
         value={title}
       />
+      <Label>상품 가격</Label>
+      <InputContainer>
+        <PriceInput placeholder="0" />
+        <Unit>KLAY</Unit>
+      </InputContainer>
+      <Label>목표 수량</Label>
+      <InputContainer>
+        <TargetCountInput placeholder="0" />
+        <Unit>EA</Unit>
+      </InputContainer>
+      <Label>마감일</Label>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Grid container justify="left">
+          <KeyboardDatePicker
+            className="D_day"
+            disableToolbar
+            format="yyyy년 MM월 dd일"
+            margin="normal"
+            id="date-picker-dialog"
+            value={selectedDate}
+            onChange={handleDateChange}
+            KeyboardButtonProps={{
+              "aria-label": "change date",
+            }}
+          />
+        </Grid>
+      </MuiPickersUtilsProvider>
+      <TagBox />
+      <Label>상품 상세 설명</Label>
+      <Divider />
       <QuillWrapper>
         <div ref={quillElement} />
       </QuillWrapper>
+      <Divider />
     </Wrapper>
   );
 };

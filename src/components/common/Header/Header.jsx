@@ -13,7 +13,6 @@ const Wrapper = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  /* box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08); */
   border-bottom: 1px solid ${props => props.theme.color.gray[3]};
   background-color: white;
   z-index: 99;
@@ -82,15 +81,6 @@ const UsermenuContainer = styled.div`
   align-items: center;
 `;
 
-const HiddenMenu = styled.span`
-  margin-left: 20px;
-  color: white;
-
-  &:hover {
-    color: black;
-  }
-`;
-
 const Divider = styled.span`
   border: 1px solid ${props => props.theme.color.gray[3]};
   width: 1px;
@@ -114,18 +104,9 @@ const Header = () => {
         <ResponsiveHeader>
           <Grid>
             <Left>
-              <Link to="/">
+              <Link to="/store/home">
                 <Logo>klaytnMakers</Logo>
               </Link>
-              <HiddenMenu>
-                <Link to="/test">test</Link>
-              </HiddenMenu>
-              <HiddenMenu>
-                <Link to="/store/home">store</Link>
-              </HiddenMenu>
-              <HiddenMenu>
-                <Link to="/write">write</Link>
-              </HiddenMenu>
             </Left>
 
             <Center>

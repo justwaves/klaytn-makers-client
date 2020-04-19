@@ -3,23 +3,27 @@ import styled from "styled-components";
 import Button from "components/common/Button";
 
 const Wrapper = styled.div`
-  margin-top: 1rem;
   margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
 `;
 
 const StyledButton = styled(Button)`
-  height: 2.125rem;
-  & + & {
-    margin-left: 0.5rem;
-  }
+  height: 3rem;
+  width: 10.5rem;
+  margin-right: 1.5rem;
+`;
+
+const CancelButton = styled(Button)`
+  width: 4.5rem;
 `;
 
 const WriteActionButtons = ({ onCancel, onPublish, isEdit }) => (
   <Wrapper>
     <StyledButton cyan onClick={onPublish}>
-      포스트 {isEdit ? "수정" : "등록"}
+      상품 {isEdit ? "수정" : "등록"}
     </StyledButton>
-    <StyledButton onClick={onCancel}>취소</StyledButton>
+    <CancelButton onClick={onCancel}>취소</CancelButton>
   </Wrapper>
 );
 

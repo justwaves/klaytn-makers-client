@@ -24,19 +24,42 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
 }));
-export const writePost = createAction(WRITE_POST, ({ title, body, tags }) => ({
-  title,
-  body,
-  tags,
-}));
+export const writePost = createAction(
+  WRITE_POST,
+  ({ title, body, tags, description, photo, price, targetCount, dDay }) => ({
+    title,
+    body,
+    tags,
+    description,
+    photo,
+    price,
+    targetCount,
+    dDay,
+  }),
+);
 export const setOriginalPost = createAction(SET_ORIGINAL_POST, post => post);
 export const updatePost = createAction(
   UPDATE_POST,
-  ({ id, title, body, tags }) => ({
+  ({
     id,
     title,
     body,
     tags,
+    description,
+    photo,
+    price,
+    targetCount,
+    dDay,
+  }) => ({
+    id,
+    title,
+    body,
+    tags,
+    description,
+    photo,
+    price,
+    targetCount,
+    dDay,
   }),
 );
 
@@ -52,6 +75,11 @@ const initialState = {
   title: "",
   body: "",
   tags: [],
+  description: "",
+  photo: "",
+  price: null,
+  targetCount: null,
+  dDay: "",
   post: null,
   postError: null,
   originalPostId: null,
@@ -83,6 +111,11 @@ const write = handleActions(
       body: post.body,
       tags: post.tags,
       originalPostId: post._id,
+      description: post.description,
+      photo: post.photo,
+      price: post.price,
+      targetCount: post.targetCount,
+      dDay: post.dDay,
     }),
     [UPDATE_POST_SUCCESS]: (state, { payload: post }) => ({
       ...state,

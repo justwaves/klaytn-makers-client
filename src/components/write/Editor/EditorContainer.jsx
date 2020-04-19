@@ -2,41 +2,53 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changeField, initialize } from "redux/modules/write";
 import Editor from "./Editor";
+import moment from "moment";
 
 export default () => {
   const dispatch = useDispatch();
-  const { title, body } = useSelector(({ write }) => ({
+  const {
+    title,
+    body,
+    description,
+    photo,
+    price,
+    targetCount,
+    dDay,
+  } = useSelector(({ write }) => ({
     title: write.title,
     body: write.body,
+    description: write.description,
+    photo: write.photo,
+    price: write.price,
+    targetCount: write.targetCount,
+    dDay: write.dDay,
   }));
 
-  const today = new Date();
+  const today = moment().format("YYYY-MM-DD");
 
   const [selectedDate, setSelectedDate] = useState(today);
 
   const handleDateChange = date => {
-    const yearValue = date.getYear() + 1900;
-    const monthValue = date.getMonth() + 1;
-    const dateValue = date.getDate();
+    console.log();
+    const formattedDate = moment(date).format("YYYY-MM-DD");
+    setSelectedDate(formattedDate);
 
-    if (monthValue >= 10 && dateValue >= 10) {
-      const selectedValue = `${yearValue}-${monthValue}-${dateValue}`;
-      setSelectedDate(selectedValue);
-    } else if (monthValue >= 10 && dateValue < 10) {
-      const selectedValue = `${yearValue}-${monthValue}-0${dateValue}`;
-      setSelectedDate(selectedValue);
-    } else if (monthValue < 10 && dateValue >= 10) {
-      const selectedValue = `${yearValue}-0${monthValue}-${dateValue}`;
-      setSelectedDate(selectedValue);
-    } else if (monthValue < 10 && dateValue < 10) {
-      const selectedValue = `${yearValue}-0${monthValue}-0${dateValue}`;
-      setSelectedDate(selectedValue);
-    }
+    onChangeField({ key: "dDay", value: formattedDate });
   };
 
   const onChangeField = useCallback(payload => dispatch(changeField(payload)), [
     dispatch,
   ]);
+
+  const onChange = e => {
+    const key = e.target.name;
+    if (key === "targetCount" || key === "price") {
+      const value = parseInt(e.target.value);
+      onChangeField({ key, value });
+      return;
+    }
+    onChangeField({ key, value: e.target.value });
+  };
 
   useEffect(() => {
     return () => {
@@ -49,8 +61,14 @@ export default () => {
       onChangeField={onChangeField}
       title={title}
       body={body}
+      description={description}
+      photo={photo}
+      price={price}
+      targetCount={targetCount}
+      dDay={dDay}
       handleDateChange={handleDateChange}
       selectedDate={selectedDate}
+      onChange={onChange}
     />
   );
 };

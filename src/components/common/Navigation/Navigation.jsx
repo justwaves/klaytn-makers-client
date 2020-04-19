@@ -9,10 +9,9 @@ const Wrapper = styled.div`
   top: 4rem;
   left: 0;
   width: 100%;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
   background-color: white;
   z-index: 9;
-  border-top: 1px solid ${props => props.theme.color.gray[2]};
+  border-bottom: 1px solid ${props => props.theme.color.gray[3]};
 `;
 
 const ResponsiveNavigation = styled(Responsive)`
@@ -41,15 +40,18 @@ const NavBoder = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4.5rem;
+  width: 7rem;
   height: 3rem;
   cursor: pointer;
   border-bottom: 4px solid transparent;
+  color: ${props => props.theme.color.gray[7]};
+  font-weight: 500;
 
   ${props =>
     props.border &&
     css`
       border-bottom: 4px solid black;
+      color: ${props => props.theme.color.gray[9]};
     `}
 `;
 

@@ -6,7 +6,7 @@ import { logout } from "redux/modules/user";
 
 const Wrapper = styled.div`
   min-width: 120px;
-  background-color: white;
+  background-color: ${props => props.theme.color.gray[1]};
   border: 1px solid ${props => props.theme.color.gray[4]};
   position: absolute;
   top: 3rem;

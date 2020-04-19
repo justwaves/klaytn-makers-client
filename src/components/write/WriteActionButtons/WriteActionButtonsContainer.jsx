@@ -7,23 +7,56 @@ import WriteActionButtons from "./WriteActionButtons";
 const WriteActionButtonsContainer = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { title, body, tags, post, postError, originalPostId } = useSelector(
-    ({ write }) => ({
-      title: write.title,
-      body: write.body,
-      tags: write.tags,
-      post: write.post,
-      postError: write.postError,
-      originalPostId: write.originalPostId,
-    }),
-  );
+  const {
+    title,
+    body,
+    tags,
+    post,
+    postError,
+    originalPostId,
+    description,
+    photo,
+    price,
+    targetCount,
+    dDay,
+  } = useSelector(({ write }) => ({
+    title: write.title,
+    body: write.body,
+    tags: write.tags,
+    post: write.post,
+    postError: write.postError,
+    originalPostId: write.originalPostId,
+    description: write.description,
+    photo: write.photo,
+    price: write.price,
+    targetCount: write.targetCount,
+    dDay: write.dDay,
+  }));
 
   const onPublish = () => {
     if (originalPostId) {
-      dispatch(updatePost({ title, body, tags, id: originalPostId }));
+      dispatch(
+        updatePost({
+          title,
+          body,
+          tags,
+          id: originalPostId,
+        }),
+      );
       return;
     }
-    dispatch(writePost({ title, body, tags }));
+    dispatch(
+      writePost({
+        title,
+        body,
+        tags,
+        description,
+        photo,
+        price,
+        targetCount,
+        dDay,
+      }),
+    );
   };
 
   const onCancel = () => {

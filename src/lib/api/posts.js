@@ -1,8 +1,26 @@
 import qs from "qs";
 import apiClient from "./apiClient";
 
-export const writePost = ({ title, body, tags }) =>
-  apiClient.post("/api/posts", { title, body, tags });
+export const writePost = ({
+  title,
+  body,
+  tags,
+  description,
+  photo,
+  price,
+  targetCount,
+  dDay,
+}) =>
+  apiClient.post("/api/posts", {
+    title,
+    body,
+    tags,
+    description,
+    photo,
+    price,
+    targetCount,
+    dDay,
+  });
 
 export const readPost = id => apiClient.get(`/api/posts/${id}`);
 

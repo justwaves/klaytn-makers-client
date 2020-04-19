@@ -4,7 +4,6 @@ import Quill from "quill";
 import "quill/dist/quill.bubble.css";
 import TextareaAutosize from "react-autosize-textarea";
 import TagBox from "components/write/TagBox/TagBoxContainer";
-
 import "date-fns";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
@@ -12,6 +11,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+import { ImageDrop } from "quill-image-drop-module";
 
 const Wrapper = styled.div`
   padding-top: 2rem;
@@ -131,14 +131,21 @@ const QuillWrapper = styled.div`
 const Editor = ({
   title,
   body,
+  description,
+  photo,
+  price,
+  targetCount,
   onChangeField,
   handleDateChange,
   selectedDate,
+  onChange,
 }) => {
   const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
   const quillInstance = useRef(null); // Quill 인스턴스를 설정
 
   useEffect(() => {
+    Quill.register("modules/imageDrop", ImageDrop);
+
     quillInstance.current = new Quill(quillElement.current, {
       theme: "bubble",
       placeholder: "상품에 대한 자세한 내용을 적어주세요.",
@@ -149,6 +156,7 @@ const Editor = ({
           [{ list: "ordered" }, { list: "bullet" }],
           ["blockquote", "code-block", "link", "image"],
         ],
+        imageDrop: true,
       },
     });
 
@@ -167,37 +175,50 @@ const Editor = ({
     quillInstance.current.root.innerHTML = body;
   }, [body]);
 
-  const onChangeTitle = e => {
-    onChangeField({ key: "title", value: e.target.value });
-  };
-
   return (
     <Wrapper>
       <PageTitle>상품 등록</PageTitle>
       <Label>상품명</Label>
-      <TitleInput placeholder="상품명" onChange={onChangeTitle} value={title} />
+      <TitleInput
+        placeholder="상품명"
+        onChange={onChange}
+        value={title}
+        name="title"
+      />
       <Label>상품 설명</Label>
       <DescriptionInput
         placeholder="60자 이상 120자 이하"
-        onChange={onChangeTitle}
-        value={title}
+        onChange={onChange}
+        value={description}
         maxRows={3}
         maxlength={120}
+        name="description"
       />
       <Label>사진 URL</Label>
       <TitleInput
         placeholder="https://"
-        onChange={onChangeTitle}
-        value={title}
+        onChange={onChange}
+        value={photo}
+        name="photo"
       />
       <Label>상품 가격</Label>
       <InputContainer>
-        <PriceInput placeholder="0" />
+        <PriceInput
+          placeholder="0"
+          onChange={onChange}
+          value={price}
+          name="price"
+        />
         <Unit>KLAY</Unit>
       </InputContainer>
       <Label>목표 수량</Label>
       <InputContainer>
-        <TargetCountInput placeholder="0" />
+        <TargetCountInput
+          placeholder="0"
+          onChange={onChange}
+          value={targetCount}
+          name="targetCount"
+        />
         <Unit>EA</Unit>
       </InputContainer>
       <Label>마감일</Label>

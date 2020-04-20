@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Responsive from "components/common/Responsive";
+import Responsive from "components/Common/Responsive";
 
 const Wrapper = styled.div`
   position: fixed;

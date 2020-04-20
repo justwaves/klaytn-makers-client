@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { readPost, unloadPost } from "redux/modules/post";
-import PostActionButtons from "components/post/PostActionButtons";
+import PostActionButtons from "components/ProductDetail/PostActionButtons";
 import { setOriginalPost } from "redux/modules/write";
 import { removePost } from "lib/api/posts";
-import PostViewer from "./PostViewer";
+import ProductViewer from "./ProductViewer";
 
-const PostViewerContainer = () => {
+const ProductViewerContainer = () => {
   const { postId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const PostViewerContainer = () => {
   const ownPost = (user && user._id) === (post && post.user._id);
 
   return (
-    <PostViewer
+    <ProductViewer
       post={post}
       loading={loading}
       error={error}
@@ -58,4 +58,4 @@ const PostViewerContainer = () => {
   );
 };
 
-export default PostViewerContainer;
+export default ProductViewerContainer;

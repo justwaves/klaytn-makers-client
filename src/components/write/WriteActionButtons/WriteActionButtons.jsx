@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "components/common/Button";
+import Button from "components/Common/Button";
 
 const Wrapper = styled.div`
   margin-bottom: 3rem;

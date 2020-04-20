@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Quill from "quill";
 import "quill/dist/quill.bubble.css";
 import TextareaAutosize from "react-autosize-textarea";
-import TagBox from "components/write/TagBox/TagBoxContainer";
+import TagBox from "components/Write/TagBox/TagBoxContainer";
 import "date-fns";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";

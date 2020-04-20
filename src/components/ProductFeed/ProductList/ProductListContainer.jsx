@@ -3,9 +3,9 @@ import qs from "qs";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listPosts } from "redux/modules/posts";
-import PostList from "./PostList";
+import ProductList from "./ProductList";
 
-export default () => {
+const ProductListContainer = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { posts, error, loading, user } = useSelector(
@@ -25,11 +25,8 @@ export default () => {
   }, [dispatch, location.search]);
 
   return (
-    <PostList
-      loading={loading}
-      error={error}
-      posts={posts}
-      showWriteButton={user}
-    />
+    <ProductList loading={loading} error={error} posts={posts} user={user} />
   );
 };
+
+export default ProductListContainer;

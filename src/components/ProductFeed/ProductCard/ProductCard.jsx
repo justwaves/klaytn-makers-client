@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
   min-height: 460px;
@@ -94,31 +95,33 @@ const OrderConut = styled.div`
   justify-content: space-between;
 `;
 
-const ProductCard = () => (
-  <Wrapper>
-    <ImageContainer>
-      <img
-        src="https://t1.daumcdn.net/makers_smith/file/items/100000577/masters/07c6d7d5b0c14c91bd41082d49f08078.jpg?type=thumb&opt=C640x448.i"
-        alt=""
-      />
-    </ImageContainer>
-    <InfoContainer>
-      <ProductName>장 건강을 위한 복합 포뮬러</ProductName>
-      <ProductDesc>
-        유산균과 유산균의 먹이가 되는 프리바이오틱스를 함께 배합한
-        건강기능식품입니다. 한 포에 19종 유산균 1억마리와 프리바이오틱스
-        4000mg을 넣었습니다. 면역 기능에 도움을 주는 아연도 함께 담았습니다.면역
-        기능에 도움을 주는 아연도 함께 담았습니다.
-      </ProductDesc>
-      <ProgressBarContainer>
-        <ProgressBar />
-        <OrderConut>
-          <span>1022명이 주문중입니다.</span>
-          <span>88%</span>
-        </OrderConut>
-      </ProgressBarContainer>
-    </InfoContainer>
-  </Wrapper>
+const ProductCard = ({
+  title,
+  description,
+  photo = "https://source.unsplash.com/random/720x500",
+  count = 1202,
+  percentage = 89,
+  user,
+  _id = "5e9c790b3d3ec23556c4ee84",
+}) => (
+  <Link to={`/@${user.username}/${_id}`}>
+    <Wrapper>
+      <ImageContainer>
+        <img src={photo} alt="thumbnail" />
+      </ImageContainer>
+      <InfoContainer>
+        <ProductName>{title}</ProductName>
+        <ProductDesc>{description}</ProductDesc>
+        <ProgressBarContainer>
+          <ProgressBar />
+          <OrderConut>
+            <span>{`${count}명이 주문중입니다.`}</span>
+            <span>{percentage}%</span>
+          </OrderConut>
+        </ProgressBarContainer>
+      </InfoContainer>
+    </Wrapper>
+  </Link>
 );
 
 export default ProductCard;

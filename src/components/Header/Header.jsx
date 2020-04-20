@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Responsive from "components/common/Responsive";
-import Button from "components/common/Button";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import SearchBar from "components/common/Header/SearchBar";
-import { Avatar, Cart, Notification } from "components/common/Icons";
+import { useSelector } from "react-redux";
+import Responsive from "components/Common/Responsive";
+import Button from "components/Common/Button";
+import SearchBar from "components/Header/SearchBar";
+import { Avatar, Cart, Notification } from "components/Common/Icons";
 import UserMenu from "./UserMenu";
 
 const Wrapper = styled.div`
@@ -35,6 +35,10 @@ const ResponsiveHeader = styled(Responsive)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 784px) {
+    padding: 0 20px;
+  }
 `;
 
 const Logo = styled.div`

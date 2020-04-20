@@ -1,11 +1,11 @@
 import React from "react";
-import AuthTemplate from "components/auth/AuthTemplate";
-import SignupForm from "components/auth/SignupFormContainer";
+import AuthTemplate from "components/Auth/AuthTemplate";
+import SignupFormContainer from "components/Auth/SignupFormContainer";
 
 export default () => {
   return (
     <AuthTemplate>
-      <SignupForm />
+      <SignupFormContainer />
     </AuthTemplate>
   );
 };

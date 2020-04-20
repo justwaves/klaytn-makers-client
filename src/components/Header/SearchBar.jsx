@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Search } from "components/common/Icons";
+import { Search } from "components/Common/Icons";
 
 const Wrapper = styled.div`
   height: 2rem;

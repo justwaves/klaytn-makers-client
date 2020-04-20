@@ -1,6 +1,6 @@
 import React from "react";
-import AuthTemplate from "components/auth/AuthTemplate";
-import LoginForm from "components/auth/LoginFormContainer";
+import AuthTemplate from "components/Auth/AuthTemplate";
+import LoginForm from "components/Auth/LoginFormContainer";
 
 export default () => {
   return (

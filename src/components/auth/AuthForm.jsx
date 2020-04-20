@@ -1,27 +1,34 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Button from "components/common/Button";
+import Button from "components/Common/Button";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
+  max-width: 360px;
 `;
 
 const Title = styled.h3`
   font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 `;
 
 const StyledInput = styled.input`
   width: 100%;
-  height: 2.5rem;
+  height: 3.5rem;
   border: 0;
   border-bottom: 1px solid ${props => props.theme.color.gray[5]};
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+`;
+
+const LoginToggleWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const AuthToggle = styled(Link)`
@@ -31,11 +38,11 @@ const AuthToggle = styled(Link)`
   font-weight: 300;
   color: ${props => props.theme.color.gray[8]};
   cursor: pointer;
-  margin-top: 1rem;
 `;
 
 const StyledButton = styled(Button)`
   margin-top: 1rem;
+  margin-bottom: 2rem;
 `;
 
 const ErrorMessage = styled.div`
@@ -43,6 +50,11 @@ const ErrorMessage = styled.div`
   text-align: center;
   font-size: 1rem;
   margin-top: 1rem;
+`;
+
+const ForgotPwd = styled.div`
+  width: 50%;
+  color: ${props => props.theme.color.gray[8]};
 `;
 
 const textMap = {
@@ -81,9 +93,16 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           />
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        <StyledButton fullWidth>{textMap[type]}</StyledButton>
+        <StyledButton cyan fullWidth>
+          {textMap[type]}
+        </StyledButton>
       </form>
-      {type === "login" && <AuthToggle to="/signup">회원가입</AuthToggle>}
+      {type === "login" && (
+        <LoginToggleWrapper>
+          <ForgotPwd>비밀번호 찾기</ForgotPwd>
+          <AuthToggle to="/signup">회원가입</AuthToggle>
+        </LoginToggleWrapper>
+      )}
       {type === "signup" && <AuthToggle to="/login">로그인</AuthToggle>}
     </Wrapper>
   );

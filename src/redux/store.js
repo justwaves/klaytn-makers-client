@@ -8,6 +8,7 @@ import user, { userSaga } from "redux/modules/user";
 import write, { writeSaga } from "redux/modules/write";
 import post, { postSaga } from "redux/modules/post";
 import posts, { postsSaga } from "redux/modules/posts";
+import wallet from "redux/modules/wallet";
 
 const env = process.env.NODE_ENV;
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   write,
   post,
   posts,
+  wallet,
 });
 
 export function* rootSaga() {
@@ -29,9 +31,9 @@ const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware];
 
 if (env === "development") {
-  const { createLogger } = require("redux-logger");
-  const logger = createLogger();
-  middlewares.push(logger);
+  // const { createLogger } = require("redux-logger");
+  // const logger = createLogger();
+  // middlewares.push(logger);
 }
 
 const store = createStore(

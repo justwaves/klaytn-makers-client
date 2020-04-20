@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
-  background: ${props => props.theme.color.gray[2]};
+  background: white;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -21,13 +21,15 @@ const Logo = styled.h1`
 `;
 
 const WhiteBox = styled.div`
-  padding: 3rem;
+  padding: 4rem 0;
   background: white;
-  width: 30rem;
+  width: 552px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border: 1px solid ${props => props.theme.color.gray[5]};
+  border-radius: 8px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
 `;
 

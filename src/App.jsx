@@ -5,6 +5,7 @@ import { integrateWallet, removeWallet } from "redux/modules/wallet";
 import store from "redux/store";
 import Routes from "./Routes";
 import MakersContract from "klaytn/contractAPI";
+import AuthModal from "components/Common/AuthModal";
 
 function loadUser() {
   try {
@@ -47,6 +48,7 @@ const App = () => (
       <title>klaytn makers</title>
     </Helmet>
     <Routes />
+    <AuthModal />
   </>
 );
 

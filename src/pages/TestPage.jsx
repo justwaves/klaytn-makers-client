@@ -4,6 +4,7 @@ import Header from "components/Header/Header";
 import Responsive from "components/Common/Responsive";
 import Button from "components/Common/Button";
 import caver from "klaytn/caver";
+import WalletLink from "components/Wallet/WalletLink";
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -64,6 +65,7 @@ const TestPage = () => {
     <Responsive>
       <Wrapper>
         <Header />
+        <WalletLink />
         <Divider />
         <ButtonWrapper>
           <Label>test</Label>

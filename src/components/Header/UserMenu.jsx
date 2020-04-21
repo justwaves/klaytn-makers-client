@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "redux/modules/user";
+import WalletLink from "components/Wallet/WalletLink";
 
 const Wrapper = styled.div`
   min-width: 120px;
-  background-color: ${props => props.theme.color.gray[1]};
+  background-color: ${props => props.theme.color.gray[0]};
   border: 1px solid ${props => props.theme.color.gray[4]};
   position: absolute;
   top: 3rem;
@@ -44,15 +45,15 @@ const UserMenu = ({ user }) => {
     <Wrapper>
       <Grid>
         <Menu>{user.username}</Menu>
+        <Link to="/write">
+          <Menu>상품 등록하기</Menu>
+        </Link>
         <Menu>
-          <Link to="/write">상품 등록하기</Link>
+          <WalletLink />
         </Menu>
-        <Menu>
-          <Link to="/wallet">Wallet</Link>
-        </Menu>
-        <Menu>
-          <Link to="/test">Test</Link>
-        </Menu>
+        <Link to="/test">
+          <Menu>Test</Menu>
+        </Link>
         <Menu onClick={onLogout}>로그아웃</Menu>
       </Grid>
     </Wrapper>

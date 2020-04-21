@@ -9,6 +9,7 @@ import write, { writeSaga } from "redux/modules/write";
 import post, { postSaga } from "redux/modules/post";
 import posts, { postsSaga } from "redux/modules/posts";
 import wallet from "redux/modules/wallet";
+import ui from "redux/modules/ui";
 
 const env = process.env.NODE_ENV;
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   post,
   posts,
   wallet,
+  ui,
 });
 
 export function* rootSaga() {

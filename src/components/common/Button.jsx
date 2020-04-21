@@ -31,7 +31,7 @@ const buttonStyle = css`
     css`
       background: ${props => props.theme.color.primary[0]};
       &:hover {
-        background: ${props => props.theme.color.primary[1]};
+        background: ${props => props.theme.color.primary[3]};
       }
     `}
 

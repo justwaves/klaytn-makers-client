@@ -6,6 +6,8 @@ import WritePage from "pages/WritePage";
 import TestPage from "pages/TestPage";
 import StorePage from "pages/StorePage";
 import DetailPage from "pages/DetailPage";
+import WalletPage from "pages/WalletPage";
+import TabPage from "pages/TabPage";
 
 const Routes = () => (
   <Switch>
@@ -14,9 +16,11 @@ const Routes = () => (
     <Route path="/login" component={LoginPage} />
     <Route path="/signup" component={SignupPage} />
     <Route path="/write" component={WritePage} />
-    <Route path="/test" component={TestPage} />
     <Route path="/store/:status" component={StorePage} />
     <Route path="/store" component={StorePage} />
+    <Route path="/wallet" component={WalletPage} />
+    <Route path="/test" component={TestPage} />
+    <Route path="/tab" component={TabPage} />
     <Redirect from="*" to="/" />
   </Switch>
 );

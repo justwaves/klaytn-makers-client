@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   width: 100%;
   border-bottom: 1px solid ${props => props.theme.color.gray[3]};
   background-color: white;
-  z-index: 99;
+  z-index: 20;
 `;
 
 const Grid = styled.div`
@@ -43,7 +43,11 @@ const ResponsiveHeader = styled(Responsive)`
 
 const Logo = styled.div`
   font-size: 1.5rem;
-  font-weight: 600;
+  letter-spacing: -1px;
+
+  span {
+    font-weight: 600;
+  }
 `;
 
 const Center = styled.div`
@@ -109,7 +113,9 @@ const Header = () => {
           <Grid>
             <Left>
               <Link to="/store/home">
-                <Logo>klaytnMakers</Logo>
+                <Logo>
+                  klaytn<span>Makers</span>
+                </Logo>
               </Link>
             </Left>
 

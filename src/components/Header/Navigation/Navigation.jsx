@@ -44,7 +44,7 @@ const NavBoder = styled.div`
   height: 3rem;
   cursor: pointer;
   border-bottom: 4px solid transparent;
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[6]};
   font-weight: 500;
 
   ${props =>

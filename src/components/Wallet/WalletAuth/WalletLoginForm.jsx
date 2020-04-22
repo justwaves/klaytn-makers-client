@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { Lock } from "components/Common/Icons";
 import Button from "components/Common/Button";
+import { walletLogin } from "redux/modules/wallet";
+import { hideModal } from "redux/modules/ui";
 
 const Views = styled.div`
   margin-top: 4rem;
@@ -50,14 +54,46 @@ const AccessButton = styled(Button)`
 `;
 
 const WalletLoginForm = () => {
+  const [privateKey, setPrivateKey] = useState("");
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { hasWallet } = useSelector(({ wallet }) => ({
+    hasWallet: wallet.hasWallet,
+  }));
+
+  const onwalletLogin = useCallback(
+    privateKey => {
+      console.log(privateKey);
+      dispatch(walletLogin({ privateKey }));
+    },
+    [dispatch],
+  );
+
+  const onChange = e => {
+    setPrivateKey(e.target.value);
+  };
+
+  useEffect(() => {
+    if (hasWallet) {
+      history.push("/wallet");
+      dispatch(hideModal());
+    }
+  }, [hasWallet, history, dispatch]);
+
   return (
     <Views>
       <Label>Sign in using private key</Label>
       <InputBox>
         <Lock />
-        <SigninInput placeholder="Klaytn Wallet Key or Private Key" />
+        <SigninInput
+          placeholder="Klaytn Wallet Key or Private Key"
+          onChange={onChange}
+          value={privateKey}
+        />
       </InputBox>
-      <AccessButton cyan>Access</AccessButton>
+      <AccessButton cyan onClick={() => onwalletLogin(privateKey)}>
+        Access
+      </AccessButton>
     </Views>
   );
 };

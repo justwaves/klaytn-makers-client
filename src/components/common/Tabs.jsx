@@ -16,9 +16,9 @@ const TabContainer = styled.div`
 `;
 
 const StyledButton = styled.button`
+  outline: 0;
   border: 1px solid ${props => props.theme.color.gray[3]};
   border-bottom: 0;
-  outline: none;
   padding: 0;
   width: 50%;
   height: 100%;
@@ -95,12 +95,12 @@ const ActiveTabBorder = styled.div`
   position: absolute;
   top: 0;
   transition: all 0.3s ease-in;
-  border-radius: 4px;
 
   ${props =>
     props.active === "left" &&
     css`
       transform: translateX(0px);
+      border-right: 1px solid ${props => props.theme.color.gray[3]};
     `}
 
   ${props =>
@@ -109,6 +109,7 @@ const ActiveTabBorder = styled.div`
       transform: translateX(100%);
       background: #229b9b;
       background: ${props => props.theme.color.green};
+      border-left: 1px solid ${props => props.theme.color.gray[3]};
     `}
 `;
 

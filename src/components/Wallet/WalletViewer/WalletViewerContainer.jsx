@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { removeWallet } from "redux/modules/wallet";
+import { walletLogout } from "redux/modules/wallet";
 import WalletViewer from "./WalletViewer";
 
 const WalletViewerContainer = () => {
@@ -13,7 +13,7 @@ const WalletViewerContainer = () => {
   }));
 
   const logout = () => {
-    dispatch(removeWallet());
+    dispatch(walletLogout());
     history.push("/");
   };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { tempSetUser, check } from "redux/modules/user";
-import { integrateWallet, removeWallet } from "redux/modules/wallet";
+import { walletLogin, walletLogout } from "redux/modules/wallet";
 import store from "redux/store";
 import Routes from "./Routes";
 import MakersContract from "klaytn/contractAPI";
@@ -23,9 +23,9 @@ function loadWallet() {
   if (walletFromSession) {
     try {
       const { privateKey } = JSON.parse(walletFromSession);
-      store.dispatch(integrateWallet(privateKey));
+      store.dispatch(walletLogin({ privateKey }));
     } catch (e) {
-      store.dispatch(removeWallet());
+      store.dispatch(walletLogout());
     }
   }
 }

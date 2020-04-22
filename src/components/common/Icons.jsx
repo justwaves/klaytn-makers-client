@@ -162,3 +162,59 @@ export const Copy = () => (
     <path d="m271 512h-191c-44.113281 0-80-35.886719-80-80v-271c0-44.113281 35.886719-80 80-80h191c44.113281 0 80 35.886719 80 80v271c0 44.113281-35.886719 80-80 80zm-191-391c-22.054688 0-40 17.945312-40 40v271c0 22.054688 17.945312 40 40 40h191c22.054688 0 40-17.945312 40-40v-271c0-22.054688-17.945312-40-40-40zm351 261v-302c0-44.113281-35.886719-80-80-80h-222c-11.046875 0-20 8.953125-20 20s8.953125 20 20 20h222c22.054688 0 40 17.945312 40 40v302c0 11.046875 8.953125 20 20 20s20-8.953125 20-20zm0 0" />
   </svg>
 );
+
+export const Menu = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    preserveAspectRatio="xMidYMid meet"
+    focusable="false"
+    className="style-scope yt-icon"
+    style="
+                pointer-events: none;
+                display: block;
+                width: 24px;
+                height: 24px;
+              "
+  ></svg>
+);
+
+export const Klaytn = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 31.257 30.926"
+  >
+    <g id="icon_mobile_klaytn_symbol" transform="translate(-48.074 -23.607)">
+      <path
+        id="패스_1908"
+        d="M74.1 32.025L84.769 42.65a15.488 15.488 0 0 0 0-21.25z"
+        className="cls-1"
+        data-name="패스 1908"
+        transform="translate(-9.658 6.934)"
+      />
+      <path
+        id="패스_1909"
+        d="M33.615 72.9L23.1 83.371l10.515 4.352 10.515-4.352z"
+        className="cls-1"
+        data-name="패스 1909"
+        transform="translate(30.077 -33.19)"
+      />
+      <path
+        id="패스_1910"
+        d="M36.667 15l10.89-10.869L37.529 0 27.5 24.144z"
+        className="cls-1"
+        data-name="패스 1910"
+        transform="translate(26.649 23.607)"
+      />
+      <path
+        id="패스_1911"
+        d="M0 18a15.458 15.458 0 0 0 4.175 10.582L14.645 3.4z"
+        className="cls-1"
+        data-name="패스 1911"
+        transform="translate(48.074 20.958)"
+      />
+    </g>
+  </svg>
+);

@@ -8,13 +8,12 @@ import { showModal } from "redux/modules/ui";
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-`;
-
-const ActionButton = styled.div`
   cursor: pointer;
+  display: flex;
+  align-items: center;
 `;
 
-const PostActionButtons = () => {
+const WalletLink = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { hasWallet } = useSelector(({ wallet }) => ({
@@ -36,14 +35,8 @@ const PostActionButtons = () => {
   };
 
   return (
-    <>
-      <Wrapper>
-        <ActionButton onClick={hasWallet ? openWallet : showAuthModal}>
-          Wallet
-        </ActionButton>
-      </Wrapper>
-    </>
+    <Wrapper onClick={hasWallet ? openWallet : showAuthModal}>Wallet</Wrapper>
   );
 };
 
-export default PostActionButtons;
+export default WalletLink;

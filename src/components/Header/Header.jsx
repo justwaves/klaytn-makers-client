@@ -5,8 +5,9 @@ import { useSelector } from "react-redux";
 import Responsive from "components/Common/Responsive";
 import Button from "components/Common/Button";
 import SearchBar from "components/Header/SearchBar";
-import { Avatar, Cart, Notification } from "components/Common/Icons";
+import { Avatar, Klaytn } from "components/Common/Icons";
 import UserMenu from "./UserMenu";
+import WalletLink from "components/Wallet/WalletLink";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -78,9 +79,32 @@ const LoginButton = styled(Button)`
   background-color: ${props => props.theme.color.primary[0]};
 `;
 
-const IconContainer = styled.span`
-  margin-right: 1.5rem;
+// const IconContainer = styled.span`
+//   margin-right: 1.5rem;
+//   cursor: pointer;
+// `;
+
+const KlaytnIconContainer = styled.span`
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-right: 0.25rem;
+  font-weight: 500;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    fill: ${props => props.theme.color.primary[4]};
+    margin-right: 0.5rem;
+  }
+
+  &:hover {
+    color: ${props => props.theme.color.primary[3]};
+    svg {
+      fill: ${props => props.theme.color.primary[3]};
+    }
+  }
 `;
 
 const UsermenuContainer = styled.div`
@@ -94,6 +118,7 @@ const Divider = styled.span`
   width: 1px;
   height: 80%;
   margin-right: 1.25rem;
+  margin-left: 1rem;
 `;
 
 const Header = () => {
@@ -125,12 +150,16 @@ const Header = () => {
 
             {user ? (
               <Right>
-                <IconContainer>
+                {/* <IconContainer>
                   <Notification />
                 </IconContainer>
                 <IconContainer>
                   <Cart />
-                </IconContainer>
+                </IconContainer> */}
+                <KlaytnIconContainer>
+                  <Klaytn />
+                  <WalletLink />
+                </KlaytnIconContainer>
                 <Divider />
                 <UsermenuContainer onClick={onClick}>
                   <Avatar />

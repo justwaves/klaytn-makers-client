@@ -3,6 +3,7 @@ import styled from "styled-components";
 import WalletLoginForm from "./WalletLoginForm";
 import Tabs from "components/Common/Tabs";
 import CreateAccountForm from "./CreateAccountForm";
+import { Klaytn } from "components/Common/Icons";
 
 const Wrapper = styled.div`
   width: 34.5rem;
@@ -13,7 +14,16 @@ const Header = styled.h1`
   font-size: 1.5rem;
   font-weight: 600;
   color: ${props => props.theme.color.primary[4]};
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+
+  svg {
+    margin-right: 0.75rem;
+    fill: ${props => props.theme.color.primary[4]};
+    margin-top: 0.125rem;
+  }
 `;
 
 const KlaytnWalletLink = styled.div`
@@ -30,7 +40,9 @@ const WalletAuth = () => {
 
   return (
     <Wrapper>
-      <Header>Access Your Account</Header>
+      <Header>
+        <Klaytn /> Access Your Klaytn Wallet Account
+      </Header>
       <Tabs
         leftTabTitle="Log In"
         rightTabTitle="Create Account"

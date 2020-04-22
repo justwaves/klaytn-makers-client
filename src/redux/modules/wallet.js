@@ -1,64 +1,86 @@
 import caver from "klaytn/caver";
-import { handleActions } from "redux-actions";
+import { createAction, handleActions } from "redux-actions";
+import { takeLatest } from "redux-saga/effects";
 import { createRequestActionTypes } from "lib/createRequestSaga";
+import { put } from "redux-saga/effects";
 import { startLoading, finishLoading } from "./loading";
 
 const [
-  INTEGRATE_WALLET,
-  INTEGRATE_WALLET_SUCCESS,
-  INTEGRATE_WALLET_FAILURE,
-] = createRequestActionTypes("wallet/INTEGRATE_WALLET");
+  WALLET_LOGIN,
+  WALLET_LOGIN_SUCCESS,
+  WALLET_LOGIN_FAILURE,
+] = createRequestActionTypes("wallet/WALLET_LOGIN");
 
 const [
-  REMOVE_WALLET,
-  REMOVE_WALLET_SUCCESS,
-  REMOVE_WALLET_FAILURE,
-] = createRequestActionTypes("wallet/REMOVE_WALLET");
+  WALLET_LOGOUT,
+  WALLET_LOGOUT_SUCCESS,
+  WALLET_LOGOUT_FAILURE,
+] = createRequestActionTypes("wallet/WALLET_LOGOUT");
 
-export const integrateWallet = privateKey => async dispatch => {
-  dispatch(startLoading(INTEGRATE_WALLET));
+function integrateWallet() {
+  return function* (action) {
+    yield put(startLoading(WALLET_LOGIN));
 
-  try {
-    const walletInstance = await caver.klay.accounts.privateKeyToAccount(
-      privateKey,
-    );
-    await caver.klay.accounts.wallet.add(walletInstance);
-    sessionStorage.setItem("walletInstance", JSON.stringify(walletInstance));
+    const { privateKey } = action.payload;
 
-    dispatch({
-      type: INTEGRATE_WALLET_SUCCESS,
-      payload: {
+    try {
+      const walletInstance = caver.klay.accounts.privateKeyToAccount(
         privateKey,
-        address: walletInstance.address,
-      },
-    });
-    dispatch(finishLoading(INTEGRATE_WALLET));
-  } catch (e) {
-    dispatch({ type: INTEGRATE_WALLET_FAILURE, payload: e, error: true });
-    dispatch(finishLoading(INTEGRATE_WALLET));
-    throw e;
-  }
-};
+      );
+      console.log(walletInstance);
+      caver.klay.accounts.wallet.add(walletInstance);
 
-export const removeWallet = () => async dispatch => {
-  dispatch(startLoading(REMOVE_WALLET));
-  try {
-    await caver.klay.accounts.wallet.clear();
-    sessionStorage.removeItem("walletInstance");
-    dispatch({
-      type: REMOVE_WALLET_SUCCESS,
-    });
-    dispatch(finishLoading(REMOVE_WALLET));
-  } catch (e) {
-    dispatch({
-      type: REMOVE_WALLET_FAILURE,
-      payload: e,
-      error: true,
-    });
-    dispatch(finishLoading(REMOVE_WALLET));
-    throw e;
-  }
-};
+      sessionStorage.setItem("walletInstance", JSON.stringify(walletInstance));
+
+      yield put({
+        type: WALLET_LOGIN_SUCCESS,
+        payload: {
+          privateKey,
+          address: walletInstance.address,
+        },
+      });
+    } catch (e) {
+      yield put({ type: WALLET_LOGIN_FAILURE, payload: e, error: true });
+    }
+    yield put(finishLoading(WALLET_LOGIN));
+  };
+}
+
+function removeWallet() {
+  return function* () {
+    yield put(startLoading(WALLET_LOGOUT));
+    try {
+      caver.klay.accounts.wallet.clear();
+      sessionStorage.removeItem("walletInstance");
+      yield put({
+        type: WALLET_LOGOUT_SUCCESS,
+      });
+      yield put(finishLoading(WALLET_LOGOUT));
+    } catch (e) {
+      yield put({
+        type: WALLET_LOGOUT_FAILURE,
+        payload: e,
+        error: true,
+      });
+      yield put(finishLoading(WALLET_LOGOUT));
+      throw e;
+    }
+  };
+}
+
+export const walletLogin = createAction(WALLET_LOGIN, ({ privateKey }) => ({
+  privateKey,
+}));
+
+export const walletLogout = createAction(WALLET_LOGOUT);
+
+const walletLoginSaga = integrateWallet();
+const walletLogoutSaga = removeWallet();
+
+export function* walletSaga() {
+  yield takeLatest(WALLET_LOGIN, walletLoginSaga);
+  yield takeLatest(WALLET_LOGOUT, walletLogoutSaga);
+}
 
 const initialState = {
   hasWallet: !!sessionStorage.getItem("walletInstance"),
@@ -69,27 +91,24 @@ const initialState = {
 
 const wallet = handleActions(
   {
-    [INTEGRATE_WALLET_SUCCESS]: (
-      state,
-      { payload: { privateKey, address } },
-    ) => ({
+    [WALLET_LOGIN_SUCCESS]: (state, { payload: { privateKey, address } }) => ({
       ...state,
       hasWallet: true,
       privateKey,
       address,
     }),
-    [INTEGRATE_WALLET_FAILURE]: (state, { payload: e }) => ({
+    [WALLET_LOGIN_FAILURE]: (state, { payload: e }) => ({
       ...state,
       hasWallet: false,
       error: e,
     }),
-    [REMOVE_WALLET_SUCCESS]: state => ({
+    [WALLET_LOGOUT_SUCCESS]: state => ({
       ...state,
       hasWallet: false,
       privateKey: null,
       address: null,
     }),
-    [REMOVE_WALLET_FAILURE]: (state, { payload: e }) => ({
+    [WALLET_LOGOUT_FAILURE]: (state, { payload: e }) => ({
       ...state,
       error: e,
     }),

@@ -13,7 +13,6 @@ const Grid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   grid-auto-rows: repeat(auto-fit, minmax(460px, 1fr));
   gap: 1.5rem;
-  /* justify-content: center; */
 `;
 
 const ProductList = ({ posts, loading, error, user }) => {
@@ -27,12 +26,6 @@ const ProductList = ({ posts, loading, error, user }) => {
         <Grid>
           {posts.map(post => (
             <ProductCardContainer post={post} key={post._id} user={user} />
-          ))}
-          {posts.map(post => (
-            <ProductCardContainer post={post} key={post._id} />
-          ))}
-          {posts.map(post => (
-            <ProductCardContainer post={post} key={post._id} />
           ))}
         </Grid>
       )}

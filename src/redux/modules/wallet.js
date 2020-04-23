@@ -1,8 +1,7 @@
 import caver from "klaytn/caver";
 import { createAction, handleActions } from "redux-actions";
-import { takeLatest } from "redux-saga/effects";
+import { takeLatest, put } from "redux-saga/effects";
 import { createRequestActionTypes } from "lib/createRequestSaga";
-import { put } from "redux-saga/effects";
 import { startLoading, finishLoading } from "./loading";
 
 const [
@@ -68,7 +67,7 @@ function removeWallet() {
   };
 }
 
-export const walletLogin = createAction(WALLET_LOGIN, ({ privateKey }) => ({
+export const walletLogin = createAction(WALLET_LOGIN, privateKey => ({
   privateKey,
 }));
 

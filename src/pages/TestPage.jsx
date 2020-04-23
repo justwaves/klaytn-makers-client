@@ -5,6 +5,8 @@ import Responsive from "components/Common/Responsive";
 import Button from "components/Common/Button";
 import caver from "klaytn/caver";
 import WalletLink from "components/Wallet/WalletLink";
+import { setMakers } from "redux/modules/makers";
+import { useDispatch } from "react-redux";
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -61,10 +63,17 @@ const TestPage = () => {
   //     .then(console.log);
   // };
 
+  const dispatch = useDispatch();
+
   return (
     <Responsive>
       <Wrapper>
         <Header />
+        <ButtonWrapper>
+          <Label>get makers</Label>
+          <Button onClick={() => dispatch(setMakers())}>get makers</Button>
+        </ButtonWrapper>
+        <Divider />
         <WalletLink />
         <Divider />
         <ButtonWrapper>

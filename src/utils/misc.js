@@ -18,7 +18,7 @@ export const last = array => {
 
 export const stateParser = state => {
   const stateKeys = {
-    0: 'state',
+    0: "state",
   };
   if (!isArray(state)) {
     return renameKeys(state, stateKeys);
@@ -30,7 +30,7 @@ export const stateParser = state => {
 
 export const donationParser = donation => {
   const donationKeys = {
-    0: 'donation',
+    0: "donation",
   };
   if (!isArray(donation)) {
     return renameKeys(donation, donationKeys);
@@ -43,13 +43,13 @@ export const donationParser = donation => {
 
 export const feedParser = feed => {
   const photoKeys = {
-    0: 'tokenId',
-    1: 'photo',
-    2: 'title',
-    3: 'description',
-    4: 'price',
-    5: 'D_day',
-    6: 'status',
+    0: "tokenId",
+    1: "postId",
+    2: "title",
+    3: "timestamp",
+    4: "buyers",
+    5: "count",
+    6: "status",
   };
 
   /**

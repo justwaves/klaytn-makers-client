@@ -1,195 +1,149 @@
-/* eslint-disable camelcase */
 import { createAction, handleActions } from "redux-actions";
 import contractAPI from "klaytn/contractAPI";
 import { getWallet } from "utils/crypto";
-import ui from "utils/ui";
+// import ui from "utils/ui";
+// import { feedParser } from "utils/misc";
+// import { toast } from "react-toastify";
+import { startLoading, finishLoading } from "./loading";
+import { createRequestActionTypes } from "lib/createRequestSaga";
+import { takeLatest, put, call } from "redux-saga/effects";
 import { feedParser } from "utils/misc";
-import Makers from "pages/Makers";
-import { toast } from "react-toastify";
 
-export const SET_FEED = "makers/SET_FEED";
+const [
+  UPLOAD_MAKERS,
+  UPLOAD_MAKERS_SUCCESS,
+  UPLOAD_MAKERS_FAILURE,
+] = createRequestActionTypes("makers/UPLOAD_MAKERS");
 
-// Action creators
-const setFeed = createAction(SET_FEED, feed => feed);
+const [
+  SET_MAKERS,
+  SET_MAKERS_SUCCESS,
+  SET_MAKERS_FAILURE,
+] = createRequestActionTypes("makers/SET_MAKERS");
 
-// TODO: Makers 리스트
-export const getFeed = () => async dispatch => {
-  try {
-    const totalMakersCount = await contractAPI.methods
-      .getTotalMakersCount()
-      .call();
+const getMakers = () => {
+  return function* () {
+    yield put(startLoading(SET_MAKERS));
+    try {
+      const totalMakersCount = yield call(
+        contractAPI.methods.getTotalMakersCount().call,
+      );
 
-    // 등록된 상품이 없을 경우 [] 리턴
-    if (!totalMakersCount) {
-      return [];
-    }
-
-    const feed = [];
-
-    // eslint-disable-next-line no-plusplus
-    for (let i = totalMakersCount; i > 0; i--) {
-      // eslint-disable-next-line no-await-in-loop
-      const product = await contractAPI.methods.getMakers(i).call();
-      feed.push(product);
-    }
-
-    dispatch(setFeed(feedParser(feed)));
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-const updateFeed = tokenId => async (dispatch, getState) => {
-  console.log("updateFeed");
-
-  const newMakers = await contractAPI.methods.getMakers(tokenId).call();
-
-  const {
-    makers: { feed },
-  } = getState();
-  const newFeed = [feedParser(newMakers), ...feed];
-
-  dispatch(setFeed(newFeed));
-};
-
-// --------------------------------------------------
-//  MyMakers 확인
-// --------------------------------------------------
-// eslint-disable-next-line no-underscore-dangle
-export const _showMyMakers = addressId => dispatch => {
-  contractAPI.methods
-    .showMyMakers(addressId)
-    .call()
-    .then(totalMyMakers => {
-      if (!totalMyMakers.length) {
-        console.log("없음");
+      if (!totalMakersCount) {
         return [];
       }
+
       const feed = [];
 
-      // eslint-disable-next-line no-plusplus
-      for (let i = totalMyMakers.length - 1; i > 0; i--) {
-        const product = contractAPI.methods.getMakers(totalMyMakers[i]).call();
-
+      for (let i = totalMakersCount; i > 0; i--) {
+        const product = yield call(contractAPI.methods.getMakers(i).call);
         feed.push(product);
       }
-      return Promise.all(feed);
-    })
-    .then(() => dispatch(setFeed(feedParser(Makers))));
+
+      const parsedFeed = feedParser(feed);
+
+      console.log("parsedFeed: ", parsedFeed);
+
+      yield put({
+        type: SET_MAKERS_SUCCESS,
+        payload: parsedFeed,
+      });
+    } catch (e) {
+      console.log(e);
+      yield put({
+        type: SET_MAKERS_FAILURE,
+        payload: e,
+        error: true,
+      });
+    }
+    yield put(finishLoading(SET_MAKERS));
+  };
 };
 
-// ----------------------------------------------------------------
-//              Makers 삭제
-// ----------------------------------------------------------------
+export const setMakers = createAction(SET_MAKERS);
 
-export const removeMakers = tokenId => dispatch => {
-  contractAPI.methods
-    .removeMakers(tokenId)
-    .send({
-      from: getWallet().address,
-      gas: "200000000",
-    })
-    .once("transactionHash", txHash => {
-      console.log("txHash:", txHash);
-      ui.showToast({
-        status: "pending",
-        message: "Sending a transaction... (uploadPhoto)",
-        txHash,
-      });
-    })
-    .once("receipt", receipt => {
-      ui.showToast({
-        status: receipt.status ? "success" : "fail",
-        message: `Received receipt! It means your transaction is
-        in klaytn block (#${receipt.blockNumber}) (uploadPhoto)`,
-        link: receipt.transactionHash,
-      });
-      // eslint-disable-next-line no-shadow
-      const tokenId = receipt.events.MakersUploaded.returnValues[0];
+const getMakersSaga = getMakers();
 
-      console.log("tokenId: ", tokenId);
-      dispatch(updateFeed(tokenId));
-    })
-    .once("error", error => {
-      ui.showToast({
-        status: "error",
-        message: error.toString(),
-      });
-    });
-};
+export function* makersSaga() {
+  yield takeLatest(SET_MAKERS, getMakersSaga);
+}
 
-// ----------------------------------------------------------------
-//              Makers 업로드
-// ----------------------------------------------------------------
-
-export const uploadItem = (
-  filePath,
+export const uploadMakersAction = (
+  postId,
   title,
   description,
-  targetKlay,
-  D_day,
   price,
-) => async dispatch => {
-  console.log(
-    `
-    filepath   : ${filePath} 
-    title      : ${title}
-    description: ${description}
-    targetKlay : ${targetKlay}
-    D_day      : ${D_day}
-    price      : ${price}
-    `,
-  );
+  targetCount,
+  dDay,
+) => dispatch => {
+  dispatch(startLoading(UPLOAD_MAKERS));
 
   contractAPI.methods
-    .uploadMakers(filePath, title, description, targetKlay, D_day, price)
+    .createMakers(postId, title, description, price, targetCount, dDay)
     .send({
       from: getWallet().address,
       gas: "2000000",
     })
     .once("transactionHash", txHash => {
-      console.log("txHash:", txHash);
-      // ui.showToast({
-      //   status: "pending",
-      //   message: `Sending a transaction... (uploadMakers)`,
-      //   txHash
-      // });
-      toast.success("Sending a transaction...");
+      console.log(`
+        Sending a transaction...
+        txHash: ${txHash}
+      `);
     })
     .once("receipt", receipt => {
-      // ui.showToast({
-      //   status: receipt.status ? "success" : "fail",
-      //   message: `Received receipt! It means your transaction is
-      //     in klaytn block (#${receipt.blockNumber}) (uploadMakers)`,
-      //   link: receipt.transactionHash
-      // });
-      toast.success("Received receipt!");
-      const tokenId = receipt.events.MakersUploaded.returnValues[0];
-
-      console.log("tokenId: ", tokenId);
-
-      sessionStorage.setItem("txList", receipt.transactionHash);
-
-      dispatch(updateFeed(tokenId));
-    })
-    .once("error", error => {
-      console.log(error);
-      ui.showToast({
-        status: "error",
-        message: error.toString(),
+      dispatch({
+        type: UPLOAD_MAKERS_SUCCESS,
+        payload: receipt,
       });
+      console.log(
+        `
+        Received receipt!
+        receipt: 
+      `,
+        receipt,
+      );
+
+      // TODO
+      // dispatch(setTransaction(receipt))
+
+      // const tokenId = receipt.events.MakersCreated.returnValues[0];
+      // dispatch(updateFeed(tokenId));
+
+      dispatch(finishLoading(UPLOAD_MAKERS));
+    })
+    .once("error", e => {
+      console.log(e);
+      dispatch({ type: UPLOAD_MAKERS_FAILURE, payload: e, error: true });
+      dispatch(finishLoading(UPLOAD_MAKERS));
+      throw e;
     });
 };
 
 const initialState = {
   feed: null,
+  error: null,
+  receipt: null,
 };
 
 const makers = handleActions(
   {
-    [SET_FEED]: (state, { payload: feed }) => ({
+    [UPLOAD_MAKERS_SUCCESS]: (state, { payload: receipt }) => ({
+      ...state,
+      receipt,
+    }),
+    [UPLOAD_MAKERS_FAILURE]: (state, { payload: e }) => ({
+      ...state,
+      hasWallet: false,
+      error: e,
+    }),
+    [SET_MAKERS_SUCCESS]: (state, { payload: feed }) => ({
       ...state,
       feed,
+    }),
+    [SET_MAKERS_FAILURE]: (state, { payload: e }) => ({
+      ...state,
+      hasWallet: false,
+      error: e,
     }),
   },
   initialState,

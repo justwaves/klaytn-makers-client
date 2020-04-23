@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { writePost, updatePost } from "redux/modules/write";
 import WriteActionButtons from "./WriteActionButtons";
+import { uploadMakersAction } from "redux/modules/makers";
 
 const WriteActionButtonsContainer = () => {
   const history = useHistory();
@@ -33,7 +34,7 @@ const WriteActionButtonsContainer = () => {
     dDay: write.dDay,
   }));
 
-  const onPublish = () => {
+  const onPublish = async () => {
     if (originalPostId) {
       dispatch(
         updatePost({
@@ -45,18 +46,24 @@ const WriteActionButtonsContainer = () => {
       );
       return;
     }
-    dispatch(
-      writePost({
-        title,
-        body,
-        tags,
-        description,
-        photo,
-        price,
-        targetCount,
-        dDay,
-      }),
-    );
+
+    try {
+      await dispatch(
+        writePost({
+          title,
+          body,
+          tags,
+          description,
+          photo,
+          price,
+          targetCount,
+          dDay,
+        }),
+      );
+    } catch (e) {
+      alert(`상품 등록에 실패하였습니다. error: ${e}`);
+      history.goBack();
+    }
   };
 
   const onCancel = () => {
@@ -66,6 +73,10 @@ const WriteActionButtonsContainer = () => {
   useEffect(() => {
     if (post) {
       const { _id, user } = post;
+      dispatch(
+        uploadMakersAction(_id, title, description, price, targetCount, dDay),
+      );
+
       history.push(`/@${user.username}/${_id}`);
     }
     if (postError) {

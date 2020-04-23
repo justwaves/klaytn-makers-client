@@ -4,7 +4,7 @@ import { tempSetUser, check } from "redux/modules/user";
 import { walletLogin, walletLogout } from "redux/modules/wallet";
 import store from "redux/store";
 import Routes from "./Routes";
-import MakersContract from "klaytn/contractAPI";
+import contractAPI from "klaytn/contractAPI";
 import AuthModal from "components/Common/AuthModal";
 
 function loadUser() {
@@ -23,7 +23,7 @@ function loadWallet() {
   if (walletFromSession) {
     try {
       const { privateKey } = JSON.parse(walletFromSession);
-      store.dispatch(walletLogin({ privateKey }));
+      store.dispatch(walletLogin(privateKey));
     } catch (e) {
       store.dispatch(walletLogout());
     }
@@ -31,8 +31,8 @@ function loadWallet() {
 }
 
 async function loadContract() {
-  console.log(MakersContract);
-  const TotalMakersCount = await MakersContract.methods
+  console.log(contractAPI);
+  const TotalMakersCount = await contractAPI.methods
     .getTotalMakersCount()
     .call();
   console.log(TotalMakersCount);

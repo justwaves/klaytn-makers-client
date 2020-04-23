@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "redux/modules/user";
-import WalletLink from "components/Wallet/WalletLink";
 
 const Wrapper = styled.div`
   min-width: 120px;
@@ -48,9 +47,6 @@ const UserMenu = ({ user }) => {
         <Link to="/write">
           <Menu>상품 등록하기</Menu>
         </Link>
-        <Menu>
-          <WalletLink />
-        </Menu>
         <Link to="/test">
           <Menu>Test</Menu>
         </Link>

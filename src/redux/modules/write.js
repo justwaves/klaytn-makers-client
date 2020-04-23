@@ -10,7 +10,7 @@ const CHANGE_FIELD = "write/CHANGE_FIELD";
 const [
   WRITE_POST,
   WRITE_POST_SUCCESS,
-  WRITE_PORT_FAILURE,
+  WRITE_POST_FAILURE,
 ] = createRequestActionTypes("write/WRITE_POST");
 const SET_ORIGINAL_POST = "write/SET_ORIGINAL_POST";
 const [
@@ -101,7 +101,7 @@ const write = handleActions(
       ...state,
       post,
     }),
-    [WRITE_PORT_FAILURE]: (state, { payload: postError }) => ({
+    [WRITE_POST_FAILURE]: (state, { payload: postError }) => ({
       ...state,
       postError,
     }),

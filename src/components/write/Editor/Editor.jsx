@@ -225,7 +225,7 @@ const Editor = ({
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Grid container justify="left">
           <KeyboardDatePicker
-            className="D_day"
+            className="dDay"
             disableToolbar
             format="yyyy년 MM월 dd일"
             margin="normal"

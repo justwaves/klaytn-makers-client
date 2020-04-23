@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
-// import ReduxThunk from "redux-thunk";
+import ReduxThunk from "redux-thunk";
 import { all } from "redux-saga/effects";
 import loading from "redux/modules/loading";
 import auth, { authSaga } from "redux/modules/auth";
@@ -10,6 +10,7 @@ import write, { writeSaga } from "redux/modules/write";
 import post, { postSaga } from "redux/modules/post";
 import posts, { postsSaga } from "redux/modules/posts";
 import wallet, { walletSaga } from "redux/modules/wallet";
+import makers, { makersSaga } from "redux/modules/makers";
 import ui from "redux/modules/ui";
 
 const env = process.env.NODE_ENV;
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   posts,
   wallet,
   ui,
+  makers,
 });
 
 export function* rootSaga() {
@@ -33,12 +35,13 @@ export function* rootSaga() {
     postSaga(),
     postsSaga(),
     walletSaga(),
+    makersSaga(),
   ]);
 }
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middlewares = [sagaMiddleware /* ReduxThunk*/];
+const middlewares = [sagaMiddleware, ReduxThunk];
 
 if (env === "development") {
   // const { createLogger } = require("redux-logger");

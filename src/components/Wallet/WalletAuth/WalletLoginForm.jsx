@@ -64,7 +64,7 @@ const WalletLoginForm = () => {
   const onwalletLogin = useCallback(
     privateKey => {
       console.log(privateKey);
-      dispatch(walletLogin({ privateKey }));
+      dispatch(walletLogin(privateKey));
     },
     [dispatch],
   );

@@ -64,8 +64,6 @@ const ProductViewer = ({ post, loading, error, actionButtons }) => {
     // dDay,
   } = post;
 
-  console.log(post);
-
   return (
     <Wrapper>
       <PostHead>

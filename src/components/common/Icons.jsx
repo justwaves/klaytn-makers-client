@@ -163,22 +163,6 @@ export const Copy = () => (
   </svg>
 );
 
-export const Menu = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    preserveAspectRatio="xMidYMid meet"
-    focusable="false"
-    className="style-scope yt-icon"
-    style="
-                pointer-events: none;
-                display: block;
-                width: 24px;
-                height: 24px;
-              "
-  ></svg>
-);
-
 export const Klaytn = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

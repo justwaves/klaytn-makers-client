@@ -6,7 +6,7 @@ import { getWallet } from "utils/crypto";
 // import { toast } from "react-toastify";
 import { startLoading, finishLoading } from "./loading";
 import { createRequestActionTypes } from "lib/createRequestSaga";
-import { takeLatest, put, call } from "redux-saga/effects";
+import { takeLatest, put, call, select } from "redux-saga/effects";
 import { feedParser } from "utils/misc";
 
 const [
@@ -20,6 +20,12 @@ const [
   SET_MAKERS_SUCCESS,
   SET_MAKERS_FAILURE,
 ] = createRequestActionTypes("makers/SET_MAKERS");
+
+const [
+  UPDATE_FEED,
+  UPDATE_FEED_SUCCESS,
+  UPDATE_FEED_FAILURE,
+] = createRequestActionTypes("makers/UPDATE_FEED");
 
 const getMakers = () => {
   return function* () {
@@ -42,8 +48,6 @@ const getMakers = () => {
 
       const parsedFeed = feedParser(feed);
 
-      console.log("parsedFeed: ", parsedFeed);
-
       yield put({
         type: SET_MAKERS_SUCCESS,
         payload: parsedFeed,
@@ -60,13 +64,57 @@ const getMakers = () => {
   };
 };
 
-export const setMakers = createAction(SET_MAKERS);
+// export const uploadMakersAction = (
+//   postId,
+//   title,
+//   description,
+//   price,
+//   targetCount,
+//   dDay,
+// ) => dispatch => {
+//   dispatch(startLoading(UPLOAD_MAKERS));
 
-const getMakersSaga = getMakers();
+//   contractAPI.methods
+//     .createMakers(postId, title, description, price, targetCount, dDay)
+//     .send({
+//       from: getWallet().address,
+//       gas: "2000000",
+//     })
+//     .once("transactionHash", txHash => {
+//       console.log(`
+//         Sending a transaction...
+//         txHash: ${txHash}
+//       `);
+//     })
+//     .once("receipt", receipt => {
+//       dispatch({
+//         type: UPLOAD_MAKERS_SUCCESS,
+//         payload: receipt,
+//       });
+//       console.log(
+//         `
+//         Received receipt!
+//         receipt:
+//       `,
+//         receipt,
+//       );
 
-export function* makersSaga() {
-  yield takeLatest(SET_MAKERS, getMakersSaga);
-}
+//       // TODO
+//       // dispatch(setTransaction(receipt))
+
+//       dispatch(finishLoading(UPLOAD_MAKERS));
+//     })
+//     .once("receipt", receipt => {
+//       const tokenId = receipt.events.MakersCreated.returnValues[0];
+//       dispatch(updateFeed(tokenId));
+//     })
+//     .once("error", e => {
+//       console.log(e);
+//       dispatch({ type: UPLOAD_MAKERS_FAILURE, payload: e, error: true });
+//       dispatch(finishLoading(UPLOAD_MAKERS));
+//       throw e;
+//     });
+// };
 
 export const uploadMakersAction = (
   postId,
@@ -77,6 +125,7 @@ export const uploadMakersAction = (
   dDay,
 ) => dispatch => {
   dispatch(startLoading(UPLOAD_MAKERS));
+  dispatch(setMakers());
 
   contractAPI.methods
     .createMakers(postId, title, description, price, targetCount, dDay)
@@ -86,9 +135,9 @@ export const uploadMakersAction = (
     })
     .once("transactionHash", txHash => {
       console.log(`
-        Sending a transaction...
-        txHash: ${txHash}
-      `);
+          Sending a transaction...
+          txHash: ${txHash}
+        `);
     })
     .once("receipt", receipt => {
       dispatch({
@@ -97,17 +146,17 @@ export const uploadMakersAction = (
       });
       console.log(
         `
-        Received receipt!
-        receipt: 
-      `,
+          Received receipt!
+          receipt: 
+        `,
         receipt,
       );
 
+      const tokenId = receipt.events.MakersCreated.returnValues[0];
+      dispatch(updateFeed(tokenId));
+
       // TODO
       // dispatch(setTransaction(receipt))
-
-      // const tokenId = receipt.events.MakersCreated.returnValues[0];
-      // dispatch(updateFeed(tokenId));
 
       dispatch(finishLoading(UPLOAD_MAKERS));
     })
@@ -118,6 +167,44 @@ export const uploadMakersAction = (
       throw e;
     });
 };
+
+const updateMakersFeed = () => {
+  return function* (action) {
+    yield put(startLoading(UPDATE_FEED));
+    try {
+      const tokenId = action.payload;
+      const newMakers = yield call(contractAPI.methods.getMakers(tokenId).call);
+
+      const { feed } = yield select(state => state.makers);
+      const newFeed = [feedParser(newMakers), ...feed];
+
+      yield put({
+        type: UPDATE_FEED_SUCCESS,
+        payload: newFeed,
+      });
+    } catch (e) {
+      console.log(e);
+      yield put({
+        type: UPDATE_FEED_FAILURE,
+        payload: e,
+        error: true,
+      });
+    }
+    yield put(finishLoading(UPDATE_FEED));
+  };
+};
+
+export const uploadMakers = createAction(UPLOAD_MAKERS);
+export const setMakers = createAction(SET_MAKERS);
+export const updateFeed = createAction(UPDATE_FEED, tokenId => tokenId);
+
+const getMakersSaga = getMakers();
+const updateFeedSaga = updateMakersFeed();
+
+export function* makersSaga() {
+  yield takeLatest(SET_MAKERS, getMakersSaga);
+  yield takeLatest(UPDATE_FEED, updateFeedSaga);
+}
 
 const initialState = {
   feed: null,
@@ -143,6 +230,14 @@ const makers = handleActions(
     [SET_MAKERS_FAILURE]: (state, { payload: e }) => ({
       ...state,
       hasWallet: false,
+      error: e,
+    }),
+    [UPDATE_FEED_SUCCESS]: (state, { payload: newFeed }) => ({
+      ...state,
+      feed: newFeed,
+    }),
+    [UPDATE_FEED_FAILURE]: (state, { payload: e }) => ({
+      ...state,
       error: e,
     }),
   },

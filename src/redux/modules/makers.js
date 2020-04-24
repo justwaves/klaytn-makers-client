@@ -23,6 +23,8 @@ const [SET_FEED, SET_FEED_SUCCESS, SET_FEED_FAILURE] = createRequestActionTypes(
   "makers/SET_FEED",
 );
 
+const UNLOAD_MAKERS = "makers/UNLOAD_MAKERS";
+
 export const uploadMakersSaga = () => {
   return function* (action) {
     yield put(startLoading(UPLOAD_MAKERS));
@@ -150,6 +152,7 @@ const setFeedSaga = () => {
 export const uploadMakers = createAction(UPLOAD_MAKERS);
 export const updateFeed = createAction(UPDATE_FEED, tokenId => tokenId);
 export const setFeed = createAction(SET_FEED);
+export const unloadMakers = createAction(UNLOAD_MAKERS);
 
 export function* makersSaga() {
   yield takeLatest(UPLOAD_MAKERS, uploadMakersSaga());
@@ -192,6 +195,7 @@ const makers = handleActions(
       hasWallet: false,
       error: e,
     }),
+    [UNLOAD_MAKERS]: () => initialState,
   },
   initialState,
 );

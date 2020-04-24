@@ -14,15 +14,32 @@ const StyledButton = styled(Button)`
   margin-right: 1.5rem;
 `;
 
+const LoadingButton = styled(Button)`
+  height: 3rem;
+  width: 10.5rem;
+  margin-right: 1.5rem;
+  background-color: ${props => props.theme.color.gray[5]};
+
+  &:hover {
+    background-color: ${props => props.theme.color.gray[5]};
+    cursor: not-allowed;
+  }
+`;
+
 const CancelButton = styled(Button)`
   width: 4.5rem;
 `;
 
-const WriteActionButtons = ({ onCancel, onPublish, isEdit }) => (
+const WriteActionButtons = ({ onCancel, onPublish, isEdit, loading }) => (
   <Wrapper>
-    <StyledButton cyan onClick={onPublish}>
-      상품 {isEdit ? "수정" : "등록"}
-    </StyledButton>
+    {loading ? (
+      <LoadingButton>loading...</LoadingButton>
+    ) : (
+      <StyledButton cyan onClick={onPublish}>
+        상품 {isEdit ? "수정" : "등록"}
+      </StyledButton>
+    )}
+
     <CancelButton onClick={onCancel}>취소</CancelButton>
   </Wrapper>
 );

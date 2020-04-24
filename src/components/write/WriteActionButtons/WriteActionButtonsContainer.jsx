@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { writePost, updatePost } from "redux/modules/write";
 import WriteActionButtons from "./WriteActionButtons";
-import { uploadMakers } from "redux/modules/makers";
+import { uploadMakers, unloadMakers } from "redux/modules/makers";
+import { removePost } from "lib/api/posts";
 
 const WriteActionButtonsContainer = () => {
+  const [loading, setLoading] = useState(false);
+
   const history = useHistory();
   const dispatch = useDispatch();
   const {
@@ -20,7 +23,9 @@ const WriteActionButtonsContainer = () => {
     price,
     targetCount,
     dDay,
-  } = useSelector(({ write }) => ({
+    receipt,
+    makersError,
+  } = useSelector(({ write, makers }) => ({
     title: write.title,
     body: write.body,
     tags: write.tags,
@@ -32,6 +37,8 @@ const WriteActionButtonsContainer = () => {
     price: write.price,
     targetCount: write.targetCount,
     dDay: write.dDay,
+    receipt: makers.receipt,
+    makersError: makers.error,
   }));
 
   const onPublish = async () => {
@@ -72,8 +79,8 @@ const WriteActionButtonsContainer = () => {
 
   useEffect(() => {
     if (post) {
+      const { _id } = post;
       try {
-        const { _id, user } = post;
         dispatch(
           uploadMakers({
             postId: _id,
@@ -84,11 +91,8 @@ const WriteActionButtonsContainer = () => {
             dDay,
           }),
         );
-        history.push(`/@${user.username}/${_id}`);
       } catch (e) {
         console.log(e);
-        alert("상품등록 실패");
-        history.push(`/write`);
       }
     }
     if (postError) {
@@ -96,11 +100,43 @@ const WriteActionButtonsContainer = () => {
     }
   }, [history, post, postError]);
 
+  useEffect(() => {
+    if (post) {
+      const { _id, user } = post;
+      if (!receipt) {
+        setLoading(true);
+        console.log("Klaytn contract API loading...");
+      }
+
+      if (receipt) {
+        setLoading(false);
+        history.push(`/@${user.username}/${_id}`);
+      }
+    }
+  }, [history, receipt, post]);
+
+  useEffect(() => {
+    if (makersError) {
+      const { _id } = post;
+      alert(`Klaytn Error: ${makersError.reason}`);
+
+      try {
+        removePost(_id);
+      } catch (e) {
+        console.log(e);
+      }
+
+      dispatch(unloadMakers());
+      setLoading(false);
+    }
+  }, [makersError, dispatch]);
+
   return (
     <WriteActionButtons
       onPublish={onPublish}
       onCancel={onCancel}
       isEdit={!!originalPostId}
+      loading={loading}
     />
   );
 };

@@ -34,8 +34,14 @@ const Wrapper = styled.div`
 
 const ImageContainer = styled.div`
   width: 100%;
-  height: 50%; /* 216px */
+  height: 50%;
+  max-height: 15rem; /** 216px */
   overflow: hidden;
+
+  @media (max-width: 816px) {
+    border-radius: 0;
+    height: 50%;
+  }
 
   img {
     width: 100%;

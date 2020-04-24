@@ -73,7 +73,6 @@ export const uploadMakersSaga = () => {
 
       // TODO: dispatch(setTransaction(receipt))
     } catch (e) {
-      console.log(e);
       yield put({
         type: UPLOAD_MAKERS_FAILURE,
         payload: e,

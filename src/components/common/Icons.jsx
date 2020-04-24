@@ -202,3 +202,22 @@ export const Klaytn = () => (
     </g>
   </svg>
 );
+
+export const MenuDown = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    preserveAspectRatio="xMidYMid meet"
+    focusable="false"
+    className="style-scope yt-icon"
+    width="24"
+    height="24"
+  >
+    <g className="style-scope yt-icon">
+      <path
+        d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+        className="style-scope yt-icon"
+      />
+    </g>
+  </svg>
+);

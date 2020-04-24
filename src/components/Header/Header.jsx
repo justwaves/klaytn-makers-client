@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import Responsive from "components/Common/Responsive";
 import Button from "components/Common/Button";
 import SearchBar from "components/Header/SearchBar";
-import { Avatar, Klaytn } from "components/Common/Icons";
+import { Avatar, Klaytn, MenuDown } from "components/Common/Icons";
 import UserMenu from "./UserMenu";
 import WalletLink from "components/Wallet/WalletLink";
 
@@ -64,8 +64,16 @@ const Right = styled.div`
 `;
 
 const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
   font-weight: 500;
   margin-left: 0.75rem;
+
+  svg {
+    margin-left: 2px;
+    margin-top: 3px;
+    margin-right: 0.125rem;
+  }
 `;
 
 const Spacer = styled.div`
@@ -93,14 +101,14 @@ const KlaytnIconContainer = styled.span`
   font-weight: 500;
 
   svg {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     fill: ${props => props.theme.color.primary[4]};
     margin-right: 0.5rem;
   }
 
   &:hover {
-    color: ${props => props.theme.color.primary[3]};
+    color: ${props => props.theme.color.primary[2]};
     svg {
       fill: ${props => props.theme.color.primary[3]};
     }
@@ -157,13 +165,16 @@ const Header = () => {
                   <Cart />
                 </IconContainer> */}
                 <KlaytnIconContainer>
-                  <Klaytn />
-                  <WalletLink />
+                  <WalletLink>
+                    <Klaytn /> Wallet
+                  </WalletLink>
                 </KlaytnIconContainer>
                 <Divider />
                 <UsermenuContainer onClick={onClick}>
                   <Avatar />
-                  <UserInfo>{user.username} ▾</UserInfo>
+                  <UserInfo>
+                    {user.username} <MenuDown />
+                  </UserInfo>
                 </UsermenuContainer>
                 {openMenu && <UserMenu user={user} />}
               </Right>

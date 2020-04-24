@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const WalletLink = () => {
+const WalletLink = ({ children }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { hasWallet } = useSelector(({ wallet }) => ({
@@ -35,7 +35,9 @@ const WalletLink = () => {
   };
 
   return (
-    <Wrapper onClick={hasWallet ? openWallet : showAuthModal}>Wallet</Wrapper>
+    <Wrapper onClick={hasWallet ? openWallet : showAuthModal}>
+      {children}
+    </Wrapper>
   );
 };
 

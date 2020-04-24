@@ -98,7 +98,7 @@ const WriteActionButtonsContainer = () => {
     if (postError) {
       console.log(postError);
     }
-  }, [history, post, postError]);
+  }, [history, post, postError, dispatch]);
 
   useEffect(() => {
     if (post) {

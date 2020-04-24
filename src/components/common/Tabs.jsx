@@ -123,9 +123,7 @@ const Tabs = ({
   const [tabKey, setTabKey] = useState(newTabKey);
 
   useEffect(() => {
-    if (newTabKey !== tabKey) {
-      setTabKey(newTabKey);
-    }
+    setTabKey(newTabKey);
   }, [newTabKey]);
 
   const onPressTab = key => {

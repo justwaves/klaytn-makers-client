@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "redux/modules/user";
-import WalletLink from "components/Wallet/WalletLink";
 
 const Wrapper = styled.div`
   min-width: 200px;

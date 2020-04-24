@@ -15,16 +15,16 @@ const Grid = styled.div`
   gap: 1.5rem;
 `;
 
-const ProductList = ({ posts, loading, error, user }) => {
+const ProductList = ({ combinedList, loading, error, user }) => {
   if (error) {
     return <ResponsiveWrapper>에러가 발생했습니다.</ResponsiveWrapper>;
   }
 
   return (
     <ResponsiveWrapper>
-      {!loading && posts && (
+      {!loading && combinedList && (
         <Grid>
-          {posts.map(post => (
+          {combinedList.map(post => (
             <ProductCardContainer post={post} key={post._id} user={user} />
           ))}
         </Grid>

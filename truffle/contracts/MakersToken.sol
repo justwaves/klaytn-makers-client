@@ -6,13 +6,14 @@ import "openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol";
 contract MakersToken is ERC721Full {
   event MakersCreated(
     uint256 indexed tokenId,
+    string postId,
     string title,
     string description,
-    string photo,
     int256 price,
     int256 targetCount,
     string dDay,
-    uint256 timestamp
+    uint256 timestamp,
+    address[] buyers
   );
 
   constructor(string memory title, string memory symbol)
@@ -37,9 +38,9 @@ contract MakersToken is ERC721Full {
 
   struct Makers {
     uint256 tokenId;
+    string postId;
     string title;
     string description;
-    string photo;
     int256 price;
     int256 targetCount;
     string dDay;
@@ -49,16 +50,15 @@ contract MakersToken is ERC721Full {
     int256 status; // 상품 상태 => 0: 진행 / 1: 목표금액 달성 / 2: 시간 종료
   }
 
-  // Makers 업로드
+  // Makers 업로드 - parameter 최대 6개까지 가능함
   function createMakers(
+    string memory postId,
     string memory title,
     string memory description,
-    string memory photo,
-    int256 price
+    int256 price,
     int256 targetCount,
-    string memory dDay,
+    string memory dDay
   ) public {
-
     // totalSupply(): 발행된 전체 토큰의 개수를 알려주는 ERC20 함수
     uint256 tokenId = totalSupply() + 1;
 
@@ -68,16 +68,16 @@ contract MakersToken is ERC721Full {
 
     Makers memory newMakers = Makers({
       tokenId: tokenId,
+      postId: postId,
       title: title,
       description: description,
-      photo: photo,
       price: price,
       targetCount: targetCount,
-      dDay: dDay, 
-      timestamp: now
+      dDay: dDay,
+      timestamp: now,
       buyers: buyers,
       count: 0,
-      status: 0,
+      status: 0
     });
 
     makersList[tokenId] = newMakers;
@@ -85,13 +85,14 @@ contract MakersToken is ERC721Full {
 
     emit MakersCreated(
       tokenId,
+      postId,
       title,
       description,
-      photo,
       price,
       targetCount,
       dDay,
-      now
+      now,
+      buyers
     );
   }
 
@@ -103,19 +104,19 @@ contract MakersToken is ERC721Full {
       uint256,
       string memory,
       string memory,
-      string memory,
-      int256,
-      int256,
+      uint256,
+      address[] memory,
+      uint256,
       int256
     )
   {
     return (
       makersList[tokenId].tokenId,
+      makersList[tokenId].postId,
       makersList[tokenId].title,
-      makersList[tokenId].description,
-      makersList[tokenId].photo,
+      makersList[tokenId].timestamp,
+      makersList[tokenId].buyers,
       makersList[tokenId].count,
-      makersList[tokenId].targetCount,
       makersList[tokenId].status
     );
   }
@@ -156,7 +157,10 @@ contract MakersToken is ERC721Full {
   // 상품 투자(구매)하기
   function investMakers(uint256 tokenId) public payable {
     int256 price = makersList[tokenId].price;
-    require(msg.sender != ownerOf(tokenId), "본인이 등록한 상품은 구매할 수 없습니다.");
+    require(
+      msg.sender != ownerOf(tokenId),
+      "본인이 등록한 상품은 구매할 수 없습니다."
+    );
     // TODO: 판매 종료된 상품 구매 불가 처리
 
     makersList[tokenId].count += 1;
@@ -170,11 +174,7 @@ contract MakersToken is ERC721Full {
   }
 
   // 투자자 리스트 불러오기
-  function getBuyers(uint256 tokenId)
-    public
-    view
-    returns (address[] memory)
-  {
+  function getBuyers(uint256 tokenId) public view returns (address[] memory) {
     return makersList[tokenId].buyers;
   }
 

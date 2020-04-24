@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { writePost, updatePost } from "redux/modules/write";
 import WriteActionButtons from "./WriteActionButtons";
-import { uploadMakersAction } from "redux/modules/makers";
+import { uploadMakers } from "redux/modules/makers";
 
 const WriteActionButtonsContainer = () => {
   const history = useHistory();
@@ -72,12 +72,24 @@ const WriteActionButtonsContainer = () => {
 
   useEffect(() => {
     if (post) {
-      const { _id, user } = post;
-      dispatch(
-        uploadMakersAction(_id, title, description, price, targetCount, dDay),
-      );
-
-      history.push(`/@${user.username}/${_id}`);
+      try {
+        const { _id, user } = post;
+        dispatch(
+          uploadMakers({
+            postId: _id,
+            title,
+            description,
+            price,
+            targetCount,
+            dDay,
+          }),
+        );
+        history.push(`/@${user.username}/${_id}`);
+      } catch (e) {
+        console.log(e);
+        alert("상품등록 실패");
+        history.push(`/write`);
+      }
     }
     if (postError) {
       console.log(postError);

@@ -3,17 +3,20 @@ import qs from "qs";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listPosts } from "redux/modules/posts";
+import { setFeed } from "redux/modules/makers";
 import ProductList from "./ProductList";
 
 const ProductListContainer = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { posts, error, loading, user } = useSelector(
-    ({ posts, loading, user }) => ({
+  const { posts, error, loading, user, feed } = useSelector(
+    ({ posts, loading, user, makers }) => ({
       posts: posts.posts,
       error: posts.error,
       loading: loading["posts/LIST_POSTS"],
+      klaytnLoading: loading["makers/SET_FEED"],
       user: user.user,
+      feed: makers.feed,
     }),
   );
 
@@ -22,10 +25,17 @@ const ProductListContainer = () => {
       ignoreQueryPrefix: true,
     });
     dispatch(listPosts({ tag, username, page }));
+    dispatch(setFeed());
   }, [dispatch, location.search]);
 
   return (
-    <ProductList loading={loading} error={error} posts={posts} user={user} />
+    <ProductList
+      loading={loading}
+      error={error}
+      posts={posts}
+      user={user}
+      feed={feed}
+    />
   );
 };
 

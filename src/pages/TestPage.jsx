@@ -5,7 +5,7 @@ import Responsive from "components/Common/Responsive";
 import Button from "components/Common/Button";
 import caver from "klaytn/caver";
 import WalletLink from "components/Wallet/WalletLink";
-import { setMakers, uploadMakersAction } from "redux/modules/makers";
+import { setFeed, uploadMakers } from "redux/modules/makers";
 import { useDispatch } from "react-redux";
 
 const Wrapper = styled.div`
@@ -69,20 +69,21 @@ const TestPage = () => {
     <Responsive>
       <Wrapper>
         <Header />
+
         <Divider />
         <ButtonWrapper>
           <Label>Upload fake makers</Label>
           <Button
             onClick={() =>
               dispatch(
-                uploadMakersAction(
-                  "postId",
-                  "title",
-                  "description",
-                  11,
-                  111,
-                  "dDay",
-                ),
+                uploadMakers({
+                  postId: "postId",
+                  title: "title",
+                  description: "description",
+                  price: 11,
+                  targetCount: 111,
+                  dDay: "dDay",
+                }),
               )
             }
           >
@@ -92,7 +93,7 @@ const TestPage = () => {
         <Divider />
         <ButtonWrapper>
           <Label>get makers</Label>
-          <Button onClick={() => dispatch(setMakers())}>get makers</Button>
+          <Button onClick={() => dispatch(setFeed())}>get makers</Button>
         </ButtonWrapper>
         <Divider />
         <WalletLink />

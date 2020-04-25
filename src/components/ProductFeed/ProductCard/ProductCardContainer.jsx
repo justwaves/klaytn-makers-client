@@ -2,7 +2,16 @@ import React from "react";
 import ProductCard from "./ProductCard";
 
 const ProductCardContainer = ({ post }) => {
-  const { tags, title, description, _id, photo, user } = post;
+  const {
+    tags,
+    title,
+    description,
+    _id,
+    photo,
+    user,
+    count,
+    targetCount,
+  } = post;
 
   return (
     <ProductCard
@@ -10,8 +19,8 @@ const ProductCardContainer = ({ post }) => {
       description={description}
       photo={photo}
       tags={tags}
-      // count={count}
-      // percentage={percentage}
+      count={count}
+      targetCount={targetCount}
       user={user}
       _id={_id}
     />

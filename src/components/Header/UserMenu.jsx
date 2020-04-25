@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  user-select: none;
 `;
 
 const Arrow = styled.div`
@@ -26,6 +27,7 @@ const Arrow = styled.div`
   transform: rotate(45deg);
   background-color: ${props => props.theme.color.gray[1]};
   border-radius: 2px;
+  user-select: none;
 `;
 
 const Grid = styled.div`
@@ -40,7 +42,8 @@ const User = styled.div`
   display: flex;
   align-items: center;
   padding: 1rem 1rem;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   border-bottom: 1px solid ${props => props.theme.color.gray[4]};
   background-color: ${props => props.theme.color.gray[1]};
 `;

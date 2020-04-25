@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import ProgressBar from "components/Progress/ProgressBar";
 
 const Wrapper = styled.div`
   min-height: 460px;
@@ -40,7 +41,7 @@ const ImageContainer = styled.div`
 
   @media (max-width: 816px) {
     border-radius: 0;
-    height: 50%;
+    max-height: 25rem;
   }
 
   img {
@@ -78,35 +79,12 @@ const ProductDesc = styled.p`
   overflow: hidden;
 `;
 
-const ProgressBarContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-`;
-
-const ProgressBar = styled.div`
-  border: 1px solid grey;
-  height: 0.5rem;
-  background-color: ${props => props.theme.color.primary[0]};
-  margin-bottom: 0.75rem;
-  border-radius: 2px;
-`;
-
-const OrderConut = styled.div`
-  width: 100%;
-  font-size: 14px;
-  color: ${props => props.theme.color.primary[0]};
-  display: flex;
-  justify-content: space-between;
-`;
-
 const ProductCard = ({
   title,
   description,
   photo = "https://source.unsplash.com/random/720x500",
-  count = 1202,
-  percentage = 89,
+  // count,
+  targetCount,
   user,
   _id = "5e9c790b3d3ec23556c4ee84",
 }) => (
@@ -118,13 +96,7 @@ const ProductCard = ({
       <InfoContainer>
         <ProductName>{title}</ProductName>
         <ProductDesc>{description}</ProductDesc>
-        <ProgressBarContainer>
-          <ProgressBar />
-          <OrderConut>
-            <span>{`${count}명이 주문중입니다.`}</span>
-            <span>{percentage}%</span>
-          </OrderConut>
-        </ProgressBarContainer>
+        <ProgressBar /* count={count} */ targetCount={targetCount} />
       </InfoContainer>
     </Wrapper>
   </Link>

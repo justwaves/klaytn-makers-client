@@ -37,7 +37,8 @@ const ProductListContainer = () => {
   }, [feed, posts, dispatch]);
 
   useEffect(() => {
-    if (combineList) {
+    console.log(combinedList.length);
+    if (!(combinedList.length === 0)) {
       console.log(combinedList);
     }
   }, [combinedList]);

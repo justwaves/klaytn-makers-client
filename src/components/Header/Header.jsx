@@ -5,9 +5,16 @@ import { useSelector } from "react-redux";
 import Responsive from "components/Common/Responsive";
 import Button from "components/Common/Button";
 import SearchBar from "components/Header/SearchBar";
-import { Avatar, Klaytn, MenuDown } from "components/Common/Icons";
+import {
+  Avatar,
+  Klaytn,
+  MenuDown,
+  Notification,
+  Cart,
+} from "components/Common/Icons";
 import UserMenu from "./UserMenu";
 import WalletLink from "components/Wallet/WalletLink";
+import { Bars } from "components/Common/Icons";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -61,13 +68,33 @@ const Right = styled.div`
   align-items: center;
   justify-content: flex-end;
   position: relative;
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+`;
+
+const Drawer = styled.div`
+  display: none;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    cursor: pointer;
+  }
+
+  @media (max-width: 1200px) {
+    display: block;
+  }
 `;
 
 const UserInfo = styled.div`
   display: flex;
   align-items: center;
   font-weight: 500;
-  margin-left: 0.75rem;
+  margin-left: 0.125rem;
 
   svg {
     margin-left: 2px;
@@ -87,10 +114,10 @@ const LoginButton = styled(Button)`
   background-color: ${props => props.theme.color.primary[0]};
 `;
 
-// const IconContainer = styled.span`
-//   margin-right: 1.5rem;
-//   cursor: pointer;
-// `;
+const IconContainer = styled.span`
+  margin-right: 1.25rem;
+  cursor: pointer;
+`;
 
 const KlaytnIconContainer = styled.span`
   cursor: pointer;
@@ -158,22 +185,22 @@ const Header = () => {
 
             {user ? (
               <Right>
-                {/* <IconContainer>
-                  <Notification />
-                </IconContainer>
-                <IconContainer>
-                  <Cart />
-                </IconContainer> */}
                 <KlaytnIconContainer>
                   <WalletLink>
                     <Klaytn /> Wallet
                   </WalletLink>
                 </KlaytnIconContainer>
                 <Divider />
+                <IconContainer>
+                  <Notification />
+                </IconContainer>
+                <IconContainer>
+                  <Cart />
+                </IconContainer>
                 <UsermenuContainer onClick={onClick}>
                   <Avatar />
                   <UserInfo>
-                    {user.username} <MenuDown />
+                    <MenuDown />
                   </UserInfo>
                 </UsermenuContainer>
                 {openMenu && <UserMenu user={user} />}
@@ -183,6 +210,11 @@ const Header = () => {
                 <LoginButton to="/login">로그인</LoginButton>
               </Right>
             )}
+            <Drawer>
+              <div>
+                <Bars />
+              </div>
+            </Drawer>
           </Grid>
         </ResponsiveHeader>
       </Wrapper>

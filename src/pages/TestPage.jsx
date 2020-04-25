@@ -7,6 +7,7 @@ import caver from "klaytn/caver";
 import WalletLink from "components/Wallet/WalletLink";
 import { setFeed, uploadMakers } from "redux/modules/makers";
 import { useDispatch } from "react-redux";
+import ProgressBar from "components/Progress/ProgressBar";
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -69,7 +70,8 @@ const TestPage = () => {
     <Responsive>
       <Wrapper>
         <Header />
-
+        <Divider />
+        <ProgressBar targetCount={100} />
         <Divider />
         <ButtonWrapper>
           <Label>Upload fake makers</Label>

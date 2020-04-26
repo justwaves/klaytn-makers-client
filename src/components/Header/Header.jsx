@@ -97,9 +97,7 @@ const UserInfo = styled.div`
   margin-left: 0.125rem;
 
   svg {
-    margin-left: 2px;
-    margin-top: 3px;
-    margin-right: 0.125rem;
+    margin-top: 0.25rem;
   }
 `;
 
@@ -115,8 +113,8 @@ const LoginButton = styled(Button)`
 `;
 
 const IconContainer = styled.span`
-  margin-right: 1.25rem;
-  cursor: pointer;
+  margin-right: 1rem;
+  cursor: not-allowed;
 `;
 
 const KlaytnIconContainer = styled.span`
@@ -146,6 +144,7 @@ const UsermenuContainer = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
+  margin-left: 0.125rem;
 `;
 
 const Divider = styled.span`

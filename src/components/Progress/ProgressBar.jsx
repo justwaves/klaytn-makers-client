@@ -40,17 +40,19 @@ const OrderConut = styled.div`
     `}
 `;
 
-const ProgressBar = ({ targetCount, count = 5 }) => {
+const ProgressBar = ({ targetCount, count = 5, cardView = true }) => {
   const percentage = Math.ceil((count / targetCount) * 100);
   return (
     <Wrapper>
       <Background>
         <ProgressStatus percentage={percentage} />
       </Background>
-      <OrderConut percentage={percentage}>
-        <span>{`${count}명이 주문중입니다.`}</span>
-        <span>{percentage}%</span>
-      </OrderConut>
+      {cardView && (
+        <OrderConut percentage={percentage}>
+          <span>{`${count}명이 주문중입니다.`}</span>
+          <span>{percentage}%</span>
+        </OrderConut>
+      )}
     </Wrapper>
   );
 };

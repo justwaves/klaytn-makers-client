@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import moment from "moment";
 import Responsive from "components/Common/Responsive";
 import Tags from "components/Common/Tags";
 import ProgressBar from "components/Progress/ProgressBar";
@@ -206,7 +207,35 @@ const ProductViewer = ({ post, loading, error, actionButtons }) => {
   } = post;
 
   console.log(post);
-  console.log();
+
+  moment.updateLocale("en", {
+    relativeTime: {
+      future: "%s 남음",
+      past: "%s 지남",
+      s: "1초",
+      ss: "%d초",
+      m: "1분",
+      mm: "%d분",
+      h: "1시간",
+      hh: "%d시간",
+      d: "1일",
+      dd: "%d일",
+      M: "1개월",
+      MM: "%d개월",
+      y: "1년",
+      yy: "%d년",
+    },
+  });
+
+  let fromNow = moment(dDay, "YYYY-MM-DD").fromNow();
+
+  if (fromNow === 0) {
+    fromNow = moment(dDay, "LTS").fromNow();
+  }
+
+  console.log(moment(publishedDate) > moment(dDay));
+
+  const percentage = Math.ceil((count / targetCount) * 100);
 
   return (
     <ResponsiveWrapper>
@@ -224,9 +253,13 @@ const ProductViewer = ({ post, loading, error, actionButtons }) => {
           <TagsContainer>
             <Tags tags={tags} />
           </TagsContainer>
-          <Percentage>78%</Percentage>
+          <Percentage>{percentage}%</Percentage>
           <ProgressBarContainer>
-            <ProgressBar targetCount={50} cardView={false} />
+            <ProgressBar
+              targetCount={targetCount}
+              cardView={false}
+              count={count}
+            />
           </ProgressBarContainer>
           <Order>
             <MinCount>
@@ -236,12 +269,13 @@ const ProductViewer = ({ post, loading, error, actionButtons }) => {
           </Order>
           <Order>
             <Period>
-              펀딩기간: {publishedDate.split("T", 1)[0]} ~ {dDay}
+              펀딩기간: {publishedDate.split("T", 1)[0]} ~{" "}
+              {dDay.split("T", 1)[0]}
             </Period>
-            <Dday>주문종료 00일 남음</Dday>
+            <Dday>주문종료 {fromNow}</Dday>
           </Order>
           <Price>{price} KLAY</Price>
-          <OrderButton>구매하기</OrderButton>
+          <OrderButton>주문하기</OrderButton>
         </RightColumn>
         {actionButtons}
       </Grid>

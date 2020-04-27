@@ -24,13 +24,12 @@ export default () => {
     dDay: write.dDay,
   }));
 
-  const today = moment().format("YYYY-MM-DD");
+  const today = moment().format();
 
   const [selectedDate, setSelectedDate] = useState(today);
 
   const handleDateChange = date => {
-    console.log();
-    const formattedDate = moment(date).format("YYYY-MM-DD");
+    const formattedDate = moment(date).format();
     setSelectedDate(formattedDate);
 
     onChangeField({ key: "dDay", value: formattedDate });

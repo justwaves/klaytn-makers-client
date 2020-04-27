@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Responsive from "components/Common/Responsive";
 import ProductCardContainer from "components/ProductFeed/ProductCard/ProductCardContainer";
+import Spinner from "components/Common/Spinner";
 
 const ResponsiveWrapper = styled(Responsive)`
   padding-top: 2.25rem;
@@ -18,6 +19,10 @@ const Grid = styled.div`
 const ProductList = ({ combinedList, loading, error, user }) => {
   if (error) {
     return <ResponsiveWrapper>에러가 발생했습니다.</ResponsiveWrapper>;
+  }
+
+  if (loading || !combinedList) {
+    return <Spinner wrapper />;
   }
 
   return (

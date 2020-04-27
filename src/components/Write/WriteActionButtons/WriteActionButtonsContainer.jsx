@@ -7,7 +7,7 @@ import { uploadMakers, unloadMakers } from "redux/modules/makers";
 import { removePost } from "lib/api/posts";
 
 const WriteActionButtonsContainer = () => {
-  const [loading, setLoading] = useState(false);
+  const [klaytnLoading, setKlaytnLoading] = useState(false);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -25,7 +25,8 @@ const WriteActionButtonsContainer = () => {
     dDay,
     receipt,
     makersError,
-  } = useSelector(({ write, makers }) => ({
+    loading,
+  } = useSelector(({ write, makers, loading }) => ({
     title: write.title,
     body: write.body,
     tags: write.tags,
@@ -39,6 +40,7 @@ const WriteActionButtonsContainer = () => {
     dDay: write.dDay,
     receipt: makers.receipt,
     makersError: makers.error,
+    loading: loading["write/WRITE_POST"],
   }));
 
   const onPublish = async () => {
@@ -104,12 +106,12 @@ const WriteActionButtonsContainer = () => {
     if (post) {
       const { _id, user } = post;
       if (!receipt) {
-        setLoading(true);
+        setKlaytnLoading(true);
         console.log("Klaytn contract API loading...");
       }
 
       if (receipt) {
-        setLoading(false);
+        setKlaytnLoading(false);
         history.push(`/@${user.username}/${_id}`);
       }
     }
@@ -127,7 +129,7 @@ const WriteActionButtonsContainer = () => {
       }
 
       dispatch(unloadMakers());
-      setLoading(false);
+      setKlaytnLoading(false);
     }
   }, [makersError, dispatch]);
 
@@ -136,6 +138,7 @@ const WriteActionButtonsContainer = () => {
       onPublish={onPublish}
       onCancel={onCancel}
       isEdit={!!originalPostId}
+      klaytnLoading={klaytnLoading}
       loading={loading}
     />
   );

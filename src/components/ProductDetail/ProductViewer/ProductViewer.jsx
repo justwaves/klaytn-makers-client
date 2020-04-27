@@ -4,6 +4,7 @@ import moment from "moment";
 import Responsive from "components/Common/Responsive";
 import Tags from "components/Common/Tags";
 import ProgressBar from "components/Progress/ProgressBar";
+import Spinner from "components/Common/Spinner";
 
 const ResponsiveWrapper = styled(Responsive)`
   padding-top: 2.25rem;
@@ -189,8 +190,9 @@ const ProductViewer = ({ post, loading, error, actionButtons }) => {
     }
     return <ResponsiveWrapper>오류 발생</ResponsiveWrapper>;
   }
+
   if (loading || !post) {
-    return null;
+    return <Spinner wrapper />;
   }
 
   const {

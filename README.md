@@ -22,7 +22,9 @@
 - Truffle
 
 <br />
+
 #### Backend
+
 ✔ Backend project of service is at another Repo - [klaytn-makers-server](https://github.com/justwaves/klaytn-makers-server)
 
 - Node.js

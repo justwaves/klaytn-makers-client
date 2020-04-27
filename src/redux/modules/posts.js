@@ -9,7 +9,7 @@ const [
   LIST_POSTS,
   LIST_POSTS_SUCCESS,
   LIST_POSTS_FAILURE,
-] = createRequestActionTypes("post/LIST_POSTS");
+] = createRequestActionTypes("posts/LIST_POSTS");
 
 export const listPosts = createAction(
   LIST_POSTS,

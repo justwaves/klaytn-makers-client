@@ -8,6 +8,7 @@ import WalletLink from "components/Wallet/WalletLink";
 import { setFeed, uploadMakers } from "redux/modules/makers";
 import { useDispatch } from "react-redux";
 import ProgressBar from "components/Progress/ProgressBar";
+import Spinner from "components/Common/Spinner";
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -70,6 +71,7 @@ const TestPage = () => {
     <Responsive>
       <Wrapper>
         <Header />
+        <Spinner />
         <Divider />
         <ProgressBar targetCount={100} />
         <Divider />

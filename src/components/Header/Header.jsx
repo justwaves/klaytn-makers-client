@@ -161,8 +161,12 @@ const Header = () => {
     user: user.user,
   }));
 
-  const onClick = () => {
-    setOpenMenu(!openMenu);
+  const onMouseEnter = () => {
+    setOpenMenu(true);
+  };
+
+  const onMouseLeave = () => {
+    setOpenMenu(false);
   };
 
   return (
@@ -196,13 +200,19 @@ const Header = () => {
                 <IconContainer>
                   <Cart />
                 </IconContainer>
-                <UsermenuContainer onClick={onClick}>
+                <UsermenuContainer onMouseEnter={onMouseEnter}>
                   <Avatar />
                   <UserInfo>
                     <MenuDown />
                   </UserInfo>
                 </UsermenuContainer>
-                {openMenu && <UserMenu user={user} />}
+                {openMenu && (
+                  <UserMenu
+                    user={user}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                  />
+                )}
               </Right>
             ) : (
               <Right>

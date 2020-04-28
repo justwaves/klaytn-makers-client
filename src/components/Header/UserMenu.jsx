@@ -13,6 +13,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: flex-end;
   user-select: none;
+  margin-top: -10px;
+  margin-left: 12px;
 `;
 
 const Arrow = styled.div`
@@ -62,7 +64,7 @@ const Menu = styled.div`
   }
 `;
 
-const UserMenu = ({ user }) => {
+const UserMenu = ({ user, onMouseEnter, onMouseLeave }) => {
   const dispatch = useDispatch();
   const { hasWallet } = useSelector(({ wallet }) => ({
     hasWallet: wallet.hasWallet,
@@ -74,7 +76,7 @@ const UserMenu = ({ user }) => {
 
   return (
     <>
-      <Wrapper>
+      <Wrapper onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
         <Arrow>
           <span></span>
         </Arrow>

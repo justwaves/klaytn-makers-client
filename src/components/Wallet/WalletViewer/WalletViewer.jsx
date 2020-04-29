@@ -1,33 +1,35 @@
 import React from "react";
 import styled from "styled-components";
-import Responsive from "components/Common/Responsive";
-import Button from "components/Common/Button";
-import UserInfo from "../UserInfo";
+import WalletAccount from "components/Wallet/WalletCard/WalletAccount";
+import Profile from "components/Wallet/WalletCard/Profile";
+import TxList from "components/Wallet/WalletCard/TxList";
+import Orders from "components/Wallet/WalletCard/Orders";
 
-const Wrapper = styled(Responsive)`
-  padding: 3rem;
+const ResponsiveWrapper = styled.div`
+  width: 744px;
+  margin: 0 auto;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  min-height: 100vh;
 `;
 
-const Div = styled.div`
-  margin-top: 2rem;
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-auto-rows: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
 `;
 
 const WalletViewer = ({ address, balance, logout }) => {
-  const openFaucet = () => {
-    window.open(
-      "https://baobab.wallet.klaytn.com/access?next=faucet",
-      "_blank",
-    );
-  };
-
   return (
-    <Wrapper>
-      <Button onClick={logout}>logout</Button>
-      <Button onClick={openFaucet}>openFaucet</Button>
-      <Div>address: {address}</Div>
-      <Div>balance: {balance}</Div>
-      <UserInfo />
-    </Wrapper>
+    <ResponsiveWrapper>
+      <Grid>
+        <Profile />
+        <WalletAccount address={address} balance={balance} logout={logout} />
+        <Orders />
+        <TxList />
+      </Grid>
+    </ResponsiveWrapper>
   );
 };
 

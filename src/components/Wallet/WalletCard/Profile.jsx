@@ -2,7 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import WalletCardFrame from "./WalletCardFrame";
 import { Avatar } from "components/Common/Icons";
-import { RightArrow } from "components/Common/Icons";
+import {
+  RightArrow,
+  Truck,
+  HeartEmpty,
+  Cupon,
+  Question,
+} from "components/Common/Icons";
 
 const Wrapper = styled(WalletCardFrame)`
   height: 400px;
@@ -121,8 +127,14 @@ const ButtonIcon = styled.div`
   width: 28px;
   height: 28px;
   margin-bottom: 0.5rem;
-  border: 1px solid ${props => props.theme.color.gray[4]};
+  /* border: 1px solid ${props => props.theme.color.gray[4]}; */
   border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg { 
+  }
 `;
 
 const ButtonText = styled.p`
@@ -171,19 +183,27 @@ const Profile = () => {
         </OrderProgress>
         <Buttons>
           <ButtonBox>
-            <ButtonIcon></ButtonIcon>
+            <ButtonIcon>
+              <Truck />
+            </ButtonIcon>
             <ButtonText>배송조회</ButtonText>
           </ButtonBox>
           <ButtonBox>
-            <ButtonIcon></ButtonIcon>
+            <ButtonIcon>
+              <HeartEmpty />
+            </ButtonIcon>
             <ButtonText>좋아요</ButtonText>
           </ButtonBox>
           <ButtonBox>
-            <ButtonIcon></ButtonIcon>
+            <ButtonIcon>
+              <Cupon />
+            </ButtonIcon>
             <ButtonText>쿠폰</ButtonText>
           </ButtonBox>
           <ButtonBox>
-            <ButtonIcon></ButtonIcon>
+            <ButtonIcon>
+              <Question />
+            </ButtonIcon>
             <ButtonText>문의하기</ButtonText>
           </ButtonBox>
         </Buttons>

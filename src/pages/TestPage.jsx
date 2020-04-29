@@ -9,6 +9,7 @@ import { setFeed, uploadMakers } from "redux/modules/makers";
 import { useDispatch } from "react-redux";
 import ProgressBar from "components/Progress/ProgressBar";
 import Spinner from "components/Common/Spinner";
+import TabsThree from "components/Common/TabsThree";
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -32,6 +33,18 @@ const Label = styled.div`
 
 const Data = styled.div`
   padding: 20px 0;
+`;
+
+const TabsContainer = styled.div`
+  padding-top: 2.5rem;
+`;
+
+const TabsCard = styled.div`
+  width: 360px;
+  height: 500px;
+  border: 1px solid grey;
+  border-radius: 8px;
+  padding: 1.5rem;
 `;
 
 const TestPage = () => {
@@ -71,6 +84,13 @@ const TestPage = () => {
     <Responsive>
       <Wrapper>
         <Header />
+        <Divider />
+        <TabsCard>
+          <TabsContainer>
+            <TabsThree></TabsThree>
+          </TabsContainer>
+        </TabsCard>
+        <Divider />
         <Spinner />
         <Divider />
         <ProgressBar targetCount={100} />

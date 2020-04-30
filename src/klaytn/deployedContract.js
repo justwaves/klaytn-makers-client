@@ -1,4 +1,4 @@
-export const CA = "0x01E75C149BAbfED590D2b3757F39A54452CD2A5F";
+export const CA = "0x454d5A374fB8999152E1f340c37fb481f80754d4";
 
 export const ABI = [
   {
@@ -117,6 +117,27 @@ export const ABI = [
     stateMutability: "nonpayable",
     type: "function",
     signature: "0x42842e0e",
+  },
+  {
+    constant: true,
+    inputs: [{ name: "", type: "string" }],
+    name: "makersByPostId",
+    outputs: [
+      { name: "tokenId", type: "uint256" },
+      { name: "postId", type: "string" },
+      { name: "title", type: "string" },
+      { name: "description", type: "string" },
+      { name: "price", type: "int256" },
+      { name: "targetCount", type: "int256" },
+      { name: "dDay", type: "string" },
+      { name: "timestamp", type: "uint256" },
+      { name: "count", type: "uint256" },
+      { name: "status", type: "int256" },
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+    signature: "0x4bbdf53d",
   },
   {
     constant: true,
@@ -364,6 +385,24 @@ export const ABI = [
     stateMutability: "view",
     type: "function",
     signature: "0xffb0360a",
+  },
+  {
+    constant: true,
+    inputs: [{ name: "postId", type: "string" }],
+    name: "getMakersByPostId",
+    outputs: [
+      { name: "", type: "uint256" },
+      { name: "", type: "string" },
+      { name: "", type: "string" },
+      { name: "", type: "uint256" },
+      { name: "", type: "address[]" },
+      { name: "", type: "uint256" },
+      { name: "", type: "int256" },
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+    signature: "0x0704884b",
   },
   {
     constant: true,

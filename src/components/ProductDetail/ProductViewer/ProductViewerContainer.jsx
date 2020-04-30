@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { readPost, unloadPost } from "redux/modules/post";
 import PostActionButtons from "components/ProductDetail/PostActionButtons";
 import { setOriginalPost } from "redux/modules/write";
+import { setMakers } from "redux/modules/makers";
+import { combineProduct } from "redux/modules/filter";
 import { removePost } from "lib/api/posts";
 import ProductViewer from "./ProductViewer";
 
@@ -12,22 +14,31 @@ const ProductViewerContainer = () => {
   const { postId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { post, error, loading, user } = useSelector(
-    ({ post, loading, user }) => ({
+  const { post, error, loading, user, makers, combinedProduct } = useSelector(
+    ({ post, loading, user, makers, filter }) => ({
       post: post.post,
       error: post.error,
       loading: loading["post/READ_POST"],
       user: user.user,
+      makers: makers.makers,
+      combinedProduct: filter.combinedProduct,
     }),
   );
 
   useEffect(() => {
     dispatch(readPost(postId));
+    dispatch(setMakers(postId));
 
     return () => {
       dispatch(unloadPost());
     };
   }, [dispatch, postId]);
+
+  useEffect(() => {
+    if (post && makers) {
+      dispatch(combineProduct({ post, makers }));
+    }
+  }, [makers, post, dispatch]);
 
   const onEdit = () => {
     dispatch(setOriginalPost(post));
@@ -47,7 +58,7 @@ const ProductViewerContainer = () => {
 
   return (
     <ProductViewer
-      post={post}
+      combinedProduct={combinedProduct}
       loading={loading}
       error={error}
       actionButtons={

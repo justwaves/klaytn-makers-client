@@ -2,7 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import WalletCardFrame from "./WalletCardFrame";
 import TabsThree from "components/Common/TabsThree";
-import { Purchase, Refund, Reward } from "components/Common/Icons";
+import { Purchase, /* Refund, */ Reward } from "components/Common/Icons";
 
 const Wrapper = styled(WalletCardFrame)`
   min-height: 400px;

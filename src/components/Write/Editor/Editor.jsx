@@ -191,7 +191,7 @@ const Editor = ({
         onChange={onChange}
         value={description}
         maxRows={3}
-        maxlength={120}
+        maxLength={120}
         name="description"
       />
       <Label>사진 URL</Label>
@@ -223,7 +223,7 @@ const Editor = ({
       </InputContainer>
       <Label>마감일</Label>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Grid container justify="left">
+        <Grid container>
           <KeyboardDatePicker
             className="dDay"
             disableToolbar

@@ -9,10 +9,24 @@ const [
   COMBINE_LIST_FAILURE,
 ] = createRequestActionTypes("filter/COMBINE_LIST");
 
+const [
+  COMBINE_PRODUCT,
+  COMBINE_PRODUCT_SUCCESS,
+  COMBINE_PRODUCT_FAILURE,
+] = createRequestActionTypes("filter/COMBINE_PRODUCT");
+
 export const combineList = createAction(COMBINE_LIST, ({ posts, feed }) => ({
   posts,
   feed,
 }));
+
+export const combineProduct = createAction(
+  COMBINE_PRODUCT,
+  ({ post, makers }) => ({
+    post,
+    makers,
+  }),
+);
 
 const combineListSaga = () => {
   return function* (action) {
@@ -65,12 +79,47 @@ const combineListSaga = () => {
   };
 };
 
+const combineProductSaga = () => {
+  return function* (action) {
+    yield put(startLoading(COMBINE_PRODUCT));
+    const { post, makers } = action.payload;
+
+    const product = {
+      _id: post._id,
+      tags: post.tags,
+      title: post.title,
+      body: post.body,
+      user: post.user,
+      tokenId: post.tokenId,
+      description: post.description,
+      photo: post.photo,
+      price: post.price,
+      targetCount: post.targetCount,
+      dDay: post.dDay,
+      publishedDate: post.publishedDate,
+      timestamp: makers.timestamp,
+      buyers: makers.buyers,
+      count: makers.count,
+      status: makers.status,
+    };
+
+    yield put({
+      type: COMBINE_PRODUCT_SUCCESS,
+      payload: product,
+    });
+
+    yield put(finishLoading(COMBINE_PRODUCT));
+  };
+};
+
 export function* filterSaga() {
   yield takeLatest(COMBINE_LIST, combineListSaga());
+  yield takeLatest(COMBINE_PRODUCT, combineProductSaga());
 }
 
 const initialState = {
   combinedList: [],
+  combinedProduct: null,
   error: null,
 };
 
@@ -81,6 +130,14 @@ const filter = handleActions(
       combinedList: newArray,
     }),
     [COMBINE_LIST_FAILURE]: (state, { payload: e }) => ({
+      ...state,
+      error: e,
+    }),
+    [COMBINE_PRODUCT_SUCCESS]: (state, { payload: product }) => ({
+      ...state,
+      combinedProduct: product,
+    }),
+    [COMBINE_PRODUCT_FAILURE]: (state, { payload: e }) => ({
       ...state,
       error: e,
     }),

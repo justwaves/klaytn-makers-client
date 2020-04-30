@@ -23,6 +23,12 @@ const [SET_FEED, SET_FEED_SUCCESS, SET_FEED_FAILURE] = createRequestActionTypes(
   "makers/SET_FEED",
 );
 
+const [
+  SET_MAKERS,
+  SET_MAKERS_SUCCESS,
+  SET_MAKERS_FAILURE,
+] = createRequestActionTypes("makers/SET_MAKERS");
+
 const UNLOAD_MAKERS = "makers/UNLOAD_MAKERS";
 
 export const uploadMakersSaga = () => {
@@ -148,19 +154,59 @@ const setFeedSaga = () => {
   };
 };
 
+const setMakersSaga = () => {
+  return function* (action) {
+    yield put(startLoading(SET_MAKERS));
+
+    const postId = action.payload;
+    console.log(postId);
+
+    try {
+      const product = yield call(
+        contractAPI.methods.getMakersByPostId(postId).call,
+      );
+
+      console.log(product);
+
+      if (!product) {
+        console.log("상품을 불러 올 수 없습니다.");
+        return;
+      }
+
+      const makers = feedParser(product);
+
+      yield put({
+        type: SET_MAKERS_SUCCESS,
+        payload: makers,
+      });
+    } catch (e) {
+      console.log(e);
+      yield put({
+        type: SET_MAKERS_FAILURE,
+        payload: e,
+        error: true,
+      });
+    }
+    yield put(finishLoading(SET_MAKERS));
+  };
+};
+
 export const uploadMakers = createAction(UPLOAD_MAKERS);
 export const updateFeed = createAction(UPDATE_FEED, tokenId => tokenId);
 export const setFeed = createAction(SET_FEED);
+export const setMakers = createAction(SET_MAKERS);
 export const unloadMakers = createAction(UNLOAD_MAKERS);
 
 export function* makersSaga() {
   yield takeLatest(UPLOAD_MAKERS, uploadMakersSaga());
   yield takeLatest(UPDATE_FEED, updateFeedSaga());
   yield takeLatest(SET_FEED, setFeedSaga());
+  yield takeLatest(SET_MAKERS, setMakersSaga());
 }
 
 const initialState = {
   feed: null,
+  makers: null,
   error: null,
   receipt: null,
 };
@@ -173,7 +219,6 @@ const makers = handleActions(
     }),
     [UPLOAD_MAKERS_FAILURE]: (state, { payload: e }) => ({
       ...state,
-      hasWallet: false,
       error: e,
     }),
 
@@ -191,7 +236,14 @@ const makers = handleActions(
     }),
     [SET_FEED_FAILURE]: (state, { payload: e }) => ({
       ...state,
-      hasWallet: false,
+      error: e,
+    }),
+    [SET_MAKERS_SUCCESS]: (state, { payload: makers }) => ({
+      ...state,
+      makers,
+    }),
+    [SET_MAKERS_FAILURE]: (state, { payload: e }) => ({
+      ...state,
       error: e,
     }),
     [UNLOAD_MAKERS]: () => initialState,

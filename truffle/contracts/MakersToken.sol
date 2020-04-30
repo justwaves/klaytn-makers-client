@@ -24,6 +24,9 @@ contract MakersToken is ERC721Full {
   // 전체 makers 배열
   mapping(uint256 => Makers) public makersList;
 
+  // postId로 makers 불러오기
+  mapping(string => Makers) public makersByPostId;
+
   // 총 모금액
   mapping(uint256 => int256) public totalPrice;
 
@@ -81,6 +84,7 @@ contract MakersToken is ERC721Full {
     });
 
     makersList[tokenId] = newMakers;
+    makersByPostId[postId] = newMakers;
     myMakersList[msg.sender].push(tokenId);
 
     emit MakersCreated(
@@ -118,6 +122,30 @@ contract MakersToken is ERC721Full {
       makersList[tokenId].buyers,
       makersList[tokenId].count,
       makersList[tokenId].status
+    );
+  }
+
+  function getMakersByPostId(string memory postId)
+    public
+    view
+    returns (
+      uint256,
+      string memory,
+      string memory,
+      uint256,
+      address[] memory,
+      uint256,
+      int256
+    )
+  {
+    return (
+      makersByPostId[postId].tokenId,
+      makersByPostId[postId].postId,
+      makersByPostId[postId].title,
+      makersByPostId[postId].timestamp,
+      makersByPostId[postId].buyers,
+      makersByPostId[postId].count,
+      makersByPostId[postId].status
     );
   }
 

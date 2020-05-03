@@ -35,22 +35,14 @@ export const uploadMakersSaga = () => {
   return function* (action) {
     yield put(startLoading(UPLOAD_MAKERS));
     yield put(setFeed());
-    const {
-      postId,
-      title,
-      description,
-      price,
-      targetCount,
-      dDay,
-    } = action.payload;
+    const { postId, title, price, targetCount, dDay } = action.payload;
 
-    console.log(postId, title, description, price, targetCount, dDay);
+    console.log(postId, title, price, targetCount, dDay);
     try {
       const receipt = yield call(
         contractAPI.methods.createMakers(
           postId,
           title,
-          description,
           price,
           targetCount,
           dDay,
@@ -74,8 +66,8 @@ export const uploadMakersSaga = () => {
         payload: receipt,
       });
 
-      const tokenId = receipt.events.MakersCreated.returnValues[0];
-      yield put(updateFeed(tokenId));
+      const makersId = receipt.events.MakersCreated.returnValues[0];
+      yield put(updateFeed(makersId));
 
       // TODO: dispatch(setTransaction(receipt))
     } catch (e) {
@@ -93,8 +85,10 @@ const updateFeedSaga = () => {
   return function* (action) {
     yield put(startLoading(UPDATE_FEED));
     try {
-      const tokenId = action.payload;
-      const newMakers = yield call(contractAPI.methods.getMakers(tokenId).call);
+      const makersId = action.payload;
+      const newMakers = yield call(
+        contractAPI.methods.getMakersByMakersId(makersId).call,
+      );
 
       const { feed } = yield select(state => state.makers);
       const newFeed = [feedParser(newMakers), ...feed];
@@ -119,28 +113,17 @@ const setFeedSaga = () => {
   return function* () {
     yield put(startLoading(SET_FEED));
     try {
-      const totalMakersCount = yield call(
-        contractAPI.methods.getTotalMakersCount().call,
-      );
+      const totalMakers = yield call(contractAPI.methods.getTotalMakers().call);
 
-      if (!totalMakersCount) {
+      if (!totalMakers) {
         return [];
       }
 
-      const feed = [];
-
-      for (let i = totalMakersCount; i > 0; i--) {
-        const product = yield call(contractAPI.methods.getMakers(i).call);
-        feed.push(product);
-      }
-
-      const parsedFeed = feedParser(feed);
-
-      console.log(parsedFeed);
+      const feed = feedParser(totalMakers);
 
       yield put({
         type: SET_FEED_SUCCESS,
-        payload: parsedFeed,
+        payload: feed,
       });
     } catch (e) {
       console.log(e);
@@ -159,21 +142,22 @@ const setMakersSaga = () => {
     yield put(startLoading(SET_MAKERS));
 
     const postId = action.payload;
-    console.log(postId);
 
     try {
       const product = yield call(
         contractAPI.methods.getMakersByPostId(postId).call,
       );
 
-      console.log(product);
-
       if (!product) {
         console.log("상품을 불러 올 수 없습니다.");
         return;
       }
 
-      const makers = feedParser(product);
+      const feed = [];
+
+      feed.push(product);
+
+      const makers = feedParser(feed);
 
       yield put({
         type: SET_MAKERS_SUCCESS,

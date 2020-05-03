@@ -1,11 +1,8 @@
-const CONTRACT = artifacts.require("./contracts/MakersToken.sol");
+const CONTRACT = artifacts.require("./contracts/MakersContract.sol");
 const fs = require("fs");
 
 module.exports = function (deployer) {
-  const name = "Makers Token";
-  const symbol = "MK";
-
-  deployer.deploy(CONTRACT, name, symbol).then(() => {
+  deployer.deploy(CONTRACT).then(() => {
     if (CONTRACT._json) {
       fs.writeFile("deployed/ABI", JSON.stringify(CONTRACT._json.abi), err => {
         if (err) throw err;

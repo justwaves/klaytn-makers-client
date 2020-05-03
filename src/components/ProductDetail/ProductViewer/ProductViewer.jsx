@@ -5,6 +5,7 @@ import Responsive from "components/Common/Responsive";
 import Tags from "components/Common/Tags";
 import ProgressBar from "components/Progress/ProgressBar";
 import Spinner from "components/Common/Spinner";
+import OrderButton from "components/ProductDetail/OrderButton/OrderButtonContainer";
 
 const ResponsiveWrapper = styled(Responsive)`
   padding-top: 2.25rem;
@@ -149,30 +150,30 @@ const Price = styled.div`
   }
 `;
 
-const OrderButton = styled.button`
-  background-color: ${props => props.theme.color.primary[0]};
-  width: 100%;
-  border: 0;
-  border-radius: 4px;
-  height: 3rem;
-  color: white;
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-top: 1rem;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+// const OrderButton = styled.button`
+//   background-color: ${props => props.theme.color.primary[0]};
+//   width: 100%;
+//   border: 0;
+//   border-radius: 4px;
+//   height: 3rem;
+//   color: white;
+//   font-size: 1.125rem;
+//   font-weight: 600;
+//   margin-top: 1rem;
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
 
-  @media (max-width: 1200px) {
-    max-width: 640px;
-    margin: 0 auto;
-    position: fixed;
-    left: 50%;
-    bottom: 0;
-    transform: translate(-50%, 0%);
-    border-radius: 0;
-  }
-`;
+//   @media (max-width: 1200px) {
+//     max-width: 640px;
+//     margin: 0 auto;
+//     position: fixed;
+//     left: 50%;
+//     bottom: 0;
+//     transform: translate(-50%, 0%);
+//     border-radius: 0;
+//   }
+// `;
 
 // const Divider = styled.div`
 //   border-bottom: 1px solid ${props => props.theme.color.gray[3]};
@@ -183,7 +184,7 @@ const PostContent = styled.div`
   line-height: 1.6;
 `;
 
-const ProductViewer = ({ post, loading, error, actionButtons }) => {
+const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
   if (error) {
     if (error.response && error.response.status === 404) {
       return <ResponsiveWrapper>존재하지 않는 포스트입니다.</ResponsiveWrapper>;
@@ -191,24 +192,25 @@ const ProductViewer = ({ post, loading, error, actionButtons }) => {
     return <ResponsiveWrapper>오류 발생</ResponsiveWrapper>;
   }
 
-  if (loading || !post) {
+  if (loading || !combinedProduct) {
     return <Spinner wrapper />;
   }
 
   const {
+    tags,
     title,
     body,
-    tags,
-    // user,
+    tokenId,
     photo,
     price,
-    count = 5,
     targetCount,
-    publishedDate,
     dDay,
-  } = post;
+    publishedDate,
+    count,
+    // status,
+  } = combinedProduct;
 
-  console.log(post);
+  console.log(combinedProduct);
 
   moment.updateLocale("en", {
     relativeTime: {
@@ -234,8 +236,6 @@ const ProductViewer = ({ post, loading, error, actionButtons }) => {
   if (fromNow === 0) {
     fromNow = moment(dDay, "LTS").fromNow();
   }
-
-  console.log(moment(publishedDate) > moment(dDay));
 
   const percentage = Math.ceil((count / targetCount) * 100);
 
@@ -277,7 +277,7 @@ const ProductViewer = ({ post, loading, error, actionButtons }) => {
             <Dday>주문종료 {fromNow}</Dday>
           </Order>
           <Price>{price} KLAY</Price>
-          <OrderButton>주문하기</OrderButton>
+          <OrderButton tokenId={tokenId}>주문하기</OrderButton>
         </RightColumn>
         {actionButtons}
       </Grid>

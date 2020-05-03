@@ -83,14 +83,15 @@ const WriteActionButtonsContainer = () => {
     if (post) {
       const { _id } = post;
       try {
+        const newdate = Math.ceil(new Date().getTime(dDay) / 1000);
+        console.log(newdate);
         dispatch(
           uploadMakers({
             postId: _id,
             title,
-            description,
             price,
             targetCount,
-            dDay,
+            dDay: newdate,
           }),
         );
       } catch (e) {

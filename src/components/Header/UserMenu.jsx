@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   align-items: flex-end;
   user-select: none;
   margin-top: -10px;
-  margin-left: 12px;
+  margin-left: 11px;
 `;
 
 const Arrow = styled.div`

@@ -4,7 +4,6 @@ import { tempSetUser, check } from "redux/modules/user";
 import { walletLogin, walletLogout } from "redux/modules/wallet";
 import store from "redux/store";
 import Routes from "./Routes";
-import contractAPI from "klaytn/contractAPI";
 import AuthModal from "components/Common/AuthModal";
 
 function loadUser() {
@@ -30,17 +29,8 @@ function loadWallet() {
   }
 }
 
-async function loadContract() {
-  console.log(contractAPI);
-  const TotalMakersCount = await contractAPI.methods
-    .getTotalMakersCount()
-    .call();
-  console.log(TotalMakersCount);
-}
-
 loadUser();
 loadWallet();
-loadContract();
 
 const App = () => (
   <>

@@ -83,7 +83,7 @@ const ProductCard = ({
   title,
   description,
   photo = "https://source.unsplash.com/random/720x500",
-  // count,
+  count,
   targetCount,
   user,
   _id = "5e9c790b3d3ec23556c4ee84",
@@ -96,7 +96,7 @@ const ProductCard = ({
       <InfoContainer>
         <ProductName>{title}</ProductName>
         <ProductDesc>{description}</ProductDesc>
-        <ProgressBar /* count={count} */ targetCount={targetCount} />
+        <ProgressBar count={count} targetCount={targetCount} />
       </InfoContainer>
     </Wrapper>
   </Link>

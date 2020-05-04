@@ -5,6 +5,7 @@ import { startLoading, finishLoading } from "./loading";
 import { createRequestActionTypes } from "lib/createRequestSaga";
 import { takeLatest, put, call, select } from "redux-saga/effects";
 import { feedParser } from "utils/misc";
+import { writeTx } from "./tx";
 // import ui from "utils/ui";
 
 const [
@@ -66,6 +67,20 @@ export const uploadMakersSaga = () => {
         payload: receipt,
       });
 
+      yield put(
+        writeTx({
+          type: receipt.type,
+          blockNumber: receipt.blockNumber,
+          blockHash: receipt.blockHash,
+          from: receipt.from,
+          to: receipt.to,
+          gas: receipt.gas,
+          gasPrice: receipt.gasPrice,
+          gasUsed: receipt.gasUsed,
+          transactionHash: receipt.transactionHash,
+        }),
+      );
+
       const makersId = receipt.events.MakersCreated.returnValues[0];
       yield put(updateFeed(makersId));
 
@@ -120,7 +135,7 @@ const setFeedSaga = () => {
         return [];
       }
 
-      const feed = feedParser(totalMakers);
+      const feed = feedParser(totalMakers).reverse();
 
       yield put({
         type: SET_FEED_SUCCESS,

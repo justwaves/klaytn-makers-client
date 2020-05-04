@@ -13,6 +13,7 @@ import wallet, { walletSaga } from "redux/modules/wallet";
 import makers, { makersSaga } from "redux/modules/makers";
 import filter, { filterSaga } from "redux/modules/filter";
 import order, { orderSaga } from "redux/modules/order";
+import tx, { txSaga } from "redux/modules/tx";
 import ui from "redux/modules/ui";
 
 const env = process.env.NODE_ENV;
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   makers,
   filter,
   order,
+  tx,
 });
 
 export function* rootSaga() {
@@ -42,6 +44,7 @@ export function* rootSaga() {
     makersSaga(),
     filterSaga(),
     orderSaga(),
+    txSaga(),
   ]);
 }
 

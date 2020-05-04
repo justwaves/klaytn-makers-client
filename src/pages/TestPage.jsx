@@ -6,6 +6,7 @@ import Button from "components/Common/Button";
 import caver from "klaytn/caver";
 import WalletLink from "components/Wallet/WalletLink";
 import { setFeed, uploadMakers } from "redux/modules/makers";
+import { writeTx } from "redux/modules/tx";
 import { useDispatch } from "react-redux";
 import ProgressBar from "components/Progress/ProgressBar";
 import Spinner from "components/Common/Spinner";
@@ -87,7 +88,28 @@ const TestPage = () => {
       <Wrapper>
         <Header />
         <Divider />
-
+        <ButtonWrapper>
+          <Label>트랜잭션 기록</Label>
+          <Button
+            onClick={() =>
+              dispatch(
+                writeTx({
+                  type: "type1",
+                  blockNumber: 1111,
+                  blockHash: "blockHash1",
+                  from: "from1",
+                  to: "to1",
+                  gas: "gas1",
+                  gasPrice: "gasPrice1",
+                  gasUsed: 11111,
+                  transactionHash: "transactionHash1",
+                }),
+              )
+            }
+          >
+            write tx
+          </Button>
+        </ButtonWrapper>
         <Divider />
         <TabsCard>
           <TabsContainer>

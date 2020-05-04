@@ -1,11 +1,18 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { orderProduct } from "redux/modules/order";
+import { useHistory } from "react-router";
 
 import OrderButton from "./OrderButton";
 
 const OrderButtonContainer = ({ makersId, price }) => {
+  const [klaytnLoading, setKlaytnLoading] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { loading, receipt } = useSelector(({ order, loading }) => ({
+    receipt: order.receipt,
+    loading: loading["order/ORDER_PRODUCT"],
+  }));
 
   const onOrder = async () => {
     console.log("makersId: ", makersId);
@@ -16,7 +23,28 @@ const OrderButtonContainer = ({ makersId, price }) => {
     }
   };
 
-  return <OrderButton onOrder={onOrder} />;
+  useEffect(() => {
+    if (loading) {
+      if (!receipt) {
+        setKlaytnLoading(true);
+        console.log("Klaytn contract API loading...");
+      }
+
+      if (receipt) {
+        setKlaytnLoading(false);
+        alert("주문에 성공하였습니다.");
+        history.go(0);
+      }
+    }
+  }, [receipt]);
+
+  return (
+    <OrderButton
+      onOrder={onOrder}
+      loading={loading}
+      klaytnLoading={klaytnLoading}
+    />
+  );
 };
 
 export default OrderButtonContainer;

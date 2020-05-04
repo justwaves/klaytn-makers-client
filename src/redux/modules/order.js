@@ -5,6 +5,7 @@ import { startLoading, finishLoading } from "./loading";
 import { createRequestActionTypes } from "lib/createRequestSaga";
 import { takeLatest, put, call } from "redux-saga/effects";
 import caver from "klaytn/caver";
+import { feedParser } from "utils/misc";
 // import ui from "utils/ui";
 
 const [
@@ -17,7 +18,7 @@ const [
   SET_BUYER_MAKERS,
   SET_BUYER_MAKERS_SUCCESS,
   SET_BUYER_MAKERS_FAILURE,
-] = createRequestActionTypes("wallet/SET_BUYER_MAKERS");
+] = createRequestActionTypes("order/SET_BUYER_MAKERS");
 
 const orderProductSaga = () => {
   return function* (action) {
@@ -84,26 +85,12 @@ const setBuyerMakersSaga = () => {
       const BuyerMakers = yield call(
         contractAPI.methods.getBuyerMakers(address).call,
       );
-      const SellerMakers = yield call(
-        contractAPI.methods.getSellerMakers(address).call,
-      );
-      const TotalMakers = yield call(contractAPI.methods.getTotalMakers().call);
-      const MakersBuyers = yield call(
-        contractAPI.methods.getMakersBuyers(1).call,
-      );
-      const makersByMakersId = yield call(
-        contractAPI.methods.makersByMakersId(1).call,
-      );
 
-      console.log("buyers makers: ", BuyerMakers);
-      console.log("sellers makers: ", SellerMakers);
-      console.log("TotalMakers: ", TotalMakers);
-      console.log("MakersBuyers: ", MakersBuyers);
-      console.log("makersByMakersId: ", makersByMakersId);
+      const parsedMakersBuyers = feedParser(BuyerMakers);
 
       yield put({
         type: SET_BUYER_MAKERS_SUCCESS,
-        payload: BuyerMakers,
+        payload: parsedMakersBuyers,
       });
     } catch (e) {
       console.log(e);
@@ -128,6 +115,7 @@ const initialState = {
   error: null,
   receipt: null,
   feed: null,
+  buyerMakers: null,
   // makersStatus: null,
 };
 
@@ -141,9 +129,9 @@ const order = handleActions(
       ...state,
       error: e,
     }),
-    [SET_BUYER_MAKERS_SUCCESS]: (state, { payload: feed }) => ({
+    [SET_BUYER_MAKERS_SUCCESS]: (state, { payload: parsedMakersBuyers }) => ({
       ...state,
-      feed,
+      buyerMakers: parsedMakersBuyers,
     }),
     [SET_BUYER_MAKERS_FAILURE]: (state, { payload: e }) => ({
       ...state,

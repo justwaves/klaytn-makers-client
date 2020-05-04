@@ -20,13 +20,13 @@ const Grid = styled.div`
   gap: 1.5rem;
 `;
 
-const WalletViewer = ({ address, balance, logout }) => {
+const WalletViewer = ({ address, balance, logout, buyerMakers }) => {
   return (
     <ResponsiveWrapper>
       <Grid>
         <Profile />
         <WalletAccount address={address} balance={balance} logout={logout} />
-        <Orders />
+        <Orders buyerMakers={buyerMakers} />
         <TxList />
       </Grid>
     </ResponsiveWrapper>

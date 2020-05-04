@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "components/Common/Button";
 import Spinner from "components/Common/Spinner";
 
 const Wrapper = styled.button`
@@ -33,10 +32,8 @@ const Wrapper = styled.button`
   }
 `;
 
-const LoadingButton = styled(Button)`
+const LoadingButton = styled(Wrapper)`
   height: 3rem;
-  width: 10.5rem;
-  margin-right: 1.5rem;
   background: ${props => props.theme.color.gray[2]};
   border: 1px solid ${props => props.theme.color.gray[3]};
 
@@ -50,11 +47,9 @@ const LoadingButton = styled(Button)`
 const OrderButton = ({ onOrder, klaytnLoading, loading }) => {
   if (loading || klaytnLoading) {
     return (
-      <Wrapper>
-        <LoadingButton cyan>
-          <Spinner />
-        </LoadingButton>
-      </Wrapper>
+      <LoadingButton cyan>
+        <Spinner />
+      </LoadingButton>
     );
   }
 

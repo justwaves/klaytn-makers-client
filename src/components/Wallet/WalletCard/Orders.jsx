@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import moment from "moment";
 import WalletCardFrame from "./WalletCardFrame";
 import TabsThree from "components/Common/TabsThree";
 import ProgressBar from "components/Progress/ProgressBar";
@@ -83,16 +84,29 @@ const ProgressBarContainer = styled.div`
   width: 11rem;
 `;
 
-const TxItem = ({ img, title, orderDate, status, targetCount, count }) => {
+const TxItem = ({ photo, title, dDay, state, targetCount, count }) => {
+  const [status, setStatus] = useState(state);
+  const date = moment(dDay).format("YYYY-MM-DD");
+
+  useEffect(() => {
+    if (state === "0") {
+      setStatus("진행중");
+    } else if (state === "1") {
+      setStatus("펀딩 성공");
+    } else if (state === "2") {
+      setStatus("펀딩 실패");
+    }
+  }, [state]);
+
   return (
     <TxItemWrapper>
       <ItemImage>
-        <img src={img} alt="item" />
+        <img src={photo} alt="item" />
       </ItemImage>
       <ItemInfo>
         <Title>{title}</Title>
-        <Date>주문일시: {orderDate}</Date>
         <Status>진행상태: {status}</Status>
+        <Date>마감일: {date}</Date>
         <ProgressBarContainer>
           <ProgressBar
             cardView={false}
@@ -105,9 +119,9 @@ const TxItem = ({ img, title, orderDate, status, targetCount, count }) => {
   );
 };
 
-const List = ({ myOrders }) => {
-  if (!myOrders) {
-    myOrders = [
+const List = ({ buyerMakers }) => {
+  if (!buyerMakers) {
+    buyerMakers = [
       {
         img:
           "https://t1.daumcdn.net/makers_smith/file/items/100000543/masters/244daf861eb04604af90ee4cf3baed19.jpg?type=thumb&opt=C640x448.i",
@@ -153,14 +167,14 @@ const List = ({ myOrders }) => {
 
   return (
     <ListWrapper>
-      {myOrders &&
-        myOrders.map(order => (
+      {buyerMakers &&
+        buyerMakers.map(order => (
           <TxItem
-            key={order.makersId}
-            img={order.img}
+            key={parseInt(order.timestamp) + parseInt(order.count)}
+            photo={order.photo}
             title={order.title}
-            orderDate={order.orderDate}
-            status={order.status}
+            dDay={order.dDay}
+            state={order.state}
             targetCount={order.targetCount}
             count={order.count}
           />
@@ -169,18 +183,30 @@ const List = ({ myOrders }) => {
   );
 };
 
-const Orders = () => (
-  <Wrapper title="투자한 상품" more="주문상세보기">
-    <TabsThree
-      firstTabTitle="전체"
-      secondTabTitle="진행중"
-      thirdTabTitle="완료"
-      firstContent={<List />}
-      secondContent={<List />}
-      thirdContent={<List />}
-    />
-    <More>더보기</More>
-  </Wrapper>
-);
+const Orders = ({ buyerMakers }) => {
+  const [inProgressMakers, setInProgressMakers] = useState(buyerMakers);
+  const [finisedMakers, setFinisedMakers] = useState(buyerMakers);
+
+  useEffect(() => {
+    const list = buyerMakers.filter(makers => makers.state !== "0");
+    setFinisedMakers(list);
+    const progressList = buyerMakers.filter(makers => makers.state === "0");
+    setInProgressMakers(progressList);
+  }, [buyerMakers]);
+
+  return (
+    <Wrapper title="투자한 상품" more="주문상세보기">
+      <TabsThree
+        firstTabTitle="전체"
+        secondTabTitle="진행중"
+        thirdTabTitle="완료"
+        firstContent={<List buyerMakers={buyerMakers} />}
+        secondContent={<List buyerMakers={inProgressMakers} />}
+        thirdContent={<List buyerMakers={finisedMakers} />}
+      />
+      <More>더보기</More>
+    </Wrapper>
+  );
+};
 
 export default Orders;

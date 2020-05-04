@@ -44,7 +44,7 @@ const combineListSaga = () => {
               title: post.title,
               body: post.body,
               user: post.user,
-              tokenId: makers.tokenId,
+              makersId: makers.makersId,
               description: post.description,
               photo: post.photo,
               price: post.price,
@@ -52,8 +52,8 @@ const combineListSaga = () => {
               dDay: post.dDay,
               publishedDate: post.publishedDate,
               timestamp: makers.timestamp,
-              buyers: makers.buyers,
               count: makers.count,
+              state: makers.state,
             };
 
             newArray.push(newPost);
@@ -89,7 +89,7 @@ const combineProductSaga = () => {
       title: post.title,
       body: post.body,
       user: post.user,
-      tokenId: makers[0].tokenId,
+      makersId: makers[0].makersId,
       description: post.description,
       photo: post.photo,
       price: post.price,
@@ -99,6 +99,7 @@ const combineProductSaga = () => {
       timestamp: makers[0].timestamp,
       seller: makers[0].seller,
       count: makers[0].count,
+      state: makers[0].state,
     };
 
     yield put({

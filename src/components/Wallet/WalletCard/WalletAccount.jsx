@@ -104,6 +104,8 @@ const WalletAccount = ({ address, balance, logout }) => {
   if (balance) {
     balance = balance.slice(0, 7);
   }
+  const won = parseInt(balance) * 98;
+  const parsedWon = (won - (won % 10)).toLocaleString();
 
   return (
     <Wrapper title="지갑 정보" more="Klaytn wallet">
@@ -111,7 +113,7 @@ const WalletAccount = ({ address, balance, logout }) => {
         <Klay>
           {balance} <span>KLAY</span>
         </Klay>
-        <Won>₩ 200,000</Won>
+        <Won>₩ {parsedWon}</Won>
       </Balance>
       <Divider />
       <AddressContainer>

@@ -52,6 +52,7 @@ export const feedParser = feed => {
     6: "seller",
     7: "postId",
     8: "title",
+    9: "state",
   };
 
   /**

@@ -116,7 +116,7 @@ const List = ({ myOrders }) => {
         status: "진행중",
         targetCount: 16,
         count: 5,
-        tokenId: 1,
+        makersId: 1,
       },
       {
         img:
@@ -126,7 +126,7 @@ const List = ({ myOrders }) => {
         status: "진행중",
         targetCount: 45,
         count: 5,
-        tokenId: 2,
+        makersId: 2,
       },
       {
         img:
@@ -136,7 +136,7 @@ const List = ({ myOrders }) => {
         status: "완료",
         targetCount: 25,
         count: 15,
-        tokenId: 3,
+        makersId: 3,
       },
       {
         img:
@@ -146,7 +146,7 @@ const List = ({ myOrders }) => {
         status: "완료",
         targetCount: 100,
         count: 5,
-        tokenId: 4,
+        makersId: 4,
       },
     ];
   }
@@ -156,7 +156,7 @@ const List = ({ myOrders }) => {
       {myOrders &&
         myOrders.map(order => (
           <TxItem
-            key={order.tokenId}
+            key={order.makersId}
             img={order.img}
             title={order.title}
             orderDate={order.orderDate}

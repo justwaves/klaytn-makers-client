@@ -80,10 +80,14 @@ const TestPage = () => {
 
   const dispatch = useDispatch();
 
+  // const makersId = 1;
+
   return (
     <Responsive>
       <Wrapper>
         <Header />
+        <Divider />
+
         <Divider />
         <TabsCard>
           <TabsContainer>
@@ -103,10 +107,9 @@ const TestPage = () => {
                 uploadMakers({
                   postId: "postId",
                   title: "title",
-                  description: "description",
-                  price: 11,
-                  targetCount: 111,
-                  dDay: "dDay",
+                  price: 1,
+                  targetCount: 12,
+                  dDay: 1588579156,
                 }),
               )
             }

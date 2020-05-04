@@ -200,7 +200,7 @@ const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
     tags,
     title,
     body,
-    tokenId,
+    makersId,
     photo,
     price,
     targetCount,
@@ -277,7 +277,9 @@ const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
             <Dday>주문종료 {fromNow}</Dday>
           </Order>
           <Price>{price} KLAY</Price>
-          <OrderButton tokenId={tokenId}>주문하기</OrderButton>
+          <OrderButton makersId={makersId} price={price}>
+            주문하기
+          </OrderButton>
         </RightColumn>
         {actionButtons}
       </Grid>

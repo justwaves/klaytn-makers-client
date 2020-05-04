@@ -115,6 +115,7 @@ const setFeedSaga = () => {
     try {
       const totalMakers = yield call(contractAPI.methods.getTotalMakers().call);
 
+      console.log(totalMakers);
       if (!totalMakers) {
         return [];
       }
@@ -153,6 +154,8 @@ const setMakersSaga = () => {
         return;
       }
 
+      console.log(product);
+
       const feed = [];
 
       feed.push(product);
@@ -176,7 +179,7 @@ const setMakersSaga = () => {
 };
 
 export const uploadMakers = createAction(UPLOAD_MAKERS);
-export const updateFeed = createAction(UPDATE_FEED, tokenId => tokenId);
+export const updateFeed = createAction(UPDATE_FEED, makersId => makersId);
 export const setFeed = createAction(SET_FEED);
 export const setMakers = createAction(SET_MAKERS);
 export const unloadMakers = createAction(UNLOAD_MAKERS);

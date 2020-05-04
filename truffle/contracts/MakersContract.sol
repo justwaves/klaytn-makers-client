@@ -3,6 +3,8 @@ pragma experimental ABIEncoderV2;
 
 
 contract MakersContract {
+  enum State {InProgress, FundingSuccess, FundingFailure}
+
   struct Makers {
     uint256 makersId;
     uint256 price;
@@ -13,18 +15,7 @@ contract MakersContract {
     address seller;
     string postId;
     string title;
-  }
-
-  // 판매자만 접근 가능한 함수
-  modifier onlySeller(uint256 makersId) {
-    require(msg.sender == makersList[makersId].seller);
-    _;
-  }
-
-  // 구매자만 접근 가능한 함수
-  modifier onlyBuyer(uint256 makersId) {
-    require(msg.sender != makersList[makersId].seller);
-    _;
+    State state;
   }
 
   event MakersCreated(
@@ -33,31 +24,31 @@ contract MakersContract {
     uint256 targetCount,
     uint256 timestamp,
     uint256 dDay,
+    uint256 count,
     address seller,
     string postId,
-    string title
+    string title,
+    State state,
+    Makers[] sellerMakersList
   );
-
-  enum State {InProgress, FundingSuccess, FundingFailure}
 
   // 전체 makers list
   Makers[] internal makersList;
 
   // 판매자가 등록한 makers list
+  Makers[] internal sellerMakersList;
   mapping(address => Makers[]) public sellerMakers;
 
   // 구매자가 구매한 makers list
+  Makers[] internal buyerMakersList;
   mapping(address => Makers[]) public buyerMakers;
 
-  // makers를 구매한 사용자 리스트  (Makers TokenId => 사용자 주소)
+  // makers를 구매한 사용자 리스트  (Makers makersId => 사용자 주소)
   mapping(uint256 => address[]) public makersBuyers;
 
   // makersId or postId로 makers 불러오기
   mapping(uint256 => Makers) public makersByMakersId;
   mapping(string => Makers) public makersByPostId;
-
-  // maker의 state 설정
-  mapping(uint256 => State) public makersState;
 
   // makers 등록 - parameter 최대 6개까지만 가능
   function createMakers(
@@ -69,21 +60,22 @@ contract MakersContract {
   ) public {
     uint256 makersId = makersList.length + 1;
 
-    Makers memory newMakers = Makers(
-      makersId,
-      price,
-      targetCount,
-      now,
-      dDay,
-      0,
-      msg.sender,
-      postId,
-      title
-    );
+    Makers memory newMakers = Makers({
+      makersId: makersId,
+      price: price,
+      targetCount: targetCount,
+      timestamp: now,
+      dDay: dDay,
+      count: 0,
+      seller: msg.sender,
+      postId: postId,
+      title: title,
+      state: State.InProgress
+    });
 
     makersList.push(newMakers);
-    sellerMakers[msg.sender].push(newMakers);
-    makersState[makersId] = State.InProgress;
+    sellerMakersList.push(newMakers);
+    sellerMakers[msg.sender] = sellerMakersList;
     makersByMakersId[makersId] = newMakers;
     makersByPostId[postId] = newMakers;
 
@@ -91,11 +83,14 @@ contract MakersContract {
       makersId,
       price,
       targetCount,
+      0,
       now,
       dDay,
       msg.sender,
       postId,
-      title
+      title,
+      State.InProgress,
+      sellerMakersList
     );
   }
 
@@ -103,12 +98,16 @@ contract MakersContract {
     return makersList;
   }
 
-  function getSellerMakers() public view returns (Makers[] memory) {
-    return sellerMakers[msg.sender];
+  function getSellerMakers(address seller)
+    public
+    view
+    returns (Makers[] memory)
+  {
+    return sellerMakers[seller];
   }
 
-  function getBuyerMakers() public view returns (Makers[] memory) {
-    return buyerMakers[msg.sender];
+  function getBuyerMakers(address buyer) public view returns (Makers[] memory) {
+    return buyerMakers[buyer];
   }
 
   function getMakersByMakersId(uint256 makersId)
@@ -133,9 +132,5 @@ contract MakersContract {
     returns (address[] memory)
   {
     return makersBuyers[makersId];
-  }
-
-  function getMakersState(uint256 makersId) public view returns (State) {
-    return makersState[makersId];
   }
 }

@@ -210,8 +210,6 @@ const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
     // status,
   } = combinedProduct;
 
-  console.log(combinedProduct);
-
   moment.updateLocale("en", {
     relativeTime: {
       future: "%s 남음",

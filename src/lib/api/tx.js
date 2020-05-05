@@ -1,4 +1,3 @@
-import qs from "qs";
 import apiClient from "./apiClient";
 
 export const writeTx = ({
@@ -11,6 +10,9 @@ export const writeTx = ({
   gasPrice,
   gasUsed,
   transactionHash,
+  typeName,
+  klay,
+  TxFee,
 }) =>
   apiClient.post("/api/tx", {
     type,
@@ -22,12 +24,9 @@ export const writeTx = ({
     gasPrice,
     gasUsed,
     transactionHash,
+    typeName,
+    klay,
+    TxFee,
   });
 
-export const listTx = ({ username }) => {
-  const queryString = qs.stringify({
-    username,
-  });
-
-  return apiClient.get(`/api/tx?${queryString}`);
-};
+export const listTx = ({ username }) => apiClient.get("/api/tx", { username });

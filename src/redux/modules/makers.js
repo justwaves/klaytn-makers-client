@@ -5,6 +5,7 @@ import { startLoading, finishLoading } from "./loading";
 import { createRequestActionTypes } from "lib/createRequestSaga";
 import { takeLatest, put, call, select } from "redux-saga/effects";
 import { feedParser } from "utils/misc";
+import caver from "klaytn/caver";
 import { writeTx } from "./tx";
 // import ui from "utils/ui";
 
@@ -50,7 +51,7 @@ export const uploadMakersSaga = () => {
         ).send,
         {
           from: getWallet().address,
-          gas: "2000000",
+          gas: "3000000",
         },
       );
 
@@ -67,6 +68,9 @@ export const uploadMakersSaga = () => {
         payload: receipt,
       });
 
+      const gasPriceToKlay = yield call(caver.utils.fromPeb, receipt.gasPrice);
+      const TxFee = gasPriceToKlay * receipt.gasUsed;
+
       yield put(
         writeTx({
           type: receipt.type,
@@ -78,6 +82,9 @@ export const uploadMakersSaga = () => {
           gasPrice: receipt.gasPrice,
           gasUsed: receipt.gasUsed,
           transactionHash: receipt.transactionHash,
+          typeName: "상품 등록",
+          klay: 0,
+          TxFee: TxFee * -1,
         }),
       );
 
@@ -130,7 +137,6 @@ const setFeedSaga = () => {
     try {
       const totalMakers = yield call(contractAPI.methods.getTotalMakers().call);
 
-      console.log(totalMakers);
       if (!totalMakers) {
         return [];
       }

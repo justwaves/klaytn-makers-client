@@ -33,7 +33,7 @@ const OrderButtonContainer = ({ makersId, price }) => {
       if (receipt) {
         setKlaytnLoading(false);
         alert("주문에 성공하였습니다.");
-        history.go(0);
+        // history.go(0);
       }
     }
   }, [receipt, history, loading]);

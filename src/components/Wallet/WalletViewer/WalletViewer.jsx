@@ -20,7 +20,15 @@ const Grid = styled.div`
   gap: 1.5rem;
 `;
 
-const WalletViewer = ({ address, balance, logout, buyerMakers, loading }) => {
+const WalletViewer = ({
+  address,
+  balance,
+  logout,
+  buyerMakers,
+  loading,
+  username,
+  txList,
+}) => {
   const [inProgressMakers, setInProgressMakers] = useState(buyerMakers);
   const [finisedMakers, setFinisedMakers] = useState(buyerMakers);
 
@@ -31,12 +39,15 @@ const WalletViewer = ({ address, balance, logout, buyerMakers, loading }) => {
     setInProgressMakers(progressList);
   }, [buyerMakers]);
 
+  console.log(txList);
+
   return (
     <ResponsiveWrapper>
       <Grid>
         <Profile
           inProgressMakersCount={inProgressMakers.length}
           finisedMakersCount={finisedMakers.length}
+          username={username}
         />
         <WalletAccount address={address} balance={balance} logout={logout} />
         <Orders

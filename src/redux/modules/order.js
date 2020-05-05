@@ -6,6 +6,7 @@ import { createRequestActionTypes } from "lib/createRequestSaga";
 import { takeLatest, put, call } from "redux-saga/effects";
 import caver from "klaytn/caver";
 import { feedParser } from "utils/misc";
+import { writeTx } from "./tx";
 // import ui from "utils/ui";
 
 const [
@@ -56,6 +57,26 @@ const orderProductSaga = () => {
           receipt:
         `,
         receipt,
+      );
+
+      const gasPriceToKlay = yield call(caver.utils.fromPeb, receipt.gasPrice);
+      const TxFee = gasPriceToKlay * receipt.gasUsed;
+
+      yield put(
+        writeTx({
+          type: receipt.type,
+          blockNumber: receipt.blockNumber,
+          blockHash: receipt.blockHash,
+          from: receipt.from,
+          to: receipt.to,
+          gas: receipt.gas,
+          gasPrice: receipt.gasPrice,
+          gasUsed: receipt.gasUsed,
+          transactionHash: receipt.transactionHash,
+          typeName: "상품 구매",
+          klay: price * -1,
+          TxFee: TxFee * -1,
+        }),
       );
 
       yield put({

@@ -85,10 +85,13 @@ const TestPage = () => {
 
   // const makersId = 1;
 
+  const klay = caver.utils.fromPeb(0x5d21dba00);
+
   return (
     <Responsive>
       <Wrapper>
         <Header />
+        {klay}
         <Divider />
         <Copy></Copy>
         <Divider />

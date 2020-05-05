@@ -143,14 +143,14 @@ const ButtonText = styled.p`
   font-weight: 500;
 `;
 
-const Profile = ({ inProgressMakersCount, finisedMakersCount }) => {
+const Profile = ({ inProgressMakersCount, finisedMakersCount, username }) => {
   return (
     <Wrapper title="내 정보" more="내 정보 관리">
       <TopContent>
         <AvatarWrapper>
           <Avatar />
         </AvatarWrapper>
-        <Username>username</Username>
+        <Username>{username}</Username>
       </TopContent>
       <Layer />
       <DownContent>

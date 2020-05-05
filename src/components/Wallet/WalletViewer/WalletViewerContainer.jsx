@@ -9,21 +9,30 @@ import { listPosts } from "redux/modules/posts";
 import caver from "klaytn/caver";
 import { combineList } from "redux/modules/filter";
 import WalletViewer from "./WalletViewer";
+import { setTxList } from "redux/modules/tx";
 
 const WalletViewerContainer = () => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { address, buyerMakers, posts, combinedList, loading } = useSelector(
-    ({ posts, loading, filter, wallet, order }) => ({
-      address: wallet.address,
-      buyerMakers: order.buyerMakers,
-      posts: posts.posts,
-      combinedList: filter.combinedList,
-      loading: loading["posts/LIST_POSTS"],
-    }),
-  );
+  const {
+    address,
+    buyerMakers,
+    posts,
+    combinedList,
+    loading,
+    username,
+    txList,
+  } = useSelector(({ posts, loading, filter, wallet, order, user, tx }) => ({
+    address: wallet.address,
+    buyerMakers: order.buyerMakers,
+    posts: posts.posts,
+    combinedList: filter.combinedList,
+    loading: loading["posts/LIST_POSTS"],
+    username: user.user.username,
+    txList: tx.txList,
+  }));
 
   const logout = () => {
     dispatch(walletLogout());
@@ -43,6 +52,7 @@ const WalletViewerContainer = () => {
       ignoreQueryPrefix: true,
     });
     dispatch(listPosts({ tag, username, page }));
+    dispatch(setTxList({ username }));
   }, [dispatch, location.search]);
 
   useEffect(() => {
@@ -63,6 +73,8 @@ const WalletViewerContainer = () => {
       logout={logout}
       buyerMakers={combinedList}
       loading={loading}
+      username={username}
+      txList={txList}
     />
   );
 };

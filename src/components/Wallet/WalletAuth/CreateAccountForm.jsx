@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import caver from "klaytn/caver";
-import { Copy } from "components/Common/Icons";
+import Copy from "components/Common/Copy";
 import Button from "components/Common/Button";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Tooltip from "@material-ui/core/Tooltip";
-import { createMuiTheme, withStyles } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
 
 const Views = styled.div`
   margin-top: 4rem;
@@ -41,7 +36,7 @@ const SigninInput = styled.input`
   flex: 1;
   border: 0;
   margin-right: 0.5rem;
-  font-size: 0.875rem;
+  font-size: 13px;
 
   &::placeholder {
     color: ${props => props.theme.color.gray[5]};
@@ -59,10 +54,10 @@ const AccessButton = styled(Button)`
   }
 `;
 
-const CopyButton = styled.div``;
-const CopyContainer = styled.span`
-  cursor: pointer;
+const CopyButton = styled.div`
+  margin-right: 0.5rem;
 `;
+
 const CreateAccountForm = () => {
   const [privateKey, setPrivateKey] = useState(null);
 
@@ -71,73 +66,23 @@ const CreateAccountForm = () => {
     setPrivateKey(privateKey);
   };
 
-  const theme = createMuiTheme({
-    palette: {
-      primary: { main: "#ffffff" },
-      secondary: { main: "#17202E" },
-    },
-    typography: {
-      fontSize: 18,
-    },
-  });
-
-  const LightTooltip = withStyles(theme => ({
-    tooltip: {
-      backgroundColor: theme.palette.common.white,
-      color: "rgba(0, 0, 0, 0.87)",
-      boxShadow: theme.shadows[1],
-      fontSize: 11,
-    },
-  }))(Tooltip);
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleTooltipClose = () => {
-    setOpen(false);
-  };
-
-  const handleTooltipOpen = () => {
-    setOpen(true);
-  };
-
   return (
-    <ThemeProvider theme={theme}>
-      <Views>
-        <Label>Please Save Your Klaytn Wallet Private Key</Label>
-        <InputBox>
-          <CopyButton>
-            <ClickAwayListener onClickAway={handleTooltipClose}>
-              <LightTooltip
-                placement="right"
-                PopperProps={{
-                  disablePortal: true,
-                }}
-                onClose={handleTooltipClose}
-                open={open}
-                disableFocusListener
-                disableHoverListener
-                disableTouchListener
-                title="Copied!"
-              >
-                <CopyToClipboard text={privateKey}>
-                  <CopyContainer onClick={handleTooltipOpen}>
-                    <Copy />
-                  </CopyContainer>
-                </CopyToClipboard>
-              </LightTooltip>
-            </ClickAwayListener>
-          </CopyButton>
-          <SigninInput
-            placeholder="New Klaytn Private Key"
-            value={privateKey || ""}
-            readOnly
-          />
-        </InputBox>
-        <AccessButton onClick={generatePrivateKey}>
-          Generate Private Key
-        </AccessButton>
-      </Views>
-    </ThemeProvider>
+    <Views>
+      <Label>Please Save Your Klaytn Wallet Private Key</Label>
+      <InputBox>
+        <SigninInput
+          placeholder="New Klaytn Private Key"
+          value={privateKey || ""}
+          readOnly
+        />
+        <CopyButton>
+          <Copy text={privateKey} />
+        </CopyButton>
+      </InputBox>
+      <AccessButton onClick={generatePrivateKey}>
+        Generate Private Key
+      </AccessButton>
+    </Views>
   );
 };
 

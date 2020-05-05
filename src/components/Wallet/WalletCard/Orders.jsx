@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import moment from "moment";
+import { useHistory } from "react-router";
 import WalletCardFrame from "./WalletCardFrame";
 import TabsThree from "components/Common/TabsThree";
 import ProgressBar from "components/Progress/ProgressBar";
+import Spinner from "components/Common/Spinner";
 
 const Wrapper = styled(WalletCardFrame)`
   min-height: 500px;
@@ -21,6 +23,13 @@ const More = styled.div`
 
 const ListWrapper = styled.div`
   margin-top: 0.75rem;
+
+  span {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+  }
 `;
 
 const TxItemWrapper = styled.div`
@@ -33,9 +42,11 @@ const TxItemWrapper = styled.div`
   margin: 0 0.125rem;
   display: flex;
   align-items: center;
+  transition: all 0.3s;
 
   &:hover {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+    /* transform: translateY(-0.125rem); */
   }
   & + & {
     margin-top: 0.5rem;
@@ -70,12 +81,14 @@ const ItemInfo = styled.div`
 const Title = styled.div`
   color: ${props => props.theme.color.primary[4]};
   font-size: 0.875rem;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
 `;
-const Date = styled.div`
+
+const Status = styled.div`
   margin-top: 0.75rem;
 `;
-const Status = styled.div`
+
+const Date = styled.div`
   margin-top: 0.5rem;
 `;
 
@@ -84,9 +97,23 @@ const ProgressBarContainer = styled.div`
   width: 11rem;
 `;
 
-const TxItem = ({ photo, title, dDay, state, targetCount, count }) => {
+const TxItem = ({
+  photo,
+  title,
+  dDay,
+  state,
+  targetCount,
+  count,
+  postId,
+  username,
+}) => {
   const [status, setStatus] = useState(state);
   const date = moment(dDay).format("YYYY-MM-DD");
+  const history = useHistory();
+
+  const onClick = () => {
+    history.push(`/@${username}/${postId}`);
+  };
 
   useEffect(() => {
     if (state === "0") {
@@ -99,7 +126,7 @@ const TxItem = ({ photo, title, dDay, state, targetCount, count }) => {
   }, [state]);
 
   return (
-    <TxItemWrapper>
+    <TxItemWrapper onClick={onClick}>
       <ItemImage>
         <img src={photo} alt="item" />
       </ItemImage>
@@ -119,50 +146,23 @@ const TxItem = ({ photo, title, dDay, state, targetCount, count }) => {
   );
 };
 
-const List = ({ buyerMakers }) => {
-  if (!buyerMakers) {
-    buyerMakers = [
-      {
-        img:
-          "https://t1.daumcdn.net/makers_smith/file/items/100000543/masters/244daf861eb04604af90ee4cf3baed19.jpg?type=thumb&opt=C640x448.i",
-        title: "탄력 회복, 먹는 콜라겐",
-        orderDate: "2020.00.00",
-        status: "진행중",
-        targetCount: 16,
-        count: 5,
-        makersId: 1,
-      },
-      {
-        img:
-          "https://t1.daumcdn.net/makers_smith/file/items/100001551/masters/d516a56c87b44ffdad82266fc44f3594.jpg?type=thumb&opt=C640x448.i",
-        title: "파운데이션",
-        orderDate: "2020.00.00",
-        status: "진행중",
-        targetCount: 45,
-        count: 5,
-        makersId: 2,
-      },
-      {
-        img:
-          "https://t1.daumcdn.net/makers_smith/file/items/100001584/masters/432fc071093f4fdf99ef194e776562af.jpg?type=thumb&opt=C640x448.i",
-        title: "박순애 명인의 옛 과자",
-        orderDate: "2020.00.00",
-        status: "완료",
-        targetCount: 25,
-        count: 15,
-        makersId: 3,
-      },
-      {
-        img:
-          "https://t1.daumcdn.net/makers_smith/file/items/100001580/masters/0eb68955c62b486aa2e0873223fd5d65.jpg?type=thumb&opt=C640x448.i",
-        title: "악마의 잼",
-        orderDate: "2020.00.00",
-        status: "완료",
-        targetCount: 100,
-        count: 5,
-        makersId: 4,
-      },
-    ];
+const List = ({ buyerMakers, loading }) => {
+  if (loading) {
+    return (
+      <ListWrapper>
+        <span>
+          <Spinner />
+        </span>
+      </ListWrapper>
+    );
+  }
+
+  if (buyerMakers.length === 0) {
+    return (
+      <ListWrapper>
+        <span>상품이 없습니다.</span>
+      </ListWrapper>
+    );
   }
 
   return (
@@ -177,30 +177,22 @@ const List = ({ buyerMakers }) => {
             state={order.state}
             targetCount={order.targetCount}
             count={order.count}
+            postId={order._id}
+            username={order.user.username}
           />
         ))}
     </ListWrapper>
   );
 };
 
-const Orders = ({ buyerMakers }) => {
-  const [inProgressMakers, setInProgressMakers] = useState(buyerMakers);
-  const [finisedMakers, setFinisedMakers] = useState(buyerMakers);
-
-  useEffect(() => {
-    const list = buyerMakers.filter(makers => makers.state !== "0");
-    setFinisedMakers(list);
-    const progressList = buyerMakers.filter(makers => makers.state === "0");
-    setInProgressMakers(progressList);
-  }, [buyerMakers]);
-
+const Orders = ({ buyerMakers, inProgressMakers, finisedMakers, loading }) => {
   return (
     <Wrapper title="투자한 상품" more="주문상세보기">
       <TabsThree
         firstTabTitle="전체"
         secondTabTitle="진행중"
         thirdTabTitle="완료"
-        firstContent={<List buyerMakers={buyerMakers} />}
+        firstContent={<List buyerMakers={buyerMakers} loading={loading} />}
         secondContent={<List buyerMakers={inProgressMakers} />}
         thirdContent={<List buyerMakers={finisedMakers} />}
       />

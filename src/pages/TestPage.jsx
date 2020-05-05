@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import ProgressBar from "components/Progress/ProgressBar";
 import Spinner from "components/Common/Spinner";
 import TabsThree from "components/Common/TabsThree";
+// import { Copy } from "components/Common/Icons";
+import Copy from "components/Common/Copy";
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -87,6 +89,8 @@ const TestPage = () => {
     <Responsive>
       <Wrapper>
         <Header />
+        <Divider />
+        <Copy></Copy>
         <Divider />
         <ButtonWrapper>
           <Label>트랜잭션 기록</Label>

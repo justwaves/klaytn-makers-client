@@ -38,4 +38,8 @@ export default createGlobalStyle`
   input:focus{
     outline:none;
   }
+
+  button:focus {
+    outline: 0;
+  }
 `;

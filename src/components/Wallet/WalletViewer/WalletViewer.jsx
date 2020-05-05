@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import WalletAccount from "components/Wallet/WalletCard/WalletAccount";
 import Profile from "components/Wallet/WalletCard/Profile";
@@ -20,13 +20,31 @@ const Grid = styled.div`
   gap: 1.5rem;
 `;
 
-const WalletViewer = ({ address, balance, logout, buyerMakers }) => {
+const WalletViewer = ({ address, balance, logout, buyerMakers, loading }) => {
+  const [inProgressMakers, setInProgressMakers] = useState(buyerMakers);
+  const [finisedMakers, setFinisedMakers] = useState(buyerMakers);
+
+  useEffect(() => {
+    const list = buyerMakers.filter(makers => makers.state !== "0");
+    setFinisedMakers(list);
+    const progressList = buyerMakers.filter(makers => makers.state === "0");
+    setInProgressMakers(progressList);
+  }, [buyerMakers]);
+
   return (
     <ResponsiveWrapper>
       <Grid>
-        <Profile />
+        <Profile
+          inProgressMakersCount={inProgressMakers.length}
+          finisedMakersCount={finisedMakers.length}
+        />
         <WalletAccount address={address} balance={balance} logout={logout} />
-        <Orders buyerMakers={buyerMakers} />
+        <Orders
+          buyerMakers={buyerMakers}
+          inProgressMakers={inProgressMakers}
+          finisedMakers={finisedMakers}
+          loading={loading}
+        />
         <TxList />
       </Grid>
     </ResponsiveWrapper>

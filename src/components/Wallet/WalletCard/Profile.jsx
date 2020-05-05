@@ -143,7 +143,7 @@ const ButtonText = styled.p`
   font-weight: 500;
 `;
 
-const Profile = () => {
+const Profile = ({ inProgressMakersCount, finisedMakersCount }) => {
   return (
     <Wrapper title="내 정보" more="내 정보 관리">
       <TopContent>
@@ -156,14 +156,14 @@ const Profile = () => {
       <DownContent>
         <OrderProgress>
           <OrderBox>
-            <OrderCount>0</OrderCount>
+            <OrderCount>{inProgressMakersCount}</OrderCount>
             <OrderText>펀딩진행중</OrderText>
           </OrderBox>
           <RightArrowWrapper>
             <RightArrow />
           </RightArrowWrapper>
           <OrderBox>
-            <OrderCount>0</OrderCount>
+            <OrderCount>{finisedMakersCount}</OrderCount>
             <OrderText>펀딩완료</OrderText>
           </OrderBox>
           <RightArrowWrapper>

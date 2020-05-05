@@ -53,7 +53,7 @@ const LeftContent = styled.div`
   ${props =>
     props.tabKey === "2" &&
     css`
-      transform: translateX(-100%);
+      transform: translateX(-120%);
     `}
 `;
 
@@ -66,7 +66,7 @@ const RightContent = styled.div`
   ${props =>
     props.tabKey === "1" &&
     css`
-      transform: translateX(100%);
+      transform: translateX(120%);
     `}
 `;
 

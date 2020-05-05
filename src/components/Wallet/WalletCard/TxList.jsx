@@ -4,7 +4,7 @@ import WalletCardFrame from "./WalletCardFrame";
 import TabsThree from "components/Common/TabsThree";
 import { Purchase, /* Refund, */ Reward } from "components/Common/Icons";
 
-const Wrapper = styled(WalletCardFrame)`
+const StyledWalletCardFrame = styled(WalletCardFrame)`
   min-height: 400px;
 `;
 
@@ -91,6 +91,7 @@ const TxKlay = styled.div`
       color: #ea5f76;
     `}
 `;
+
 // Purchase  Refund  Reward
 const TxItem = ({ title, date, klay, red }) => {
   return (
@@ -138,6 +139,20 @@ const List = ({ txList }) => {
         klay: "- 6.1231",
         red: true,
       },
+      {
+        id: 4,
+        title: "상품 구매",
+        date: "2020.04.28 12:00",
+        klay: "- 6.1231",
+        red: true,
+      },
+      {
+        id: 5,
+        title: "상품 구매",
+        date: "2020.04.28 12:00",
+        klay: "- 6.1231",
+        red: true,
+      },
     ];
   }
 
@@ -158,8 +173,16 @@ const List = ({ txList }) => {
 };
 
 const TxList = ({ txList }) => {
+  const openKlayscope = () => {
+    window.open("https://baobab.scope.klaytn.com/", "_blank");
+  };
+
   return (
-    <Wrapper title="트랜잭션 리스트" more="Klaytnscope">
+    <StyledWalletCardFrame
+      title="트랜잭션 리스트"
+      more="Klaytnscope"
+      onClick={openKlayscope}
+    >
       <TabsThree
         firstTabTitle="전체"
         secondTabTitle="지출"
@@ -169,7 +192,7 @@ const TxList = ({ txList }) => {
         thirdContent={<List txList={txList} />}
       />
       <More>더보기</More>
-    </Wrapper>
+    </StyledWalletCardFrame>
   );
 };
 

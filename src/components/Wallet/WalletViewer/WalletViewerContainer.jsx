@@ -52,7 +52,6 @@ const WalletViewerContainer = () => {
 
   useEffect(() => {
     if (posts && buyerMakers) {
-      console.log("===", buyerMakers);
       dispatch(combineList({ posts, feed: buyerMakers }));
     }
   }, [buyerMakers, posts, dispatch]);

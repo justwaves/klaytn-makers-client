@@ -101,7 +101,7 @@ const WriteActionButtonsContainer = () => {
     if (postError) {
       console.log(postError);
     }
-  }, [history, post, postError, dispatch]);
+  }, [history, post, postError, dispatch]); // eslint-disable-line
 
   useEffect(() => {
     if (post) {
@@ -132,7 +132,7 @@ const WriteActionButtonsContainer = () => {
       dispatch(unloadMakers());
       setKlaytnLoading(false);
     }
-  }, [makersError, dispatch]);
+  }, [makersError, dispatch]); // eslint-disable-line
 
   return (
     <WriteActionButtons

@@ -39,7 +39,7 @@ const SigninInput = styled.input`
   flex: 1;
   border: 0;
   margin-right: 0.5rem;
-  font-size: 0.875rem;
+  font-size: 13px;
 
   &::placeholder {
     color: ${props => props.theme.color.gray[5]};

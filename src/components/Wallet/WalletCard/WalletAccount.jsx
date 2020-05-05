@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import WalletCardFrame from "./WalletCardFrame";
 
 const Wrapper = styled(WalletCardFrame)`
@@ -101,14 +102,19 @@ const WalletAccount = ({ address, balance, logout }) => {
     );
   };
 
+  const openKlayWallet = () => {
+    window.open("https://baobab.wallet.klaytn.com/", "_blank");
+  };
+
   if (balance) {
     balance = balance.slice(0, 7);
   }
+
   const won = parseInt(balance) * 98;
   const parsedWon = (won - (won % 10)).toLocaleString();
 
   return (
-    <Wrapper title="지갑 정보" more="Klaytn wallet">
+    <Wrapper title="지갑 정보" more="Klaytn wallet" onClick={openKlayWallet}>
       <Balance>
         <Klay>
           {balance} <span>KLAY</span>
@@ -122,7 +128,11 @@ const WalletAccount = ({ address, balance, logout }) => {
           <Address>{address}</Address>
         </AddressBox>
         <Buttons>
-          <AddressButton>복사하기</AddressButton>
+          <CopyToClipboard text={address}>
+            <AddressButton onClick={() => alert("복사되었습니다")}>
+              복사하기
+            </AddressButton>
+          </CopyToClipboard>
           <AddressButton onClick={logout}>로그아웃</AddressButton>
         </Buttons>
       </AddressContainer>

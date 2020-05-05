@@ -36,7 +36,7 @@ const OrderButtonContainer = ({ makersId, price }) => {
         history.go(0);
       }
     }
-  }, [receipt]);
+  }, [receipt, history, loading]);
 
   return (
     <OrderButton

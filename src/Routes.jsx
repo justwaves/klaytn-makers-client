@@ -7,7 +7,6 @@ import TestPage from "pages/TestPage";
 import StorePage from "pages/StorePage";
 import DetailPage from "pages/DetailPage";
 import WalletPage from "pages/WalletPage";
-import TabPage from "pages/TabPage";
 
 const Routes = () => (
   <Switch>
@@ -20,7 +19,6 @@ const Routes = () => (
     <Route path="/store" component={StorePage} />
     <Route path="/wallet" component={WalletPage} />
     <Route path="/test" component={TestPage} />
-    <Route path="/tab" component={TabPage} />
     <Redirect from="*" to="/" />
   </Switch>
 );

@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 import Header from "components/Header/Header";
 import WalletViewerContainer from "components/Wallet/WalletViewer/WalletViewerContainer";
+import Footer from "components/Common/Footer";
 
 const WalletPage = () => {
   const history = useHistory();
@@ -20,6 +21,7 @@ const WalletPage = () => {
     <>
       <Header />
       <WalletViewerContainer username={username} />
+      <Footer />
     </>
   );
 };

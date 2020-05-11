@@ -7,6 +7,7 @@ import Spinner from "components/Common/Spinner";
 const ResponsiveWrapper = styled(Responsive)`
   padding-top: 2.25rem;
   padding-bottom: 2.25rem;
+  min-height: 100vh;
 `;
 
 const Grid = styled.div`
@@ -22,7 +23,11 @@ const ProductList = ({ combinedList, loading, error, user }) => {
   }
 
   if (loading || !combinedList) {
-    return <Spinner wrapper />;
+    return (
+      <ResponsiveWrapper>
+        <Spinner wrapper />
+      </ResponsiveWrapper>
+    );
   }
 
   return (

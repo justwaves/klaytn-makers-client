@@ -52,9 +52,10 @@ const ResponsiveHeader = styled(Responsive)`
 const Logo = styled.div`
   font-size: 1.5rem;
   letter-spacing: -1px;
+  font-weight: 400;
 
   span {
-    font-weight: 600;
+    font-weight: 700;
   }
 `;
 
@@ -177,7 +178,7 @@ const Header = () => {
             <Left>
               <Link to="/store/home">
                 <Logo>
-                  klaytn<span>Makers</span>
+                  klaytn<span>makers</span>
                 </Logo>
               </Link>
             </Left>

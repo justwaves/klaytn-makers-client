@@ -10,6 +10,7 @@ import OrderButton from "components/ProductDetail/OrderButton/OrderButtonContain
 const ResponsiveWrapper = styled(Responsive)`
   padding-top: 2.25rem;
   padding-bottom: 2.25rem;
+  min-height: 100vh;
 
   @media (max-width: 784px) {
     padding: 0 20px;
@@ -193,7 +194,11 @@ const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
   }
 
   if (loading || !combinedProduct) {
-    return <Spinner wrapper />;
+    return (
+      <ResponsiveWrapper>
+        <Spinner wrapper />
+      </ResponsiveWrapper>
+    );
   }
 
   const {

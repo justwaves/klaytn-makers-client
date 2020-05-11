@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ProgressBar from "components/Progress/ProgressBar";
 
 const Wrapper = styled.div`
-  min-height: 460px;
+  min-height: 466px;
   min-width: 360px;
   max-width: 552px;
   border-radius: 4px;

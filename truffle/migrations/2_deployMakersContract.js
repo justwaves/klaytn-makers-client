@@ -1,4 +1,4 @@
-const CONTRACT = artifacts.require("./contracts/MakersOrder.sol");
+const CONTRACT = artifacts.require("./contracts/MakersContract.sol");
 const fs = require("fs");
 
 module.exports = function (deployer) {

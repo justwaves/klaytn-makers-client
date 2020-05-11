@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
+import moment from "moment";
 import WalletCardFrame from "./WalletCardFrame";
 import TabsThree from "components/Common/TabsThree";
 import { Purchase, /* Refund, */ Reward } from "components/Common/Icons";
+import Spinner from "components/Common/Spinner";
 
 const StyledWalletCardFrame = styled(WalletCardFrame)`
   min-height: 400px;
@@ -20,6 +22,13 @@ const More = styled.div`
 
 const ListWrapper = styled.div`
   margin-top: 0.75rem;
+
+  span {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+  }
 `;
 
 const TxItemWrapper = styled.div`
@@ -78,11 +87,12 @@ const TxKlay = styled.div`
   justify-content: flex-end;
   font-weight: 600;
   color: ${props => props.theme.color.primary[0]};
-  align-items: flex-end;
+  align-items: center;
 
   span {
     font-size: 0.75rem;
     margin-left: 0.25rem;
+    margin-bottom: 0.75rem;
   }
 
   ${props =>
@@ -93,67 +103,47 @@ const TxKlay = styled.div`
 `;
 
 // Purchase  Refund  Reward
-const TxItem = ({ title, date, klay, red }) => {
+const TxItem = ({ title, date, klay, TxFee }) => {
+  const [totalKlay, setTotalKlay] = useState(0);
+  const txDate = moment(date).format("YYYY년 MM월 DD일");
+
+  useEffect(() => {
+    if (TxFee) {
+      setTotalKlay(JSON.stringify(klay + TxFee).slice(0, 7));
+    }
+  }, [TxFee, klay]);
+
   return (
     <TxItemWrapper>
-      <IconContainer>{red ? <Purchase /> : <Reward />}</IconContainer>
+      <IconContainer>{klay ? <Purchase /> : <Reward />}</IconContainer>
       <TxInfo>
         <TxTitle>{title}</TxTitle>
-        <TxDate>{date}</TxDate>
+        <TxDate>{txDate}</TxDate>
       </TxInfo>
-      <TxKlay red={red}>
-        {klay} <span>KLAY</span>
+      <TxKlay red={klay}>
+        {totalKlay} <span>KLAY</span>
       </TxKlay>
     </TxItemWrapper>
   );
 };
 
-const List = ({ txList }) => {
-  if (!txList) {
-    txList = [
-      {
-        id: 1,
-        title: "상품 구매",
-        date: "2020.04.28 12:00",
-        klay: "- 12.1231",
-        red: true,
-      },
-      {
-        id: 2,
-        title: "환불",
-        date: "2020.04.28 12:00",
-        klay: "+ 8.1231",
-        red: false,
-      },
-      {
-        id: 3,
-        title: "보상",
-        date: "2020.04.28 12:00",
-        klay: "+ 2.1231",
-        red: false,
-      },
-      {
-        id: 4,
-        title: "상품 구매",
-        date: "2020.04.28 12:00",
-        klay: "- 6.1231",
-        red: true,
-      },
-      {
-        id: 4,
-        title: "상품 구매",
-        date: "2020.04.28 12:00",
-        klay: "- 6.1231",
-        red: true,
-      },
-      {
-        id: 5,
-        title: "상품 구매",
-        date: "2020.04.28 12:00",
-        klay: "- 6.1231",
-        red: true,
-      },
-    ];
+const List = ({ txList, txListLoading }) => {
+  if (txListLoading) {
+    return (
+      <ListWrapper>
+        <span>
+          <Spinner />
+        </span>
+      </ListWrapper>
+    );
+  }
+
+  if (txList && txList.length === 0) {
+    return (
+      <ListWrapper>
+        <span>상품이 없습니다.</span>
+      </ListWrapper>
+    );
   }
 
   return (
@@ -162,20 +152,32 @@ const List = ({ txList }) => {
         txList.map(tx => (
           <TxItem
             key={tx.id}
-            title={tx.title}
-            date={tx.date}
+            title={tx.typeName}
+            date={tx.publishedDate}
             klay={tx.klay}
-            red={tx.red}
+            TxFee={tx.TxFee}
           />
         ))}
     </ListWrapper>
   );
 };
 
-const TxList = ({ txList }) => {
+const TxList = ({ txList, txListLoading }) => {
+  const [minusTxList, setMinusTxlist] = useState(null);
+  const [plusTxList, setPlusTxlist] = useState(null);
+
   const openKlayscope = () => {
     window.open("https://baobab.scope.klaytn.com/", "_blank");
   };
+
+  useEffect(() => {
+    if (txList) {
+      const plusList = txList.filter(tx => tx.klay > 0);
+      setPlusTxlist(plusList);
+      const minusList = txList.filter(tx => tx.klay < 0);
+      setMinusTxlist(minusList);
+    }
+  }, [txList]);
 
   return (
     <StyledWalletCardFrame
@@ -187,9 +189,9 @@ const TxList = ({ txList }) => {
         firstTabTitle="전체"
         secondTabTitle="지출"
         thirdTabTitle="수입"
-        firstContent={<List txList={txList} />}
-        secondContent={<List txList={txList} />}
-        thirdContent={<List txList={txList} />}
+        firstContent={<List txList={txList} txListLoading={txListLoading} />}
+        secondContent={<List txList={minusTxList} />}
+        thirdContent={<List txList={plusTxList} />}
       />
       <More>더보기</More>
     </StyledWalletCardFrame>

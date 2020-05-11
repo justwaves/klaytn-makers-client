@@ -6,8 +6,9 @@ import WalletViewerContainer from "components/Wallet/WalletViewer/WalletViewerCo
 
 const WalletPage = () => {
   const history = useHistory();
-  const { hasWallet } = useSelector(({ wallet }) => ({
+  const { hasWallet, username } = useSelector(({ wallet, user }) => ({
     hasWallet: wallet.hasWallet,
+    username: user.user.username,
   }));
 
   if (!hasWallet) {
@@ -18,7 +19,7 @@ const WalletPage = () => {
   return (
     <>
       <Header />
-      <WalletViewerContainer />
+      <WalletViewerContainer username={username} />
     </>
   );
 };

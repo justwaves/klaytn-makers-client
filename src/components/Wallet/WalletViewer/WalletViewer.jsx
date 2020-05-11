@@ -28,9 +28,11 @@ const WalletViewer = ({
   loading,
   username,
   txList,
+  txListLoading,
 }) => {
   const [inProgressMakers, setInProgressMakers] = useState(buyerMakers);
   const [finisedMakers, setFinisedMakers] = useState(buyerMakers);
+  const [filteredTxList, setFilteredTxList] = useState(txList);
 
   useEffect(() => {
     const list = buyerMakers.filter(makers => makers.state !== "0");
@@ -39,7 +41,19 @@ const WalletViewer = ({
     setInProgressMakers(progressList);
   }, [buyerMakers]);
 
-  console.log(txList);
+  const txListFilter = txList => {
+    let newList = [];
+    txList.map(({ _doc }) => {
+      newList.push(_doc);
+    });
+    setFilteredTxList(newList);
+  };
+
+  useEffect(() => {
+    if (txList) {
+      txListFilter(txList);
+    }
+  }, [txList]);
 
   return (
     <ResponsiveWrapper>
@@ -56,7 +70,7 @@ const WalletViewer = ({
           finisedMakers={finisedMakers}
           loading={loading}
         />
-        <TxList />
+        <TxList txList={filteredTxList} txListLoading={txListLoading} />
       </Grid>
     </ResponsiveWrapper>
   );

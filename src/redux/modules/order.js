@@ -42,18 +42,15 @@ const orderProductSaga = () => {
         contractAPI.methods.orderMakers(parseInt(makersId)).send,
         {
           from: address,
-          gas: "2000000",
+          gas: "3000000",
           value: caver.utils.toPeb(price.toString(), "KLAY"),
         },
       );
 
-      const event = receipt.events.MakersOrdered.returnValues;
-
-      console.log("event: ", event);
+      // const event = receipt.events.MakersOrdered.returnValues;
 
       console.log(
         `
-          Received receipt!
           receipt:
         `,
         receipt,

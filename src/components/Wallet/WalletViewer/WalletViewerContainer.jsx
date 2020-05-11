@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import qs from "qs";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -11,7 +10,7 @@ import { combineList } from "redux/modules/filter";
 import WalletViewer from "./WalletViewer";
 import { setTxList } from "redux/modules/tx";
 
-const WalletViewerContainer = () => {
+const WalletViewerContainer = ({ username }) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -22,16 +21,16 @@ const WalletViewerContainer = () => {
     posts,
     combinedList,
     loading,
-    username,
     txList,
-  } = useSelector(({ posts, loading, filter, wallet, order, user, tx }) => ({
+    txListLoading,
+  } = useSelector(({ posts, loading, filter, wallet, order, tx }) => ({
     address: wallet.address,
     buyerMakers: order.buyerMakers,
     posts: posts.posts,
     combinedList: filter.combinedList,
     loading: loading["posts/LIST_POSTS"],
-    username: user.user.username,
     txList: tx.txList,
+    txListLoading: loading["tx/SET_TX_LIST"],
   }));
 
   const logout = () => {
@@ -48,12 +47,11 @@ const WalletViewerContainer = () => {
   };
 
   useEffect(() => {
-    const { tag, username, page } = qs.parse(location.search, {
-      ignoreQueryPrefix: true,
-    });
-    dispatch(listPosts({ tag, username, page }));
-    dispatch(setTxList({ username }));
-  }, [dispatch, location.search]);
+    if (username) {
+      dispatch(listPosts({ username }));
+      dispatch(setTxList({ username }));
+    }
+  }, [dispatch, location.search, username]);
 
   useEffect(() => {
     getBalance(address);
@@ -75,6 +73,7 @@ const WalletViewerContainer = () => {
       loading={loading}
       username={username}
       txList={txList}
+      txListLoading={txListLoading}
     />
   );
 };

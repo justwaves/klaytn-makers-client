@@ -29,4 +29,6 @@ export const writeTx = ({
     TxFee,
   });
 
-export const listTx = ({ username }) => apiClient.get("/api/tx", { username });
+export const listTx = ({ username }) => {
+  return apiClient.get(`/api/tx?username=${username}`);
+};

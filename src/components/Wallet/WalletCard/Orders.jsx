@@ -108,7 +108,7 @@ const TxItem = ({
   username,
 }) => {
   const [status, setStatus] = useState(state);
-  const date = moment(dDay).format("YYYY-MM-DD");
+  const date = moment(dDay).format("YYYY년 MM월 DD일");
   const history = useHistory();
 
   const onClick = () => {

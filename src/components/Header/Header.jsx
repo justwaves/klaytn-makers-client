@@ -189,7 +189,7 @@ const Header = () => {
             {user ? (
               <Right>
                 <KlaytnIconContainer>
-                  <WalletLink>
+                  <WalletLink username={user.username}>
                     <Klaytn /> Wallet
                   </WalletLink>
                 </KlaytnIconContainer>

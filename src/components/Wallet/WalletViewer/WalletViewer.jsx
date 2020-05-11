@@ -45,8 +45,10 @@ const WalletViewer = ({
     let newList = [];
     txList.map(({ _doc }) => {
       newList.push(_doc);
+      return null;
     });
     setFilteredTxList(newList);
+    return null;
   };
 
   useEffect(() => {

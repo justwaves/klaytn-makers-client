@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -15,6 +15,7 @@ import {
 import UserMenu from "./UserMenu";
 import WalletLink from "components/Wallet/WalletLink";
 import { Bars } from "components/Common/Icons";
+import caver from "klaytn/caver";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -157,9 +158,11 @@ const Divider = styled.span`
 `;
 
 const Header = () => {
+  const [balance, setBalance] = useState(0);
   const [openMenu, setOpenMenu] = useState(false);
-  const { user } = useSelector(({ user }) => ({
+  const { user, address } = useSelector(({ user, wallet }) => ({
     user: user.user,
+    address: wallet.address,
   }));
 
   const onMouseEnter = () => {
@@ -169,6 +172,16 @@ const Header = () => {
   const onMouseLeave = () => {
     setOpenMenu(false);
   };
+
+  const getBalance = async address => {
+    if (!address) return;
+    const result = await caver.klay.getBalance(address);
+    setBalance(caver.utils.fromWei(result, "ether"));
+  };
+
+  useEffect(() => {
+    getBalance(address);
+  }, [address]);
 
   return (
     <>
@@ -212,6 +225,7 @@ const Header = () => {
                     user={user}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
+                    balance={balance}
                   />
                 )}
               </Right>

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import Responsive from "components/Common/Responsive";
+import React, { useState, useEffect } from 'react';
+import styled, { css } from 'styled-components';
+import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Responsive from 'components/Common/Responsive';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -56,7 +56,7 @@ const NavBoder = styled.div`
 `;
 
 const Navigation = () => {
-  const [navName, setNavName] = useState("home");
+  const [navName, setNavName] = useState('home');
   const { status } = useParams();
 
   useEffect(() => {
@@ -69,22 +69,22 @@ const Navigation = () => {
         <ResponsiveNavigation>
           <NavItem>
             <Link to="/store/home">
-              <NavBoder border={navName === "home" ? 1 : 0}>홈</NavBoder>
+              <NavBoder border={navName === 'home' ? 1 : 0}>홈</NavBoder>
             </Link>
           </NavItem>
           <NavItem>
             <Link to="/store/new">
-              <NavBoder border={navName === "new" ? 1 : 0}>신규</NavBoder>
+              <NavBoder border={navName === 'new' ? 1 : 0}>신규</NavBoder>
             </Link>
           </NavItem>
           <NavItem>
             <Link to="/store/popular">
-              <NavBoder border={navName === "popular" ? 1 : 0}>인기</NavBoder>
+              <NavBoder border={navName === 'popular' ? 1 : 0}>인기</NavBoder>
             </Link>
           </NavItem>
           <NavItem>
             <Link to="/store/finished">
-              <NavBoder border={navName === "finished" ? 1 : 0}>마감</NavBoder>
+              <NavBoder border={navName === 'finished' ? 1 : 0}>마감</NavBoder>
             </Link>
           </NavItem>
         </ResponsiveNavigation>

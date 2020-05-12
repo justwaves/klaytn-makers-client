@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import qs from "qs";
-import Button from "components/Common/Button";
+import React from 'react';
+import styled from 'styled-components';
+import qs from 'qs';
+import Button from 'components/Common/Button';
 
 const Wrapper = styled.div`
   width: 20rem;

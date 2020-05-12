@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import AskRemoveModal from "./AskRemoveModal";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import AskRemoveModal from './AskRemoveModal';
 
 const Wrapper = styled.div`
   display: flex;

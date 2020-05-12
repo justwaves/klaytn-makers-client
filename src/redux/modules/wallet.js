@@ -1,20 +1,20 @@
-import caver from "klaytn/caver";
-import { createAction, handleActions } from "redux-actions";
-import { takeLatest, put } from "redux-saga/effects";
-import { createRequestActionTypes } from "lib/createRequestSaga";
-import { startLoading, finishLoading } from "./loading";
+import caver from 'klaytn/caver';
+import { createAction, handleActions } from 'redux-actions';
+import { takeLatest, put } from 'redux-saga/effects';
+import { createRequestActionTypes } from 'lib/createRequestSaga';
+import { startLoading, finishLoading } from './loading';
 
 const [
   WALLET_LOGIN,
   WALLET_LOGIN_SUCCESS,
   WALLET_LOGIN_FAILURE,
-] = createRequestActionTypes("wallet/WALLET_LOGIN");
+] = createRequestActionTypes('wallet/WALLET_LOGIN');
 
 const [
   WALLET_LOGOUT,
   WALLET_LOGOUT_SUCCESS,
   WALLET_LOGOUT_FAILURE,
-] = createRequestActionTypes("wallet/WALLET_LOGOUT");
+] = createRequestActionTypes('wallet/WALLET_LOGOUT');
 
 function integrateWallet() {
   return function* (action) {
@@ -29,7 +29,7 @@ function integrateWallet() {
       console.log(walletInstance);
       caver.klay.accounts.wallet.add(walletInstance);
 
-      sessionStorage.setItem("walletInstance", JSON.stringify(walletInstance));
+      sessionStorage.setItem('walletInstance', JSON.stringify(walletInstance));
 
       yield put({
         type: WALLET_LOGIN_SUCCESS,
@@ -50,7 +50,7 @@ function removeWallet() {
     yield put(startLoading(WALLET_LOGOUT));
     try {
       caver.klay.accounts.wallet.clear();
-      sessionStorage.removeItem("walletInstance");
+      sessionStorage.removeItem('walletInstance');
       yield put({
         type: WALLET_LOGOUT_SUCCESS,
       });
@@ -82,7 +82,7 @@ export function* walletSaga() {
 }
 
 const initialState = {
-  hasWallet: !!sessionStorage.getItem("walletInstance"),
+  hasWallet: !!sessionStorage.getItem('walletInstance'),
   privateKey: null,
   address: null,
   error: null,

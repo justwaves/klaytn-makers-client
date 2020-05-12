@@ -1,7 +1,7 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { changeField } from "redux/modules/write";
-import TagBox from "./TagBox";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeField } from 'redux/modules/write';
+import TagBox from './TagBox';
 
 export default () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ export default () => {
   const onChangeTags = nextTags => {
     dispatch(
       changeField({
-        key: "tags",
+        key: 'tags',
         value: nextTags,
       }),
     );

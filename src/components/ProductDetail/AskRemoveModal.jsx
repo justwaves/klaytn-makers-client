@@ -1,5 +1,5 @@
-import React from "react";
-import AskModal from "components/Common/AskModal";
+import React from 'react';
+import AskModal from 'components/Common/AskModal';
 
 const AskRemoveModal = ({ visible, onConfirm, onCancel }) => (
   <AskModal

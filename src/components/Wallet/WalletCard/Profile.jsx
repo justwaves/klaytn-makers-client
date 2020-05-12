@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import WalletCardFrame from "./WalletCardFrame";
-import { Avatar } from "components/Common/Icons";
+import React from 'react';
+import styled from 'styled-components';
+import WalletCardFrame from './WalletCardFrame';
+import { Avatar } from 'components/Common/Icons';
 import {
   RightArrow,
   Truck,
   HeartEmpty,
   Cupon,
   Question,
-} from "components/Common/Icons";
+} from 'components/Common/Icons';
 
 const Wrapper = styled(WalletCardFrame)`
   height: 400px;

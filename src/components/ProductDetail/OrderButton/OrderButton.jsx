@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import Spinner from "components/Common/Spinner";
+import React from 'react';
+import styled from 'styled-components';
+import Spinner from 'components/Common/Spinner';
 
 const Wrapper = styled.button`
   background-color: ${props => props.theme.color.primary[0]};

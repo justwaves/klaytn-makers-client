@@ -1,11 +1,11 @@
-import React, { useState, useCallback, useEffect } from "react";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { Lock } from "components/Common/Icons";
-import Button from "components/Common/Button";
-import { walletLogin } from "redux/modules/wallet";
-import { hideModal } from "redux/modules/ui";
+import React, { useState, useCallback, useEffect } from 'react';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { Lock } from 'components/Common/Icons';
+import Button from 'components/Common/Button';
+import { walletLogin } from 'redux/modules/wallet';
+import { hideModal } from 'redux/modules/ui';
 
 const Views = styled.div`
   margin-top: 4rem;
@@ -54,7 +54,7 @@ const AccessButton = styled(Button)`
 `;
 
 const WalletLoginForm = () => {
-  const [privateKey, setPrivateKey] = useState("");
+  const [privateKey, setPrivateKey] = useState('');
   const history = useHistory();
   const dispatch = useDispatch();
   const { hasWallet } = useSelector(({ wallet }) => ({
@@ -75,7 +75,7 @@ const WalletLoginForm = () => {
 
   useEffect(() => {
     if (hasWallet) {
-      history.push("/wallet");
+      history.push('/wallet');
       dispatch(hideModal());
     }
   }, [hasWallet, history, dispatch]);

@@ -1,23 +1,23 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "lib/createRequestSaga";
-import * as postsAPI from "lib/api/posts";
-import { takeLatest } from "redux-saga/effects";
+} from 'lib/createRequestSaga';
+import * as postsAPI from 'lib/api/posts';
+import { takeLatest } from 'redux-saga/effects';
 
-const INITIALIZE = "write/INITIALIZE";
-const CHANGE_FIELD = "write/CHANGE_FIELD";
+const INITIALIZE = 'write/INITIALIZE';
+const CHANGE_FIELD = 'write/CHANGE_FIELD';
 const [
   WRITE_POST,
   WRITE_POST_SUCCESS,
   WRITE_POST_FAILURE,
-] = createRequestActionTypes("write/WRITE_POST");
-const SET_ORIGINAL_POST = "write/SET_ORIGINAL_POST";
+] = createRequestActionTypes('write/WRITE_POST');
+const SET_ORIGINAL_POST = 'write/SET_ORIGINAL_POST';
 const [
   UPDATE_POST,
   UPDATE_POST_SUCCESS,
   UPDATE_POST_FAILURE,
-] = createRequestActionTypes("wirte/UPDATE_POST");
+] = createRequestActionTypes('wirte/UPDATE_POST');
 
 export const initialize = createAction(INITIALIZE);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
@@ -72,14 +72,14 @@ export function* writeSaga() {
 }
 
 const initialState = {
-  title: "",
-  body: "",
+  title: '',
+  body: '',
   tags: [],
-  description: "",
-  photo: "",
-  price: "",
-  targetCount: "",
-  dDay: "",
+  description: '',
+  photo: '',
+  price: '',
+  targetCount: '',
+  dDay: '',
   post: null,
   postError: null,
   originalPostId: null,

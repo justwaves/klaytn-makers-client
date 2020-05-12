@@ -1,19 +1,19 @@
-import { createAction, handleActions } from "redux-actions";
-import produce from "immer";
-import { takeLatest } from "redux-saga/effects";
+import { createAction, handleActions } from 'redux-actions';
+import produce from 'immer';
+import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "lib/createRequestSaga";
-import * as authApi from "lib/api/auth";
+} from 'lib/createRequestSaga';
+import * as authApi from 'lib/api/auth';
 
-const CHANGE_FIELD = "auth/CHANGE_FIELD";
-const INITIALIZE_FORM = "auth/INITIALIZE";
+const CHANGE_FIELD = 'auth/CHANGE_FIELD';
+const INITIALIZE_FORM = 'auth/INITIALIZE';
 
 const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE] = createRequestActionTypes(
-  "auth/SIGNUP",
+  'auth/SIGNUP',
 );
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
-  "auth/LOGIN",
+  'auth/LOGIN',
 );
 
 export const changeField = createAction(
@@ -46,13 +46,13 @@ export function* authSaga() {
 
 const initialState = {
   signup: {
-    username: "",
-    password: "",
-    passwordConfirm: "",
+    username: '',
+    password: '',
+    passwordConfirm: '',
   },
   login: {
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   },
   auth: null,
   authError: null,

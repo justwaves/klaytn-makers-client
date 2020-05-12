@@ -1,4 +1,4 @@
-import apiClient from "./apiClient";
+import apiClient from './apiClient';
 
 export const writeTx = ({
   type,
@@ -14,7 +14,7 @@ export const writeTx = ({
   klay,
   TxFee,
 }) =>
-  apiClient.post("/api/tx", {
+  apiClient.post('/api/tx', {
     type,
     blockNumber,
     blockHash,

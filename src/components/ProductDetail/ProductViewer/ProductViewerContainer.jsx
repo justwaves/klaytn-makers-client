@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useHistory } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import { readPost, unloadPost } from "redux/modules/post";
-import PostActionButtons from "components/ProductDetail/PostActionButtons";
-import { setOriginalPost } from "redux/modules/write";
-import { setMakers } from "redux/modules/makers";
-import { combineProduct } from "redux/modules/filter";
-import { removePost } from "lib/api/posts";
-import ProductViewer from "./ProductViewer";
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { readPost, unloadPost } from 'redux/modules/post';
+import PostActionButtons from 'components/ProductDetail/PostActionButtons';
+import { setOriginalPost } from 'redux/modules/write';
+import { setMakers } from 'redux/modules/makers';
+import { combineProduct } from 'redux/modules/filter';
+import { removePost } from 'lib/api/posts';
+import ProductViewer from './ProductViewer';
 
 const ProductViewerContainer = () => {
   const { postId } = useParams();
@@ -18,7 +18,7 @@ const ProductViewerContainer = () => {
     ({ post, loading, user, makers, filter }) => ({
       post: post.post,
       error: post.error,
-      loading: loading["post/READ_POST"],
+      loading: loading['post/READ_POST'],
       user: user.user,
       makers: makers.makers,
       combinedProduct: filter.combinedProduct,
@@ -42,13 +42,13 @@ const ProductViewerContainer = () => {
 
   const onEdit = () => {
     dispatch(setOriginalPost(post));
-    history.push("/write");
+    history.push('/write');
   };
 
   const onRemove = async () => {
     try {
       await removePost(postId);
-      history.push("/");
+      history.push('/');
     } catch (e) {
       console.log(e);
     }

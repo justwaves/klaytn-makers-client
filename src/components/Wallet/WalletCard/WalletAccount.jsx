@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import WalletCardFrame from "./WalletCardFrame";
+import React from 'react';
+import styled from 'styled-components';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import WalletCardFrame from './WalletCardFrame';
 
 const Wrapper = styled(WalletCardFrame)`
   height: 400px;
@@ -97,13 +97,13 @@ const AddressButton = styled.button`
 const WalletAccount = ({ address, balance, logout }) => {
   const openFaucet = () => {
     window.open(
-      "https://baobab.wallet.klaytn.com/access?next=faucet",
-      "_blank",
+      'https://baobab.wallet.klaytn.com/access?next=faucet',
+      '_blank',
     );
   };
 
   const openKlayWallet = () => {
-    window.open("https://baobab.wallet.klaytn.com/", "_blank");
+    window.open('https://baobab.wallet.klaytn.com/', '_blank');
   };
 
   if (balance) {
@@ -129,7 +129,7 @@ const WalletAccount = ({ address, balance, logout }) => {
         </AddressBox>
         <Buttons>
           <CopyToClipboard text={address}>
-            <AddressButton onClick={() => alert("복사되었습니다")}>
+            <AddressButton onClick={() => alert('복사되었습니다')}>
               복사하기
             </AddressButton>
           </CopyToClipboard>

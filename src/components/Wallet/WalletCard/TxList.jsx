@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
-import moment from "moment";
-import WalletCardFrame from "./WalletCardFrame";
-import TabsThree from "components/Common/TabsThree";
-import { Purchase, /* Refund, */ Reward } from "components/Common/Icons";
-import Spinner from "components/Common/Spinner";
-import { KLAYTN_SCOPE } from "constants/url";
+import React, { useState, useEffect } from 'react';
+import styled, { css } from 'styled-components';
+import moment from 'moment';
+import WalletCardFrame from './WalletCardFrame';
+import TabsThree from 'components/Common/TabsThree';
+import { Purchase, /* Refund, */ Reward } from 'components/Common/Icons';
+import Spinner from 'components/Common/Spinner';
+import { KLAYTN_SCOPE } from 'constants/url';
 
 const StyledWalletCardFrame = styled(WalletCardFrame)`
   min-height: 400px;
@@ -112,7 +112,7 @@ const TxKlay = styled.div`
 // Purchase  Refund  Reward
 const TxItem = ({ title, date, klay, TxFee, txHash }) => {
   const [totalKlay, setTotalKlay] = useState(0);
-  const txDate = moment(date).format("YYYY년 MM월 DD일");
+  const txDate = moment(date).format('YYYY년 MM월 DD일');
 
   useEffect(() => {
     if (TxFee) {
@@ -121,7 +121,7 @@ const TxItem = ({ title, date, klay, TxFee, txHash }) => {
   }, [TxFee, klay]);
 
   const openScope = txHash => {
-    window.open(`${KLAYTN_SCOPE}tx/${txHash}`, "_blank");
+    window.open(`${KLAYTN_SCOPE}tx/${txHash}`, '_blank');
   };
 
   return (
@@ -179,7 +179,7 @@ const TxList = ({ txList, txListLoading }) => {
   const [plusTxList, setPlusTxlist] = useState(null);
 
   const openKlayscope = () => {
-    window.open("https://baobab.scope.klaytn.com/", "_blank");
+    window.open('https://baobab.scope.klaytn.com/', '_blank');
   };
 
   useEffect(() => {

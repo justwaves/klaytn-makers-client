@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import Editor from "components/Write/Editor/EditorContainer";
-import Responsive from "components/Common/Responsive";
+import React from 'react';
+import styled from 'styled-components';
+import Editor from 'components/Write/Editor/EditorContainer';
+import Responsive from 'components/Common/Responsive';
 
-import WriteActionButtonsContainer from "components/Write/WriteActionButtons/WriteActionButtonsContainer";
-import Header from "components/Header/Header";
+import WriteActionButtonsContainer from 'components/Write/WriteActionButtons/WriteActionButtonsContainer';
+import Header from 'components/Header/Header';
 
 const Wrapper = styled.div`
   max-width: 816px;

@@ -11,7 +11,7 @@ const renameKeys = (obj, newKeys) =>
 
 export const stateParser = state => {
   const stateKeys = {
-    0: "state",
+    0: 'state',
   };
   if (!isArray(state)) {
     return renameKeys(state, stateKeys);
@@ -23,16 +23,16 @@ export const stateParser = state => {
 
 export const feedParser = feed => {
   const photoKeys = {
-    0: "makersId",
-    1: "price",
-    2: "targetCount",
-    3: "timestamp",
-    4: "dDay",
-    5: "count",
-    6: "seller",
-    7: "postId",
-    8: "title",
-    9: "state",
+    0: 'makersId',
+    1: 'price',
+    2: 'targetCount',
+    3: 'timestamp',
+    4: 'dDay',
+    5: 'count',
+    6: 'seller',
+    7: 'postId',
+    8: 'title',
+    9: 'state',
   };
 
   if (!isArray(feed)) {

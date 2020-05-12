@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import Button from "components/Common/Button";
+import React from 'react';
+import styled from 'styled-components';
+import Button from 'components/Common/Button';
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -49,8 +49,8 @@ const AskModal = ({
   visible,
   title,
   description,
-  confirmText = "확인",
-  cancelText = "취소",
+  confirmText = '확인',
+  cancelText = '취소',
   onConfirm,
   onCancel,
 }) => {

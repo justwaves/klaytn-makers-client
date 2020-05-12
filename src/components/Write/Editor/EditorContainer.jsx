@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { changeField, initialize } from "redux/modules/write";
-import Editor from "./Editor";
-import moment from "moment";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeField, initialize } from 'redux/modules/write';
+import Editor from './Editor';
+import moment from 'moment';
 
 export default () => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ export default () => {
     const formattedDate = moment(date).format();
     setSelectedDate(formattedDate);
 
-    onChangeField({ key: "dDay", value: formattedDate });
+    onChangeField({ key: 'dDay', value: formattedDate });
   };
 
   const onChangeField = useCallback(payload => dispatch(changeField(payload)), [
@@ -41,7 +41,7 @@ export default () => {
 
   const onChange = e => {
     const key = e.target.name;
-    if (key === "targetCount" || key === "price") {
+    if (key === 'targetCount' || key === 'price') {
       const value = parseInt(e.target.value);
       onChangeField({ key, value });
       return;

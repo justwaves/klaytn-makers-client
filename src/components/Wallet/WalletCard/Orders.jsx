@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import moment from "moment";
-import { useHistory } from "react-router";
-import WalletCardFrame from "./WalletCardFrame";
-import TabsThree from "components/Common/TabsThree";
-import ProgressBar from "components/Progress/ProgressBar";
-import Spinner from "components/Common/Spinner";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import moment from 'moment';
+import { useHistory } from 'react-router';
+import WalletCardFrame from './WalletCardFrame';
+import TabsThree from 'components/Common/TabsThree';
+import ProgressBar from 'components/Progress/ProgressBar';
+import Spinner from 'components/Common/Spinner';
 
 const Wrapper = styled(WalletCardFrame)`
   min-height: 500px;
@@ -108,7 +108,7 @@ const TxItem = ({
   username,
 }) => {
   const [status, setStatus] = useState(state);
-  const date = moment(dDay).format("YYYY년 MM월 DD일");
+  const date = moment(dDay).format('YYYY년 MM월 DD일');
   const history = useHistory();
 
   const onClick = () => {
@@ -116,12 +116,12 @@ const TxItem = ({
   };
 
   useEffect(() => {
-    if (state === "0") {
-      setStatus("진행중");
-    } else if (state === "1") {
-      setStatus("펀딩 성공");
-    } else if (state === "2") {
-      setStatus("펀딩 실패");
+    if (state === '0') {
+      setStatus('진행중');
+    } else if (state === '1') {
+      setStatus('펀딩 성공');
+    } else if (state === '2') {
+      setStatus('펀딩 실패');
     }
   }, [state]);
 

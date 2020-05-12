@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { walletLogout } from "redux/modules/wallet";
-import { setBuyerMakers } from "redux/modules/order";
-import { listPosts } from "redux/modules/posts";
-import caver from "klaytn/caver";
-import { combineList } from "redux/modules/filter";
-import WalletViewer from "./WalletViewer";
-import { setTxList } from "redux/modules/tx";
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { walletLogout } from 'redux/modules/wallet';
+import { setBuyerMakers } from 'redux/modules/order';
+import { listPosts } from 'redux/modules/posts';
+import caver from 'klaytn/caver';
+import { combineList } from 'redux/modules/filter';
+import WalletViewer from './WalletViewer';
+import { setTxList } from 'redux/modules/tx';
 
 const WalletViewerContainer = ({ username }) => {
   const history = useHistory();
@@ -28,14 +28,14 @@ const WalletViewerContainer = ({ username }) => {
     buyerMakers: order.buyerMakers,
     posts: posts.posts,
     combinedList: filter.combinedList,
-    loading: loading["posts/LIST_POSTS"],
+    loading: loading['posts/LIST_POSTS'],
     txList: tx.txList,
-    txListLoading: loading["tx/SET_TX_LIST"],
+    txListLoading: loading['tx/SET_TX_LIST'],
   }));
 
   const logout = () => {
     dispatch(walletLogout());
-    history.push("/");
+    history.push('/');
   };
 
   const [balance, setBalance] = useState(0);
@@ -43,7 +43,7 @@ const WalletViewerContainer = ({ username }) => {
   const getBalance = async address => {
     if (!address) return;
     const result = await caver.klay.getBalance(address);
-    setBalance(caver.utils.fromWei(result, "ether"));
+    setBalance(caver.utils.fromWei(result, 'ether'));
   };
 
   useEffect(() => {

@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from "react";
-import styled from "styled-components";
+import React, { useState, useCallback, useEffect } from 'react';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -74,7 +74,7 @@ const TagList = React.memo(({ tags, onRemove }) => (
 ));
 
 const TagBox = ({ tags, onChangeTags }) => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [localTags, setLocalTags] = useState([]);
 
   const insertTag = useCallback(
@@ -106,7 +106,7 @@ const TagBox = ({ tags, onChangeTags }) => {
     e => {
       e.preventDefault();
       insertTag(input.trim());
-      setInput("");
+      setInput('');
     },
     [input, insertTag],
   );

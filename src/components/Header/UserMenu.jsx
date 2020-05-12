@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "redux/modules/user";
-import { Avatar } from "components/Common/Icons";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from 'redux/modules/user';
+import { Avatar } from 'components/Common/Icons';
 
 const Wrapper = styled.div`
   position: absolute;

@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import moment from "moment";
-import Responsive from "components/Common/Responsive";
-import Tags from "components/Common/Tags";
-import ProgressBar from "components/Progress/ProgressBar";
-import Spinner from "components/Common/Spinner";
-import OrderButton from "components/ProductDetail/OrderButton/OrderButtonContainer";
+import React from 'react';
+import styled from 'styled-components';
+import moment from 'moment';
+import Responsive from 'components/Common/Responsive';
+import Tags from 'components/Common/Tags';
+import ProgressBar from 'components/Progress/ProgressBar';
+import Spinner from 'components/Common/Spinner';
+import OrderButton from 'components/ProductDetail/OrderButton/OrderButtonContainer';
 
 const ResponsiveWrapper = styled(Responsive)`
   padding-top: 2.25rem;
@@ -215,29 +215,29 @@ const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
     // status,
   } = combinedProduct;
 
-  moment.updateLocale("en", {
+  moment.updateLocale('en', {
     relativeTime: {
-      future: "%s 남음",
-      past: "%s 지남",
-      s: "1초",
-      ss: "%d초",
-      m: "1분",
-      mm: "%d분",
-      h: "1시간",
-      hh: "%d시간",
-      d: "1일",
-      dd: "%d일",
-      M: "1개월",
-      MM: "%d개월",
-      y: "1년",
-      yy: "%d년",
+      future: '%s 남음',
+      past: '%s 지남',
+      s: '1초',
+      ss: '%d초',
+      m: '1분',
+      mm: '%d분',
+      h: '1시간',
+      hh: '%d시간',
+      d: '1일',
+      dd: '%d일',
+      M: '1개월',
+      MM: '%d개월',
+      y: '1년',
+      yy: '%d년',
     },
   });
 
-  let fromNow = moment(dDay, "YYYY-MM-DD").fromNow();
+  let fromNow = moment(dDay, 'YYYY-MM-DD').fromNow();
 
   if (fromNow === 0) {
-    fromNow = moment(dDay, "LTS").fromNow();
+    fromNow = moment(dDay, 'LTS').fromNow();
   }
 
   const percentage = Math.ceil((count / targetCount) * 100);
@@ -274,8 +274,8 @@ const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
           </Order>
           <Order>
             <Period>
-              펀딩기간: {publishedDate.split("T", 1)[0]} ~{" "}
-              {dDay.split("T", 1)[0]}
+              펀딩기간: {publishedDate.split('T', 1)[0]} ~{' '}
+              {dDay.split('T', 1)[0]}
             </Period>
             <Dday>주문종료 {fromNow}</Dday>
           </Order>

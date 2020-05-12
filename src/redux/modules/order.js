@@ -1,25 +1,25 @@
-import { createAction, handleActions } from "redux-actions";
-import contractAPI from "klaytn/contractAPI";
-import { getWallet } from "lib/crypto";
-import { startLoading, finishLoading } from "./loading";
-import { createRequestActionTypes } from "lib/createRequestSaga";
-import { takeLatest, put, call } from "redux-saga/effects";
-import caver from "klaytn/caver";
-import { feedParser } from "lib/parser";
-import { writeTx } from "./tx";
-import ui from "lib/ui";
+import { createAction, handleActions } from 'redux-actions';
+import contractAPI from 'klaytn/contractAPI';
+import { getWallet } from 'lib/crypto';
+import { startLoading, finishLoading } from './loading';
+import { createRequestActionTypes } from 'lib/createRequestSaga';
+import { takeLatest, put, call } from 'redux-saga/effects';
+import caver from 'klaytn/caver';
+import { feedParser } from 'lib/parser';
+import { writeTx } from './tx';
+import ui from 'lib/ui';
 
 const [
   ORDER_PRODUCT,
   ORDER_PRODUCT_SUCCESS,
   ORDER_PRODUCT_FAILURE,
-] = createRequestActionTypes("order/ORDER_PRODUCT");
+] = createRequestActionTypes('order/ORDER_PRODUCT');
 
 const [
   SET_BUYER_MAKERS,
   SET_BUYER_MAKERS_SUCCESS,
   SET_BUYER_MAKERS_FAILURE,
-] = createRequestActionTypes("order/SET_BUYER_MAKERS");
+] = createRequestActionTypes('order/SET_BUYER_MAKERS');
 
 const orderProductSaga = () => {
   return function* (action) {
@@ -42,8 +42,8 @@ const orderProductSaga = () => {
         contractAPI.methods.orderMakers(parseInt(makersId)).send,
         {
           from: address,
-          gas: "5000000",
-          value: caver.utils.toPeb(price.toString(), "KLAY"),
+          gas: '5000000',
+          value: caver.utils.toPeb(price.toString(), 'KLAY'),
         },
       );
 
@@ -57,7 +57,7 @@ const orderProductSaga = () => {
       );
 
       ui.showToast({
-        status: receipt.status ? "success" : "fail",
+        status: receipt.status ? 'success' : 'fail',
         message: `주문에 성공하였습니다 (block #${receipt.blockNumber})`,
         link: receipt.transactionHash,
         txHash: receipt.transactionHash,
@@ -77,7 +77,7 @@ const orderProductSaga = () => {
           gasPrice: receipt.gasPrice,
           gasUsed: receipt.gasUsed,
           transactionHash: receipt.transactionHash,
-          typeName: "상품 구매",
+          typeName: '상품 구매',
           klay: price * -1,
           TxFee: TxFee * -1,
         }),
@@ -95,7 +95,7 @@ const orderProductSaga = () => {
       });
       yield put(finishLoading(ORDER_PRODUCT));
       ui.showToast({
-        status: "fail",
+        status: 'fail',
         message: `주문에 실패하였습니다`,
         error: e.toString(),
       });

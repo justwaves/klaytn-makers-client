@@ -1,5 +1,5 @@
-import qs from "qs";
-import apiClient from "./apiClient";
+import qs from 'qs';
+import apiClient from './apiClient';
 
 export const writePost = ({
   title,
@@ -11,7 +11,7 @@ export const writePost = ({
   targetCount,
   dDay,
 }) =>
-  apiClient.post("/api/posts", {
+  apiClient.post('/api/posts', {
     title,
     body,
     tags,

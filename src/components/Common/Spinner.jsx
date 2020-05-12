@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React from 'react';
+import styled, { css } from 'styled-components';
 
 const Wrapper = styled.div`
   ${props =>
@@ -28,7 +28,7 @@ const SpinnerImage = styled.img`
 
 const Spinner = ({ wrapper }) => (
   <Wrapper wrapper={wrapper}>
-    <SpinnerImage src={require("assets/images/loading.png")} alt="loading" />
+    <SpinnerImage src={require('assets/images/loading.png')} alt="loading" />
   </Wrapper>
 );
 

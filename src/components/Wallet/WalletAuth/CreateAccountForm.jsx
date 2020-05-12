@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import caver from "klaytn/caver";
-import Copy from "components/Common/Copy";
-import Button from "components/Common/Button";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import caver from 'klaytn/caver';
+import Copy from 'components/Common/Copy';
+import Button from 'components/Common/Button';
 
 const Views = styled.div`
   margin-top: 4rem;
@@ -72,7 +72,7 @@ const CreateAccountForm = () => {
       <InputBox>
         <SigninInput
           placeholder="New Klaytn Private Key"
-          value={privateKey || ""}
+          value={privateKey || ''}
           readOnly
         />
         <CopyButton>

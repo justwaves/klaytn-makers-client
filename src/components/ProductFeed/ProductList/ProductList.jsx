@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import Responsive from "components/Common/Responsive";
-import ProductCardContainer from "components/ProductFeed/ProductCard/ProductCardContainer";
-import Spinner from "components/Common/Spinner";
+import React from 'react';
+import styled from 'styled-components';
+import Responsive from 'components/Common/Responsive';
+import ProductCardContainer from 'components/ProductFeed/ProductCard/ProductCardContainer';
+import Spinner from 'components/Common/Spinner';
 
 const ResponsiveWrapper = styled(Responsive)`
   padding-top: 2.25rem;

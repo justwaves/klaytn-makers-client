@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import React, { useState, useEffect } from 'react';
+import styled, { css } from 'styled-components';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -51,7 +51,7 @@ const LeftContent = styled.div`
   transition: transform 0.3s ease-in;
 
   ${props =>
-    props.tabKey === "2" &&
+    props.tabKey === '2' &&
     css`
       transform: translateX(-120%);
     `}
@@ -64,7 +64,7 @@ const RightContent = styled.div`
   transition: transform 0.3s ease-in;
 
   ${props =>
-    props.tabKey === "1" &&
+    props.tabKey === '1' &&
     css`
       transform: translateX(120%);
     `}
@@ -97,14 +97,14 @@ const ActiveTabBorder = styled.div`
   transition: all 0.3s ease-in;
 
   ${props =>
-    props.active === "left" &&
+    props.active === 'left' &&
     css`
       transform: translateX(0px);
       border-right: 1px solid ${props => props.theme.color.gray[3]};
     `}
 
   ${props =>
-    props.active === "right" &&
+    props.active === 'right' &&
     css`
       transform: translateX(100%);
       background: #229b9b;
@@ -135,19 +135,19 @@ const Tabs = ({
       <TabContainer>
         <Row>
           <StyledButton
-            active={tabKey === "1" ? 1 : 0}
-            onClick={() => onPressTab("1")}
+            active={tabKey === '1' ? 1 : 0}
+            onClick={() => onPressTab('1')}
           >
             <TabTitle>{leftTabTitle}</TabTitle>
           </StyledButton>
           <StyledButton
-            active={tabKey === "2" ? 1 : 0}
-            onClick={() => onPressTab("2")}
+            active={tabKey === '2' ? 1 : 0}
+            onClick={() => onPressTab('2')}
           >
             <TabTitle>{rightTabTitle}</TabTitle>
           </StyledButton>
           <BorderUnderTabs />
-          <ActiveTabBorder active={tabKey === "1" ? "left" : "right"} />
+          <ActiveTabBorder active={tabKey === '1' ? 'left' : 'right'} />
         </Row>
         <ContentContainer>
           <LeftContent tabKey={tabKey}>{leftContent}</LeftContent>
@@ -159,11 +159,11 @@ const Tabs = ({
 };
 
 Tabs.defaultProps = {
-  leftTabTitle: "Tab 1",
-  rightTabTitle: "Tab 2",
-  leftContent: "Content 1",
-  rightContent: "Content 2",
-  newTabKey: "1",
+  leftTabTitle: 'Tab 1',
+  rightTabTitle: 'Tab 2',
+  leftContent: 'Content 1',
+  rightContent: 'Content 2',
+  newTabKey: '1',
 };
 
 export default Tabs;

@@ -1,10 +1,10 @@
-const HDWalletProvider = require("truffle-hdwallet-provider-klaytn");
+const HDWalletProvider = require('truffle-hdwallet-provider-klaytn');
 
-const NETWORK_ID = "1001";
-const GASLIMIT = "20000000";
-const URL = "https://api.baobab.klaytn.net:8651";
+const NETWORK_ID = '1001';
+const GASLIMIT = '20000000';
+const URL = 'https://api.baobab.klaytn.net:8651';
 const PRIVATE_KEY =
-  "0x79b4c8dca968eabb8f5061d3b41888898240543aadfd3d849bed24d61053239e";
+  '0x79b4c8dca968eabb8f5061d3b41888898240543aadfd3d849bed24d61053239e';
 
 module.exports = {
   networks: {
@@ -15,15 +15,15 @@ module.exports = {
       gasPrice: null,
     },
     ganache: {
-      host: "localhost",
+      host: 'localhost',
       port: 8545,
-      network_id: "*", // Match any network id
+      network_id: '*', // Match any network id
     },
   },
 
   compilers: {
     solc: {
-      version: "0.6.0",
+      version: '0.6.0',
     },
   },
 };

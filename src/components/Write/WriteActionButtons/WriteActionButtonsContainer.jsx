@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router";
-import { writePost, updatePost } from "redux/modules/write";
-import WriteActionButtons from "./WriteActionButtons";
-import { uploadMakers, unloadMakers } from "redux/modules/makers";
-import { removePost } from "lib/api/posts";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { writePost, updatePost } from 'redux/modules/write';
+import WriteActionButtons from './WriteActionButtons';
+import { uploadMakers, unloadMakers } from 'redux/modules/makers';
+import { removePost } from 'lib/api/posts';
 
 const WriteActionButtonsContainer = () => {
   const [klaytnLoading, setKlaytnLoading] = useState(false);
@@ -40,7 +40,7 @@ const WriteActionButtonsContainer = () => {
     dDay: write.dDay,
     receipt: makers.receipt,
     makersError: makers.error,
-    loading: loading["write/WRITE_POST"],
+    loading: loading['write/WRITE_POST'],
   }));
 
   const onPublish = async () => {
@@ -108,7 +108,7 @@ const WriteActionButtonsContainer = () => {
       const { _id, user } = post;
       if (!receipt) {
         setKlaytnLoading(true);
-        console.log("Klaytn contract API loading...");
+        console.log('Klaytn contract API loading...');
       }
 
       if (receipt) {

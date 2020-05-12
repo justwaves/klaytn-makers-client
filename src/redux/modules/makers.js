@@ -1,37 +1,37 @@
-import { createAction, handleActions } from "redux-actions";
-import contractAPI from "klaytn/contractAPI";
-import { getWallet } from "lib/crypto";
-import { startLoading, finishLoading } from "./loading";
-import { createRequestActionTypes } from "lib/createRequestSaga";
-import { takeLatest, put, call, select } from "redux-saga/effects";
-import { feedParser } from "lib/parser";
-import caver from "klaytn/caver";
-import { writeTx } from "./tx";
-import ui from "lib/ui";
+import { createAction, handleActions } from 'redux-actions';
+import contractAPI from 'klaytn/contractAPI';
+import { getWallet } from 'lib/crypto';
+import { startLoading, finishLoading } from './loading';
+import { createRequestActionTypes } from 'lib/createRequestSaga';
+import { takeLatest, put, call, select } from 'redux-saga/effects';
+import { feedParser } from 'lib/parser';
+import caver from 'klaytn/caver';
+import { writeTx } from './tx';
+import ui from 'lib/ui';
 
 const [
   UPLOAD_MAKERS,
   UPLOAD_MAKERS_SUCCESS,
   UPLOAD_MAKERS_FAILURE,
-] = createRequestActionTypes("makers/UPLOAD_MAKERS");
+] = createRequestActionTypes('makers/UPLOAD_MAKERS');
 
 const [
   UPDATE_FEED,
   UPDATE_FEED_SUCCESS,
   UPDATE_FEED_FAILURE,
-] = createRequestActionTypes("makers/UPDATE_FEED");
+] = createRequestActionTypes('makers/UPDATE_FEED');
 
 const [SET_FEED, SET_FEED_SUCCESS, SET_FEED_FAILURE] = createRequestActionTypes(
-  "makers/SET_FEED",
+  'makers/SET_FEED',
 );
 
 const [
   SET_MAKERS,
   SET_MAKERS_SUCCESS,
   SET_MAKERS_FAILURE,
-] = createRequestActionTypes("makers/SET_MAKERS");
+] = createRequestActionTypes('makers/SET_MAKERS');
 
-const UNLOAD_MAKERS = "makers/UNLOAD_MAKERS";
+const UNLOAD_MAKERS = 'makers/UNLOAD_MAKERS';
 
 export const uploadMakersSaga = () => {
   return function* (action) {
@@ -51,7 +51,7 @@ export const uploadMakersSaga = () => {
         ).send,
         {
           from: getWallet().address,
-          gas: "3000000",
+          gas: '3000000',
         },
       );
 
@@ -64,7 +64,7 @@ export const uploadMakersSaga = () => {
       );
 
       ui.showToast({
-        status: receipt.status ? "success" : "fail",
+        status: receipt.status ? 'success' : 'fail',
         message: `상품등록에 성공하였습니다 (block #${receipt.blockNumber})`,
         link: receipt.transactionHash,
         txHash: receipt.transactionHash,
@@ -89,7 +89,7 @@ export const uploadMakersSaga = () => {
           gasPrice: receipt.gasPrice,
           gasUsed: receipt.gasUsed,
           transactionHash: receipt.transactionHash,
-          typeName: "상품 등록",
+          typeName: '상품 등록',
           klay: 0,
           TxFee: TxFee * -1,
         }),
@@ -101,7 +101,7 @@ export const uploadMakersSaga = () => {
       // TODO: dispatch(setTransaction(receipt))
     } catch (e) {
       ui.showToast({
-        status: "fail",
+        status: 'fail',
         message: `상품등록에 실패하였습니다`,
         error: e,
       });
@@ -183,7 +183,7 @@ const setMakersSaga = () => {
       );
 
       if (!product) {
-        console.log("상품을 불러 올 수 없습니다.");
+        console.log('상품을 불러 올 수 없습니다.');
         return;
       }
 

@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import Responsive from "components/Common/Responsive";
-import Button from "components/Common/Button";
-import SearchBar from "components/Header/SearchBar";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Responsive from 'components/Common/Responsive';
+import Button from 'components/Common/Button';
+import SearchBar from 'components/Header/SearchBar';
 import {
   Avatar,
   Klaytn,
   MenuDown,
   Notification,
   Cart,
-} from "components/Common/Icons";
-import UserMenu from "./UserMenu";
-import WalletLink from "components/Wallet/WalletLink";
-import caver from "klaytn/caver";
-import Drawer from "./Drawer";
+} from 'components/Common/Icons';
+import UserMenu from './UserMenu';
+import WalletLink from 'components/Wallet/WalletLink';
+import caver from 'klaytn/caver';
+import Drawer from './Drawer';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -176,7 +176,7 @@ const Header = () => {
   const getBalance = async address => {
     if (!address) return;
     const result = await caver.klay.getBalance(address);
-    setBalance(caver.utils.fromWei(result, "ether"));
+    setBalance(caver.utils.fromWei(result, 'ether'));
   };
 
   useEffect(() => {

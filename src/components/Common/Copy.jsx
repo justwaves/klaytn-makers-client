@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Copy } from "./Icons";
+import React, { useState, useEffect } from 'react';
+import styled, { css } from 'styled-components';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Copy } from './Icons';
 
 const Wrapper = styled.div`
   display: flex;

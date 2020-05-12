@@ -1,15 +1,15 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "lib/createRequestSaga";
-import * as postsAPI from "lib/api/posts";
-import { takeLatest } from "redux-saga/effects";
+} from 'lib/createRequestSaga';
+import * as postsAPI from 'lib/api/posts';
+import { takeLatest } from 'redux-saga/effects';
 
 const [
   LIST_POSTS,
   LIST_POSTS_SUCCESS,
   LIST_POSTS_FAILURE,
-] = createRequestActionTypes("posts/LIST_POSTS");
+] = createRequestActionTypes('posts/LIST_POSTS');
 
 export const listPosts = createAction(
   LIST_POSTS,
@@ -36,7 +36,7 @@ const posts = handleActions(
     [LIST_POSTS_SUCCESS]: (state, { payload: posts, meta: response }) => ({
       ...state,
       posts,
-      lastPage: parseInt(response.headers["last-page"], 20),
+      lastPage: parseInt(response.headers['last-page'], 20),
     }),
     [LIST_POSTS_FAILURE]: (state, { payload: error }) => ({
       ...state,

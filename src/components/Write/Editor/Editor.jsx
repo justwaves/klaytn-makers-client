@@ -1,17 +1,17 @@
-import React, { useRef, useEffect } from "react";
-import styled from "styled-components";
-import Quill from "quill";
-import "quill/dist/quill.bubble.css";
-import TextareaAutosize from "react-autosize-textarea";
-import TagBox from "components/Write/TagBox/TagBoxContainer";
-import "date-fns";
-import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from "@date-io/date-fns";
+import React, { useRef, useEffect } from 'react';
+import styled from 'styled-components';
+import Quill from 'quill';
+import 'quill/dist/quill.bubble.css';
+import TextareaAutosize from 'react-autosize-textarea';
+import TagBox from 'components/Write/TagBox/TagBoxContainer';
+import 'date-fns';
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
-} from "@material-ui/pickers";
-import { ImageDrop } from "quill-image-drop-module";
+} from '@material-ui/pickers';
+import { ImageDrop } from 'quill-image-drop-module';
 
 const Wrapper = styled.div`
   padding-top: 2rem;
@@ -144,26 +144,26 @@ const Editor = ({
   const quillInstance = useRef(null); // Quill 인스턴스를 설정
 
   useEffect(() => {
-    Quill.register("modules/imageDrop", ImageDrop);
+    Quill.register('modules/imageDrop', ImageDrop);
 
     quillInstance.current = new Quill(quillElement.current, {
-      theme: "bubble",
-      placeholder: "상품에 대한 자세한 내용을 적어주세요.",
+      theme: 'bubble',
+      placeholder: '상품에 대한 자세한 내용을 적어주세요.',
       modules: {
         toolbar: [
-          [{ header: "1" }, { header: "2" }],
-          ["bold", "italic", "underline", "strike"],
-          [{ list: "ordered" }, { list: "bullet" }],
-          ["blockquote", "code-block", "link", "image"],
+          [{ header: '1' }, { header: '2' }],
+          ['bold', 'italic', 'underline', 'strike'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['blockquote', 'code-block', 'link', 'image'],
         ],
         imageDrop: true,
       },
     });
 
     const quill = quillInstance.current;
-    quill.on("text-change", (delta, oldDelta, source) => {
-      if (source === "user") {
-        onChangeField({ key: "body", value: quill.root.innerHTML });
+    quill.on('text-change', (delta, oldDelta, source) => {
+      if (source === 'user') {
+        onChangeField({ key: 'body', value: quill.root.innerHTML });
       }
     });
   }, [onChangeField]);
@@ -233,7 +233,7 @@ const Editor = ({
             value={selectedDate}
             onChange={handleDateChange}
             KeyboardButtonProps={{
-              "aria-label": "change date",
+              'aria-label': 'change date',
             }}
           />
         </Grid>

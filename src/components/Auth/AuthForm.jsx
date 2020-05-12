@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import Button from "components/Common/Button";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import Button from 'components/Common/Button';
 
 const Wrapper = styled.div`
   display: flex;
@@ -58,8 +58,8 @@ const ForgotPwd = styled.div`
 `;
 
 const textMap = {
-  login: "로그인",
-  signup: "회원가입",
+  login: '로그인',
+  signup: '회원가입',
 };
 
 const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
@@ -82,7 +82,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           value={form.password}
           onChange={onChange}
         />
-        {type === "signup" && (
+        {type === 'signup' && (
           <StyledInput
             autoComplete="off"
             name="passwordConfirm"
@@ -97,13 +97,13 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           {textMap[type]}
         </StyledButton>
       </form>
-      {type === "login" && (
+      {type === 'login' && (
         <LoginToggleWrapper>
           <ForgotPwd>비밀번호 찾기</ForgotPwd>
           <AuthToggle to="/signup">회원가입</AuthToggle>
         </LoginToggleWrapper>
       )}
-      {type === "signup" && <AuthToggle to="/login">로그인</AuthToggle>}
+      {type === 'signup' && <AuthToggle to="/login">로그인</AuthToggle>}
     </Wrapper>
   );
 };

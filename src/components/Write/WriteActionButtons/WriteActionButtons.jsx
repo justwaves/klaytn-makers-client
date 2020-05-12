@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import Button from "components/Common/Button";
-import Spinner from "components/Common/Spinner";
+import React from 'react';
+import styled from 'styled-components';
+import Button from 'components/Common/Button';
+import Spinner from 'components/Common/Spinner';
 
 const Wrapper = styled.div`
   margin-bottom: 3rem;
@@ -54,7 +54,7 @@ const WriteActionButtons = ({
   return (
     <Wrapper>
       <StyledButton cyan onClick={onPublish}>
-        상품 {isEdit ? "수정" : "등록"}
+        상품 {isEdit ? '수정' : '등록'}
       </StyledButton>
       <CancelButton onClick={onCancel}>취소</CancelButton>
     </Wrapper>

@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Header from "components/Header/Header";
-import Responsive from "components/Common/Responsive";
-import Button from "components/Common/Button";
-import caver from "klaytn/caver";
-import WalletLink from "components/Wallet/WalletLink";
-import { setFeed, uploadMakers } from "redux/modules/makers";
-import { writeTx } from "redux/modules/tx";
-import { useDispatch } from "react-redux";
-import ProgressBar from "components/Progress/ProgressBar";
-import Spinner from "components/Common/Spinner";
-import TabsThree from "components/Common/TabsThree";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Header from 'components/Header/Header';
+import Responsive from 'components/Common/Responsive';
+import Button from 'components/Common/Button';
+import caver from 'klaytn/caver';
+import WalletLink from 'components/Wallet/WalletLink';
+import { setFeed, uploadMakers } from 'redux/modules/makers';
+import { writeTx } from 'redux/modules/tx';
+import { useDispatch } from 'react-redux';
+import ProgressBar from 'components/Progress/ProgressBar';
+import Spinner from 'components/Common/Spinner';
+import TabsThree from 'components/Common/TabsThree';
 // import { Copy } from "components/Common/Icons";
-import Copy from "components/Common/Copy";
-import { HeartFull } from "components/Common/Icons";
+import Copy from 'components/Common/Copy';
+import { HeartFull } from 'components/Common/Icons';
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -105,15 +105,15 @@ const TestPage = () => {
             onClick={() =>
               dispatch(
                 writeTx({
-                  type: "type1",
+                  type: 'type1',
                   blockNumber: 1111,
-                  blockHash: "blockHash1",
-                  from: "from1",
-                  to: "to1",
-                  gas: "gas1",
-                  gasPrice: "gasPrice1",
+                  blockHash: 'blockHash1',
+                  from: 'from1',
+                  to: 'to1',
+                  gas: 'gas1',
+                  gasPrice: 'gasPrice1',
                   gasUsed: 11111,
-                  transactionHash: "transactionHash1",
+                  transactionHash: 'transactionHash1',
                 }),
               )
             }
@@ -138,8 +138,8 @@ const TestPage = () => {
             onClick={() =>
               dispatch(
                 uploadMakers({
-                  postId: "postId",
-                  title: "title",
+                  postId: 'postId',
+                  title: 'title',
                   price: 1,
                   targetCount: 12,
                   dDay: 1588579156,

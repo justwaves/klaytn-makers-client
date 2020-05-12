@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import WalletAccount from "components/Wallet/WalletCard/WalletAccount";
-import Profile from "components/Wallet/WalletCard/Profile";
-import TxList from "components/Wallet/WalletCard/TxList";
-import Orders from "components/Wallet/WalletCard/Orders";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import WalletAccount from 'components/Wallet/WalletCard/WalletAccount';
+import Profile from 'components/Wallet/WalletCard/Profile';
+import TxList from 'components/Wallet/WalletCard/TxList';
+import Orders from 'components/Wallet/WalletCard/Orders';
 
 const ResponsiveWrapper = styled.div`
   width: 744px;
@@ -35,9 +35,9 @@ const WalletViewer = ({
   const [filteredTxList, setFilteredTxList] = useState(txList);
 
   useEffect(() => {
-    const list = buyerMakers.filter(makers => makers.state !== "0");
+    const list = buyerMakers.filter(makers => makers.state !== '0');
     setFinisedMakers(list);
-    const progressList = buyerMakers.filter(makers => makers.state === "0");
+    const progressList = buyerMakers.filter(makers => makers.state === '0');
     setInProgressMakers(progressList);
   }, [buyerMakers]);
 

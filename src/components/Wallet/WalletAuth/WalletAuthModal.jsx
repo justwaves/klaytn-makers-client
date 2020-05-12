@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import WalletLoginForm from "./WalletLoginForm";
-import Tabs from "components/Common/Tabs";
-import CreateAccountForm from "./CreateAccountForm";
-import { Klaytn } from "components/Common/Icons";
+import React from 'react';
+import styled from 'styled-components';
+import WalletLoginForm from './WalletLoginForm';
+import Tabs from 'components/Common/Tabs';
+import CreateAccountForm from './CreateAccountForm';
+import { Klaytn } from 'components/Common/Icons';
 
 const Wrapper = styled.div`
   width: 34.5rem;
@@ -35,7 +35,7 @@ const KlaytnWalletLink = styled.div`
 
 const WalletAuth = () => {
   const openKlaytnWallet = () => {
-    window.open("https://baobab.wallet.klaytn.com/", "_blank");
+    window.open('https://baobab.wallet.klaytn.com/', '_blank');
   };
 
   return (

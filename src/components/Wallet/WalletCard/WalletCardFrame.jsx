@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { RightArrow } from "components/Common/Icons";
+import React from 'react';
+import styled from 'styled-components';
+import { RightArrow } from 'components/Common/Icons';
 
 const Wrapper = styled.div`
   width: 22.5rem;

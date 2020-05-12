@@ -1,19 +1,19 @@
-import { createAction, handleActions } from "redux-actions";
-import { startLoading, finishLoading } from "./loading";
-import { createRequestActionTypes } from "lib/createRequestSaga";
-import { takeLatest, put } from "redux-saga/effects";
+import { createAction, handleActions } from 'redux-actions';
+import { startLoading, finishLoading } from './loading';
+import { createRequestActionTypes } from 'lib/createRequestSaga';
+import { takeLatest, put } from 'redux-saga/effects';
 
 const [
   COMBINE_LIST,
   COMBINE_LIST_SUCCESS,
   COMBINE_LIST_FAILURE,
-] = createRequestActionTypes("filter/COMBINE_LIST");
+] = createRequestActionTypes('filter/COMBINE_LIST');
 
 const [
   COMBINE_PRODUCT,
   COMBINE_PRODUCT_SUCCESS,
   COMBINE_PRODUCT_FAILURE,
-] = createRequestActionTypes("filter/COMBINE_PRODUCT");
+] = createRequestActionTypes('filter/COMBINE_PRODUCT');
 
 export const combineList = createAction(COMBINE_LIST, ({ posts, feed }) => ({
   posts,

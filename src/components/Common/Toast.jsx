@@ -1,8 +1,8 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import { KLAYTN_SCOPE } from "constants/url";
-import ui from "lib/ui";
-import { Close } from "components/Common/Icons";
+import React from 'react';
+import styled, { css } from 'styled-components';
+import { KLAYTN_SCOPE } from 'constants/url';
+import ui from 'lib/ui';
+import { Close } from 'components/Common/Icons';
 
 const Wrapper = styled.div`
   width: 460px;
@@ -60,7 +60,7 @@ const ProgressBar = styled.div`
   animation: progress 10s linear;
 
   ${props =>
-    props.status === "fail" &&
+    props.status === 'fail' &&
     css`
       background-color: ${props => props.theme.color.red};
     `}
@@ -84,13 +84,13 @@ const Status = styled.div`
   color: ${props => props.theme.color.primary[0]};
 
   ${props =>
-    props.status === "pending" &&
+    props.status === 'pending' &&
     css`
       color: ${props => props.theme.color.gray[2]};
     `}
 
   ${props =>
-    props.status === "fail" &&
+    props.status === 'fail' &&
     css`
       color: ${props => props.theme.color.red};
     `}

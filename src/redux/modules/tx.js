@@ -1,19 +1,19 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from "lib/createRequestSaga";
-import * as txAPI from "lib/api/tx";
-import { takeLatest } from "redux-saga/effects";
+} from 'lib/createRequestSaga';
+import * as txAPI from 'lib/api/tx';
+import { takeLatest } from 'redux-saga/effects';
 
 const [WRITE_TX, WRITE_TX_SUCCESS, WRITE_TX_FAILURE] = createRequestActionTypes(
-  "tx/WRITE_TX",
+  'tx/WRITE_TX',
 );
 
 const [
   SET_TX_LIST,
   SET_TX_LIST_SUCCESS,
   SET_TX_LIST_FAILURE,
-] = createRequestActionTypes("tx/SET_TX_LIST");
+] = createRequestActionTypes('tx/SET_TX_LIST');
 
 export const writeTx = createAction(
   WRITE_TX,

@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { hideModal } from "redux/modules/ui";
-import { Close } from "components/Common/Icons";
+import React from 'react';
+import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { hideModal } from 'redux/modules/ui';
+import { Close } from 'components/Common/Icons';
 
 const Fullscreen = styled.div`
   position: fixed;

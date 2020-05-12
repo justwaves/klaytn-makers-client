@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import ProgressBar from "components/Progress/ProgressBar";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import ProgressBar from 'components/Progress/ProgressBar';
 
 const Wrapper = styled.div`
   min-height: 466px;
@@ -82,11 +82,11 @@ const ProductDesc = styled.p`
 const ProductCard = ({
   title,
   description,
-  photo = "https://source.unsplash.com/random/720x500",
+  photo = 'https://source.unsplash.com/random/720x500',
   count,
   targetCount,
   user,
-  _id = "5e9c790b3d3ec23556c4ee84",
+  _id = '5e9c790b3d3ec23556c4ee84',
 }) => (
   <Link to={`/@${user.username}/${_id}`}>
     <Wrapper>

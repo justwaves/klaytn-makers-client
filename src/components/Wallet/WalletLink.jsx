@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import WalletAuthModal from "./WalletAuth/WalletAuthModal";
-import { showModal } from "redux/modules/ui";
+import React from 'react';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import WalletAuthModal from './WalletAuth/WalletAuthModal';
+import { showModal } from 'redux/modules/ui';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -22,7 +22,7 @@ const WalletLink = ({ children }) => {
 
   // 로그인됨 -> wallet page로 이동
   const openWallet = () => {
-    history.push("/wallet");
+    history.push('/wallet');
   };
 
   // 로그인 안됨 -> 모달 띄우기

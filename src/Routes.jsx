@@ -1,19 +1,19 @@
-import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
-import LoginPage from "pages/LoginPage";
-import SignupPage from "pages/SignupPage";
-import WritePage from "pages/WritePage";
-import TestPage from "pages/TestPage";
-import StorePage from "pages/StorePage";
-import DetailPage from "pages/DetailPage";
-import WalletPage from "pages/WalletPage";
-import ScrollToTop from "components/Common/ScrollToTop";
+import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import LoginPage from 'pages/LoginPage';
+import SignupPage from 'pages/SignupPage';
+import WritePage from 'pages/WritePage';
+import TestPage from 'pages/TestPage';
+import StorePage from 'pages/StorePage';
+import DetailPage from 'pages/DetailPage';
+import WalletPage from 'pages/WalletPage';
+import ScrollToTop from 'components/Common/ScrollToTop';
 
 const Routes = () => (
   <>
     <ScrollToTop />
     <Switch>
-      <Route path={["/@:username", "/"]} exact component={StorePage} />
+      <Route path={['/@:username', '/']} exact component={StorePage} />
       <Route path="/@:username/:postId" component={DetailPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/signup" component={SignupPage} />

@@ -14,8 +14,8 @@ import {
 } from "components/Common/Icons";
 import UserMenu from "./UserMenu";
 import WalletLink from "components/Wallet/WalletLink";
-import { Bars } from "components/Common/Icons";
 import caver from "klaytn/caver";
+import Drawer from "./Drawer";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -76,7 +76,7 @@ const Right = styled.div`
   }
 `;
 
-const Drawer = styled.div`
+const DrawerContainer = styled.div`
   display: none;
 
   div {
@@ -234,11 +234,11 @@ const Header = () => {
                 <LoginButton to="/login">로그인</LoginButton>
               </Right>
             )}
-            <Drawer>
+            <DrawerContainer>
               <div>
-                <Bars />
+                <Drawer />
               </div>
-            </Drawer>
+            </DrawerContainer>
           </Grid>
         </ResponsiveHeader>
       </Wrapper>

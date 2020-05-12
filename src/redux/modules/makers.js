@@ -1,13 +1,13 @@
 import { createAction, handleActions } from "redux-actions";
 import contractAPI from "klaytn/contractAPI";
-import { getWallet } from "utils/crypto";
+import { getWallet } from "lib/crypto";
 import { startLoading, finishLoading } from "./loading";
 import { createRequestActionTypes } from "lib/createRequestSaga";
 import { takeLatest, put, call, select } from "redux-saga/effects";
-import { feedParser } from "utils/misc";
+import { feedParser } from "lib/parser";
 import caver from "klaytn/caver";
 import { writeTx } from "./tx";
-import ui from "utils/ui";
+import ui from "lib/ui";
 
 const [
   UPLOAD_MAKERS,

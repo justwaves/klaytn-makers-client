@@ -17,10 +17,3 @@ export const getWallet = () => {
   if (!caver.klay.accounts.wallet.length) return null;
   return caver.klay.accounts.wallet[0];
 };
-
-export const getAccount = () => {
-  if (!caver.klay.accounts.wallet.length) return null;
-  return caver.klay.accounts.wallet[0].add(
-    "0x4a5c621280be5e2081592cf0b8198a293118ca9082307f7b5a0d8d2bba61f8b0",
-  );
-};

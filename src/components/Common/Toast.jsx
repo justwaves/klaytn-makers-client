@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { KLAYTN_SCOPE } from "constants/url";
-import ui from "utils/ui";
+import ui from "lib/ui";
 import { Close } from "components/Common/Icons";
 
 const Wrapper = styled.div`

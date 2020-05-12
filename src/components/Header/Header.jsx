@@ -15,7 +15,6 @@ import {
 import UserMenu from './UserMenu';
 import WalletLink from 'components/Wallet/WalletLink';
 import caver from 'klaytn/caver';
-import Drawer from './Drawer';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -78,17 +77,12 @@ const Right = styled.div`
 
 const DrawerContainer = styled.div`
   display: none;
-
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    position: relative;
-    cursor: pointer;
-  }
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
 
   @media (max-width: 1200px) {
-    display: block;
+    display: flex;
   }
 `;
 
@@ -235,9 +229,20 @@ const Header = () => {
               </Right>
             )}
             <DrawerContainer>
-              <div>
-                <Drawer />
-              </div>
+              <UsermenuContainer onMouseEnter={onMouseEnter}>
+                <Avatar />
+                <UserInfo>
+                  <MenuDown />
+                </UserInfo>
+              </UsermenuContainer>
+              {openMenu && (
+                <UserMenu
+                  user={user}
+                  onMouseEnter={onMouseEnter}
+                  onMouseLeave={onMouseLeave}
+                  balance={balance}
+                />
+              )}
             </DrawerContainer>
           </Grid>
         </ResponsiveHeader>

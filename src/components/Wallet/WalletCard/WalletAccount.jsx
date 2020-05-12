@@ -140,4 +140,4 @@ const WalletAccount = ({ address, balance, logout }) => {
   );
 };
 
-export default WalletAccount;
+export default React.memo(WalletAccount);

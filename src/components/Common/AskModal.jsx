@@ -71,4 +71,4 @@ const AskModal = ({
   );
 };
 
-export default AskModal;
+export default React.memo(AskModal);

@@ -78,4 +78,4 @@ const WalletViewer = ({
   );
 };
 
-export default WalletViewer;
+export default React.memo(WalletViewer);

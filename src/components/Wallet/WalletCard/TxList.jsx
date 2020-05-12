@@ -210,4 +210,4 @@ const TxList = ({ txList, txListLoading }) => {
   );
 };
 
-export default TxList;
+export default React.memo(TxList);

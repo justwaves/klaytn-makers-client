@@ -201,4 +201,4 @@ const Orders = ({ buyerMakers, inProgressMakers, finisedMakers, loading }) => {
   );
 };
 
-export default Orders;
+export default React.memo(Orders);

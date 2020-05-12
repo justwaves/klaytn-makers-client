@@ -38,4 +38,4 @@ const Responsive = ({ children, ...rest }) => (
   <Wrapper {...rest}>{children}</Wrapper>
 );
 
-export default Responsive;
+export default React.memo(Responsive);

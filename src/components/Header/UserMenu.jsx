@@ -173,4 +173,4 @@ const UserMenu = ({ user, onMouseEnter, onMouseLeave, balance }) => {
   );
 };
 
-export default UserMenu;
+export default React.memo(UserMenu);

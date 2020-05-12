@@ -43,4 +43,4 @@ const ProductList = ({ combinedList, loading, error, user }) => {
   );
 };
 
-export default ProductList;
+export default React.memo(ProductList);

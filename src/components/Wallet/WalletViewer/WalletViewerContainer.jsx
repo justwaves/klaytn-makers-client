@@ -78,4 +78,4 @@ const WalletViewerContainer = ({ username }) => {
   );
 };
 
-export default WalletViewerContainer;
+export default React.memo(WalletViewerContainer);

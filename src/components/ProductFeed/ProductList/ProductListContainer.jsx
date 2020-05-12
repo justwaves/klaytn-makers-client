@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import qs from 'qs';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,25 +22,27 @@ const ProductListContainer = () => {
     }),
   );
 
-  useEffect(() => {
+  const onListPost = useCallback(() => {
     const { tag, username, page } = qs.parse(location.search, {
       ignoreQueryPrefix: true,
     });
     dispatch(listPosts({ tag, username, page }));
+  }, [dispatch, location]);
+
+  const onSetFeed = useCallback(() => {
     dispatch(setFeed());
-  }, [dispatch, location.search]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    onListPost();
+    onSetFeed();
+  }, [dispatch, location.search, onListPost, onSetFeed]);
 
   useEffect(() => {
     if (posts && feed) {
       dispatch(combineList({ feed, posts }));
     }
   }, [feed, posts, dispatch]);
-
-  useEffect(() => {
-    if (!(combinedList.length === 0)) {
-      console.log(combinedList);
-    }
-  }, [combinedList]);
 
   return (
     <ProductList
@@ -52,4 +54,4 @@ const ProductListContainer = () => {
   );
 };
 
-export default ProductListContainer;
+export default React.memo(ProductListContainer);

@@ -212,4 +212,4 @@ const Profile = ({ inProgressMakersCount, finisedMakersCount, username }) => {
   );
 };
 
-export default Profile;
+export default React.memo(Profile);

@@ -1,9 +1,9 @@
-import { createAction, handleActions } from 'redux-actions';
+import { createAction, handleActions } from "redux-actions";
 
-const SHOW_MODAL = 'ui/SHOW_MODAL';
-const HIDE_MODAL = 'ui/HIDE_MODAL';
-const SHOW_TOAST = 'ui/SHOW_TOAST';
-const HIDE_TOAST = 'ui/HIDE_TOAST';
+const SHOW_MODAL = "ui/SHOW_MODAL";
+const HIDE_MODAL = "ui/HIDE_MODAL";
+const SHOW_TOAST = "ui/SHOW_TOAST";
+const HIDE_TOAST = "ui/HIDE_TOAST";
 
 export const showModal = createAction(SHOW_MODAL, content => content);
 

@@ -7,7 +7,7 @@ import { takeLatest, put, call, select } from "redux-saga/effects";
 import { feedParser } from "utils/misc";
 import caver from "klaytn/caver";
 import { writeTx } from "./tx";
-// import ui from "utils/ui";
+import ui from "utils/ui";
 
 const [
   UPLOAD_MAKERS,
@@ -63,6 +63,13 @@ export const uploadMakersSaga = () => {
         receipt,
       );
 
+      ui.showToast({
+        status: receipt.status ? "success" : "fail",
+        message: `상품등록에 성공하였습니다 (block #${receipt.blockNumber})`,
+        link: receipt.transactionHash,
+        txHash: receipt.transactionHash,
+      });
+
       yield put({
         type: UPLOAD_MAKERS_SUCCESS,
         payload: receipt,
@@ -93,6 +100,11 @@ export const uploadMakersSaga = () => {
 
       // TODO: dispatch(setTransaction(receipt))
     } catch (e) {
+      ui.showToast({
+        status: "fail",
+        message: `상품등록에 실패하였습니다`,
+        error: e,
+      });
       yield put({
         type: UPLOAD_MAKERS_FAILURE,
         payload: e,

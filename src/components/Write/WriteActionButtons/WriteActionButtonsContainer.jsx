@@ -70,7 +70,7 @@ const WriteActionButtonsContainer = () => {
         }),
       );
     } catch (e) {
-      alert(`상품 등록에 실패하였습니다. error: ${e}`);
+      console.log(e.toString());
       history.goBack();
     }
   };
@@ -121,7 +121,6 @@ const WriteActionButtonsContainer = () => {
   useEffect(() => {
     if (makersError) {
       const { _id } = post;
-      alert(`Klaytn Error: ${makersError.reason}`);
 
       try {
         removePost(_id);

@@ -7,7 +7,7 @@ import { takeLatest, put, call } from "redux-saga/effects";
 import caver from "klaytn/caver";
 import { feedParser } from "utils/misc";
 import { writeTx } from "./tx";
-// import ui from "utils/ui";
+import ui from "utils/ui";
 
 const [
   ORDER_PRODUCT,
@@ -42,7 +42,7 @@ const orderProductSaga = () => {
         contractAPI.methods.orderMakers(parseInt(makersId)).send,
         {
           from: address,
-          gas: "3000000",
+          gas: "5000000",
           value: caver.utils.toPeb(price.toString(), "KLAY"),
         },
       );
@@ -55,6 +55,13 @@ const orderProductSaga = () => {
         `,
         receipt,
       );
+
+      ui.showToast({
+        status: receipt.status ? "success" : "fail",
+        message: `주문에 성공하였습니다 (block #${receipt.blockNumber})`,
+        link: receipt.transactionHash,
+        txHash: receipt.transactionHash,
+      });
 
       const gasPriceToKlay = yield call(caver.utils.fromPeb, receipt.gasPrice);
       const TxFee = gasPriceToKlay * receipt.gasUsed;
@@ -80,15 +87,19 @@ const orderProductSaga = () => {
         type: ORDER_PRODUCT_SUCCESS,
         payload: receipt,
       });
-
-      // TODO: dispatch(setTransaction(receipt))
     } catch (e) {
-      console.log(e);
       yield put({
         type: ORDER_PRODUCT_FAILURE,
-        payload: e,
+        payload: e.toString(),
         error: true,
       });
+      yield put(finishLoading(ORDER_PRODUCT));
+      ui.showToast({
+        status: "fail",
+        message: `주문에 실패하였습니다`,
+        error: e.toString(),
+      });
+      console.log(e.toString());
     }
     yield put(finishLoading(ORDER_PRODUCT));
   };

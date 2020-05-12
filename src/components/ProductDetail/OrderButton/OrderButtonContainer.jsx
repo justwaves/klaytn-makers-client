@@ -19,7 +19,7 @@ const OrderButtonContainer = ({ makersId, price }) => {
     try {
       await dispatch(orderProduct({ makersId, price }));
     } catch (e) {
-      alert(`상품 등록에 실패하였습니다. error: ${e}`);
+      console.log(e.toSting());
     }
   };
 
@@ -32,8 +32,6 @@ const OrderButtonContainer = ({ makersId, price }) => {
 
       if (receipt) {
         setKlaytnLoading(false);
-        alert("주문에 성공하였습니다.");
-        // history.go(0);
       }
     }
   }, [receipt, history, loading]);

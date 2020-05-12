@@ -1,10 +1,12 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import { useSelector } from "react-redux";
 import { tempSetUser, check } from "redux/modules/user";
 import { walletLogin, walletLogout } from "redux/modules/wallet";
 import store from "redux/store";
 import Routes from "./Routes";
 import AuthModal from "components/Common/AuthModal";
+import Toast from "components/Common/Toast";
 
 function loadUser() {
   try {
@@ -32,14 +34,21 @@ function loadWallet() {
 loadUser();
 loadWallet();
 
-const App = () => (
-  <>
-    <Helmet>
-      <title>klaytn makers</title>
-    </Helmet>
-    <Routes />
-    <AuthModal />
-  </>
-);
+const App = () => {
+  const { toast } = useSelector(({ ui }) => ({
+    toast: ui.toast,
+  }));
+
+  return (
+    <>
+      <Helmet>
+        <title>klaytn makers</title>
+      </Helmet>
+      <Routes />
+      <Toast toast={toast} />
+      <AuthModal />
+    </>
+  );
+};
 
 export default React.memo(App);

@@ -13,6 +13,7 @@ import Spinner from "components/Common/Spinner";
 import TabsThree from "components/Common/TabsThree";
 // import { Copy } from "components/Common/Icons";
 import Copy from "components/Common/Copy";
+import { HeartFull } from "components/Common/Icons";
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -91,6 +92,9 @@ const TestPage = () => {
     <Responsive>
       <Wrapper>
         <Header />
+        <Divider />
+        <HeartFull fill="#ccc" />
+        <Divider />
         {klay}
         <Divider />
         <Copy></Copy>

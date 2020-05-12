@@ -45,6 +45,7 @@ export default {
     green: "#006666",
     cyan: "#04CECE",
     red: "#FF1A40",
+    lightRed: "#ea5f76",
   },
 
   // whiteBox

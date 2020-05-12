@@ -44,8 +44,8 @@ const LoadingButton = styled(Wrapper)`
   }
 `;
 
-const OrderButton = ({ onOrder, klaytnLoading, loading }) => {
-  if (loading || klaytnLoading) {
+const OrderButton = ({ onOrder, loading }) => {
+  if (loading) {
     return (
       <LoadingButton cyan>
         <Spinner />

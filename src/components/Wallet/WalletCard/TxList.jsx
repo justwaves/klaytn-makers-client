@@ -96,9 +96,15 @@ const TxKlay = styled.div`
   }
 
   ${props =>
+    props.red === 0 &&
+    css`
+      color: ${props => props.theme.color.cyan};
+    `}
+
+  ${props =>
     props.red &&
     css`
-      color: #ea5f76;
+      color: ${props => props.theme.color.lightRed};
     `}
 `;
 
@@ -141,7 +147,7 @@ const List = ({ txList, txListLoading }) => {
   if (txList && txList.length === 0) {
     return (
       <ListWrapper>
-        <span>상품이 없습니다.</span>
+        <span>트랜잭션이 없습니다.</span>
       </ListWrapper>
     );
   }

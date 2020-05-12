@@ -5,6 +5,7 @@ import WalletCardFrame from "./WalletCardFrame";
 import TabsThree from "components/Common/TabsThree";
 import { Purchase, /* Refund, */ Reward } from "components/Common/Icons";
 import Spinner from "components/Common/Spinner";
+import { KLAYTN_SCOPE } from "constants/url";
 
 const StyledWalletCardFrame = styled(WalletCardFrame)`
   min-height: 400px;
@@ -109,7 +110,7 @@ const TxKlay = styled.div`
 `;
 
 // Purchase  Refund  Reward
-const TxItem = ({ title, date, klay, TxFee }) => {
+const TxItem = ({ title, date, klay, TxFee, txHash }) => {
   const [totalKlay, setTotalKlay] = useState(0);
   const txDate = moment(date).format("YYYY년 MM월 DD일");
 
@@ -119,8 +120,12 @@ const TxItem = ({ title, date, klay, TxFee }) => {
     }
   }, [TxFee, klay]);
 
+  const openScope = txHash => {
+    window.open(`${KLAYTN_SCOPE}tx/${txHash}`, "_blank");
+  };
+
   return (
-    <TxItemWrapper>
+    <TxItemWrapper onClick={() => openScope(txHash)}>
       <IconContainer>{klay ? <Purchase /> : <Reward />}</IconContainer>
       <TxInfo>
         <TxTitle>{title}</TxTitle>
@@ -162,6 +167,7 @@ const List = ({ txList, txListLoading }) => {
             date={tx.publishedDate}
             klay={tx.klay}
             TxFee={tx.TxFee}
+            txHash={tx.transactionHash}
           />
         ))}
     </ListWrapper>

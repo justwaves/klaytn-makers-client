@@ -39,21 +39,9 @@ const combineListSaga = () => {
         posts.map(post => {
           if (post._id === makers.postId) {
             const newPost = {
-              _id: post._id,
-              tags: post.tags,
-              title: post.title,
-              body: post.body,
-              user: post.user,
-              makersId: makers.makersId,
-              description: post.description,
-              photo: post.photo,
-              price: post.price,
-              targetCount: post.targetCount,
+              ...post,
+              ...makers,
               dDay: post.dDay,
-              publishedDate: post.publishedDate,
-              timestamp: makers.timestamp,
-              count: makers.count,
-              state: makers.state,
             };
 
             newArray.push(newPost);
@@ -84,22 +72,9 @@ const combineProductSaga = () => {
     const { post, makers } = action.payload;
 
     const product = {
-      _id: post._id,
-      tags: post.tags,
-      title: post.title,
-      body: post.body,
-      user: post.user,
-      makersId: makers[0].makersId,
-      description: post.description,
-      photo: post.photo,
-      price: post.price,
-      targetCount: post.targetCount,
+      ...post,
+      ...makers[0],
       dDay: post.dDay,
-      publishedDate: post.publishedDate,
-      timestamp: makers[0].timestamp,
-      seller: makers[0].seller,
-      count: makers[0].count,
-      state: makers[0].state,
     };
 
     yield put({

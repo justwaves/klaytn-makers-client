@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: flex-end;
   user-select: none;
-  margin-top: -10px;
+  margin-top: 4px;
   margin-left: 11px;
 `;
 
@@ -160,6 +160,9 @@ const UserMenu = ({ user, onMouseEnter, onMouseLeave, balance }) => {
           )}
           <Link to="/wallet">
             <Menu>클레이튼 지갑</Menu>
+          </Link>
+          <Link to="/orders">
+            <Menu>주문내역</Menu>
           </Link>
           <Link to="/test">
             <Menu>Test</Menu>

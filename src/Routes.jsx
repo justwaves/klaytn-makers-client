@@ -7,6 +7,7 @@ import TestPage from 'pages/TestPage';
 import StorePage from 'pages/StorePage';
 import DetailPage from 'pages/DetailPage';
 import WalletPage from 'pages/WalletPage';
+import OrderDetailPage from 'pages/OrderDetailPage';
 import ScrollToTop from 'components/Common/ScrollToTop';
 
 const Routes = () => (
@@ -21,6 +22,7 @@ const Routes = () => (
       <Route path="/store/:status" component={StorePage} />
       <Route path="/store" component={StorePage} />
       <Route path="/wallet" component={WalletPage} />
+      <Route path="/orders" component={OrderDetailPage} />
       <Route path="/test" component={TestPage} />
       <Redirect from="*" to="/" />
     </Switch>

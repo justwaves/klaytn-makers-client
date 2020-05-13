@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -62,6 +62,7 @@ const Logo = styled.div`
 const Center = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 const Right = styled.div`
@@ -138,9 +139,11 @@ const KlaytnIconContainer = styled.span`
 
 const UsermenuContainer = styled.div`
   cursor: pointer;
+  height: 100%;
   display: flex;
   align-items: center;
   margin-left: 0.125rem;
+  padding: 1rem 0;
 `;
 
 const Divider = styled.span`
@@ -154,6 +157,7 @@ const Divider = styled.span`
 const Header = () => {
   const [balance, setBalance] = useState(0);
   const [openMenu, setOpenMenu] = useState(false);
+  const [onMouse, setOnMouse] = useState(false);
   const { user, address } = useSelector(({ user, wallet }) => ({
     user: user.user,
     address: wallet.address,
@@ -161,21 +165,28 @@ const Header = () => {
 
   const onMouseEnter = () => {
     setOpenMenu(true);
+    setOnMouse(true);
   };
 
   const onMouseLeave = () => {
     setOpenMenu(false);
+    setOnMouse(false);
   };
 
-  const getBalance = async address => {
+  const onMouseLeaveFromIcon = useCallback(() => {
+    if (!onMouse) return;
+    setOpenMenu(false);
+  }, [onMouse]);
+
+  const getBalance = useCallback(async address => {
     if (!address) return;
     const result = await caver.klay.getBalance(address);
     setBalance(caver.utils.fromWei(result, 'ether'));
-  };
+  }, []);
 
   useEffect(() => {
     getBalance(address);
-  }, [address]);
+  }, [address, getBalance]);
 
   return (
     <>
@@ -208,7 +219,10 @@ const Header = () => {
                 <IconContainer>
                   <Cart />
                 </IconContainer>
-                <UsermenuContainer onMouseEnter={onMouseEnter}>
+                <UsermenuContainer
+                  onMouseEnter={onMouseEnter}
+                  onMouseLeave={onMouseLeaveFromIcon}
+                >
                   <Avatar />
                   <UserInfo>
                     <MenuDown />
@@ -229,7 +243,10 @@ const Header = () => {
               </Right>
             )}
             <DrawerContainer>
-              <UsermenuContainer onMouseEnter={onMouseEnter}>
+              <UsermenuContainer
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeaveFromIcon}
+              >
                 <Avatar />
                 <UserInfo>
                   <MenuDown />

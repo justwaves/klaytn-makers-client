@@ -32,12 +32,9 @@ const Grid = styled.div`
   }
 `;
 
-const LeftColumn = styled.div`
-  /* outline: 1px solid red; */
-`;
+const LeftColumn = styled.div``;
 
 const RightColumn = styled.div`
-  /* border: 1px solid ${props => props.theme.color.gray[4]}; */
   max-height: 30rem;
   position: sticky;
   top: 6.25rem;
@@ -51,7 +48,7 @@ const RightColumn = styled.div`
   }
 
   @media (max-width: 816px) {
-    width: 100%; 
+    width: 100%;
   }
 `;
 
@@ -69,7 +66,6 @@ const ImageContainer = styled.div`
 `;
 
 const Content = styled.div`
-  /* outline: 1px solid ${props => props.theme.color.gray[4]}; */
   height: 500px;
   margin-top: 1.5rem;
 
@@ -150,36 +146,6 @@ const Price = styled.div`
     position: relative;
   }
 `;
-
-// const OrderButton = styled.button`
-//   background-color: ${props => props.theme.color.primary[0]};
-//   width: 100%;
-//   border: 0;
-//   border-radius: 4px;
-//   height: 3rem;
-//   color: white;
-//   font-size: 1.125rem;
-//   font-weight: 600;
-//   margin-top: 1rem;
-//   position: absolute;
-//   bottom: 0;
-//   left: 0;
-
-//   @media (max-width: 1200px) {
-//     max-width: 640px;
-//     margin: 0 auto;
-//     position: fixed;
-//     left: 50%;
-//     bottom: 0;
-//     transform: translate(-50%, 0%);
-//     border-radius: 0;
-//   }
-// `;
-
-// const Divider = styled.div`
-//   border-bottom: 1px solid ${props => props.theme.color.gray[3]};
-//   margin-top: 1.5rem;
-// `;
 
 const PostContent = styled.div`
   line-height: 1.6;

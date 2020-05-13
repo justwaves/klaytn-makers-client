@@ -36,7 +36,7 @@ const ProductListContainer = () => {
   useEffect(() => {
     onListPost();
     onSetFeed();
-  }, [dispatch, location.search, onListPost, onSetFeed]);
+  }, [dispatch, location.search]);
 
   useEffect(() => {
     if (posts && feed) {

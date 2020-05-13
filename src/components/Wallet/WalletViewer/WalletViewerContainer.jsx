@@ -47,6 +47,7 @@ const WalletViewerContainer = ({ username }) => {
   };
 
   useEffect(() => {
+    if (posts && txList) return;
     if (username) {
       dispatch(listPosts({ username }));
       dispatch(setTxList({ username }));

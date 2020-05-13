@@ -18,6 +18,7 @@ const Grid = styled.div`
 `;
 
 const ProductList = ({ combinedList, loading, error, user }) => {
+  console.log(combinedList);
   if (error) {
     return <ResponsiveWrapper>에러가 발생했습니다.</ResponsiveWrapper>;
   }

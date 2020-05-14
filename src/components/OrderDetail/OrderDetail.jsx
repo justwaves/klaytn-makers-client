@@ -33,10 +33,11 @@ const TableGrid = styled.div`
 
 const TableHeader = styled.div`
   display: flex;
+  font-size: 0.875rem;
 `;
 
 const LeftHeader = styled.div`
-  width: 50%;
+  width: 320px;
   border-bottom: 1px solid ${props => props.theme.color.gray[5]};
   display: flex;
   justify-content: center;
@@ -44,11 +45,19 @@ const LeftHeader = styled.div`
 `;
 
 const RightHeader = styled.div`
-  width: 50%;
+  flex: 1;
   border-bottom: 1px solid ${props => props.theme.color.gray[5]};
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding-right: 4rem;
+  padding-left: 2rem;
+
+  div {
+    &:nth-child(2) {
+      margin-right: 2.25rem;
+    }
+  }
 `;
 
 const TableContent = styled.div``;
@@ -62,7 +71,11 @@ const OrderDetail = ({ buyerMakers, loading }) => {
         <TableGrid>
           <TableHeader>
             <LeftHeader>상품정보</LeftHeader>
-            <RightHeader>가격</RightHeader>
+            <RightHeader>
+              <div>주문수/목표</div>
+              <div>가격</div>
+              <div>상태</div>
+            </RightHeader>
           </TableHeader>
 
           <TableContent>

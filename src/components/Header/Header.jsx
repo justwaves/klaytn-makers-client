@@ -149,7 +149,7 @@ const UsermenuContainer = styled.div`
 const Divider = styled.span`
   border: 1px solid ${props => props.theme.color.gray[3]};
   width: 1px;
-  height: 80%;
+  height: 1.5rem;
   margin-right: 1.25rem;
   margin-left: 1rem;
 `;

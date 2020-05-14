@@ -1,6 +1,37 @@
-export const CA = '0x4FaFd0e7929C51fE068849d9f1208d537ecEC832';
+export const CA = '0x9eFa6019454aAADE71ABC4C100b690Dd054EEEB2';
 
 export const ABI = [
+  {
+    anonymous: false,
+    inputs: [
+      {
+        components: [
+          { internalType: 'uint256', name: 'makersId', type: 'uint256' },
+          { internalType: 'uint256', name: 'price', type: 'uint256' },
+          { internalType: 'uint256', name: 'targetCount', type: 'uint256' },
+          { internalType: 'uint256', name: 'timestamp', type: 'uint256' },
+          { internalType: 'uint256', name: 'dDay', type: 'uint256' },
+          { internalType: 'uint256', name: 'count', type: 'uint256' },
+          { internalType: 'address', name: 'seller', type: 'address' },
+          { internalType: 'string', name: 'postId', type: 'string' },
+          { internalType: 'string', name: 'title', type: 'string' },
+          {
+            internalType: 'enum MakersContract.State',
+            name: 'state',
+            type: 'uint8',
+          },
+        ],
+        indexed: false,
+        internalType: 'struct MakersContract.Makers[]',
+        name: 'makersList',
+        type: 'tuple[]',
+      },
+    ],
+    name: 'Checked',
+    type: 'event',
+    signature:
+      '0x6469d794ed62653a4d8639d7f08f87b313b19328d8d1a2e5821bf3d04a74c098',
+  },
   {
     anonymous: false,
     inputs: [
@@ -214,6 +245,63 @@ export const ABI = [
     signature: '0x3cbe5e63',
   },
   {
+    inputs: [],
+    name: 'checkState',
+    outputs: [
+      {
+        components: [
+          { internalType: 'uint256', name: 'makersId', type: 'uint256' },
+          { internalType: 'uint256', name: 'price', type: 'uint256' },
+          { internalType: 'uint256', name: 'targetCount', type: 'uint256' },
+          { internalType: 'uint256', name: 'timestamp', type: 'uint256' },
+          { internalType: 'uint256', name: 'dDay', type: 'uint256' },
+          { internalType: 'uint256', name: 'count', type: 'uint256' },
+          { internalType: 'address', name: 'seller', type: 'address' },
+          { internalType: 'string', name: 'postId', type: 'string' },
+          { internalType: 'string', name: 'title', type: 'string' },
+          {
+            internalType: 'enum MakersContract.State',
+            name: 'state',
+            type: 'uint8',
+          },
+        ],
+        internalType: 'struct MakersContract.Makers[]',
+        name: '',
+        type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+    signature: '0x96dfcbea',
+  },
+  {
+    inputs: [
+      { internalType: 'string', name: '', type: 'string' },
+      { internalType: 'uint256', name: '', type: 'uint256' },
+    ],
+    name: 'checkedMakers',
+    outputs: [
+      { internalType: 'uint256', name: 'makersId', type: 'uint256' },
+      { internalType: 'uint256', name: 'price', type: 'uint256' },
+      { internalType: 'uint256', name: 'targetCount', type: 'uint256' },
+      { internalType: 'uint256', name: 'timestamp', type: 'uint256' },
+      { internalType: 'uint256', name: 'dDay', type: 'uint256' },
+      { internalType: 'uint256', name: 'count', type: 'uint256' },
+      { internalType: 'address', name: 'seller', type: 'address' },
+      { internalType: 'string', name: 'postId', type: 'string' },
+      { internalType: 'string', name: 'title', type: 'string' },
+      {
+        internalType: 'enum MakersContract.State',
+        name: 'state',
+        type: 'uint8',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+    constant: true,
+    signature: '0xc31bbb24',
+  },
+  {
     inputs: [
       { internalType: 'string', name: 'postId', type: 'string' },
       { internalType: 'string', name: 'title', type: 'string' },
@@ -257,6 +345,68 @@ export const ABI = [
     type: 'function',
     constant: true,
     signature: '0x5720dfb7',
+  },
+  {
+    inputs: [],
+    name: 'getFundingFailure',
+    outputs: [
+      {
+        components: [
+          { internalType: 'uint256', name: 'makersId', type: 'uint256' },
+          { internalType: 'uint256', name: 'price', type: 'uint256' },
+          { internalType: 'uint256', name: 'targetCount', type: 'uint256' },
+          { internalType: 'uint256', name: 'timestamp', type: 'uint256' },
+          { internalType: 'uint256', name: 'dDay', type: 'uint256' },
+          { internalType: 'uint256', name: 'count', type: 'uint256' },
+          { internalType: 'address', name: 'seller', type: 'address' },
+          { internalType: 'string', name: 'postId', type: 'string' },
+          { internalType: 'string', name: 'title', type: 'string' },
+          {
+            internalType: 'enum MakersContract.State',
+            name: 'state',
+            type: 'uint8',
+          },
+        ],
+        internalType: 'struct MakersContract.Makers[]',
+        name: '',
+        type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+    constant: true,
+    signature: '0x1409eede',
+  },
+  {
+    inputs: [],
+    name: 'getFundingSuccess',
+    outputs: [
+      {
+        components: [
+          { internalType: 'uint256', name: 'makersId', type: 'uint256' },
+          { internalType: 'uint256', name: 'price', type: 'uint256' },
+          { internalType: 'uint256', name: 'targetCount', type: 'uint256' },
+          { internalType: 'uint256', name: 'timestamp', type: 'uint256' },
+          { internalType: 'uint256', name: 'dDay', type: 'uint256' },
+          { internalType: 'uint256', name: 'count', type: 'uint256' },
+          { internalType: 'address', name: 'seller', type: 'address' },
+          { internalType: 'string', name: 'postId', type: 'string' },
+          { internalType: 'string', name: 'title', type: 'string' },
+          {
+            internalType: 'enum MakersContract.State',
+            name: 'state',
+            type: 'uint8',
+          },
+        ],
+        internalType: 'struct MakersContract.Makers[]',
+        name: '',
+        type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+    constant: true,
+    signature: '0x6af2ed09',
   },
   {
     inputs: [{ internalType: 'uint256', name: 'makersId', type: 'uint256' }],

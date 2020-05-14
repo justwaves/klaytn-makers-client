@@ -47,30 +47,41 @@ const WalletViewerContainer = ({ username }) => {
   };
 
   useEffect(() => {
-    if (posts && txList) return;
+    if (posts) return;
     if (username) {
       dispatch(listPosts({ username }));
-      dispatch(setTxList({ username }));
     }
-  }, [dispatch, location.search, username]);
+  }, [dispatch, location.search, username, posts]);
 
   useEffect(() => {
-    getBalance(address);
+    if (txList) return;
+    if (username) {
+      dispatch(setTxList({ username }));
+    }
+  }, [dispatch, location.search, username, txList]);
+
+  useEffect(() => {
+    if (buyerMakers) return;
     dispatch(setBuyerMakers());
-  }, [address, dispatch]);
+  }, [dispatch, buyerMakers]);
+
+  useEffect(() => {
+    if (balance) return;
+    getBalance(address);
+  }, [dispatch, address, balance]);
 
   useEffect(() => {
     if (posts && buyerMakers) {
       dispatch(combineList({ posts, feed: buyerMakers }));
     }
-  }, [buyerMakers, posts, dispatch]);
+  }, [dispatch, buyerMakers, posts]);
 
   return (
     <WalletViewer
       address={address}
       balance={balance}
       logout={logout}
-      buyerMakers={combinedList}
+      buyerMakers={combinedList.reverse()}
       loading={loading}
       username={username}
       txList={txList}

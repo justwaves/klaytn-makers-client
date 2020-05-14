@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,21 +25,14 @@ const ProductViewerContainer = () => {
     }),
   );
 
-  const onReadPost = useCallback(() => {
-    dispatch(readPost(postId));
-  }, [dispatch, postId]);
-
-  const onSetMakers = useCallback(() => {
-    dispatch(setMakers(postId));
-  }, [dispatch, postId]);
-
   useEffect(() => {
-    onReadPost();
-    onSetMakers();
+    dispatch(readPost(postId));
+    dispatch(setMakers(postId));
+
     return () => {
       dispatch(unloadPost());
     };
-  }, [dispatch, onReadPost, onSetMakers]);
+  }, [dispatch, postId]);
 
   useEffect(() => {
     if (post && makers) {

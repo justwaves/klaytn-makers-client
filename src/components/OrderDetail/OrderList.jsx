@@ -86,7 +86,32 @@ const ProductInfo = styled.div`
   padding-right: 1.5rem;
 `;
 
-const Price = styled.div``;
+const Info = styled.div`
+  font-size: 0.875rem;
+  text-align: center;
+  min-width: 3rem;
+`;
+
+const State = styled.div`
+  font-weight: 500;
+`;
+
+const StateButton = styled.button`
+  border: 0;
+  color: white;
+  outline: none;
+  padding: 0.25rem 1rem;
+  background-color: ${props => props.theme.color.primary[0]};
+  font-size: 0.875rem;
+  margin-top: 0.75rem;
+  font-weight: 400;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background: ${props => props.theme.color.primary[3]};
+  }
+`;
 
 const TxItem = ({
   photo,
@@ -136,9 +161,14 @@ const TxItem = ({
           </ProgressBarContainer>
         </ItemInfo>
         <ProductInfo>
-          <Price>11/300</Price>
-          <Price>11KLAY</Price>
-          <Price>펀딩성공</Price>
+          <Info>
+            {count}/{targetCount}
+          </Info>
+          <Info>{price} KLAY</Info>
+          <Info>
+            <State>{state === '0' ? '진행중' : '펀딩성공'}</State>
+            {state === '0' && <StateButton>환불받기</StateButton>}
+          </Info>
         </ProductInfo>
       </TxItemWrapper>
     </>
@@ -171,6 +201,7 @@ const OrderList = ({ buyerMakers, loading }) => {
                 count={order.count}
                 postId={order._id}
                 username={order.user.username}
+                price={order.price}
               />
             ))}
       </ListWrapper>

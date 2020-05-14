@@ -14,6 +14,7 @@ import TabsThree from 'components/Common/TabsThree';
 // import { Copy } from "components/Common/Icons";
 import Copy from 'components/Common/Copy';
 import { HeartFull } from 'components/Common/Icons';
+import contractAPI from 'klaytn/contractAPI';
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -70,6 +71,34 @@ const TestPage = () => {
     setWalletAddress(walletInstance.address);
   };
 
+  const checkState = () => {
+    console.log('check!');
+    contractAPI.methods
+      .checkState()
+      .call()
+      .then(receipt => {
+        console.log(receipt);
+      });
+  };
+
+  const setFundingSuccess = () => {
+    contractAPI.methods
+      .getFundingSuccess()
+      .call()
+      .then(receipt => {
+        console.log(receipt);
+      });
+  };
+
+  const setFundingFailure = () => {
+    contractAPI.methods
+      .getFundingFailure()
+      .call()
+      .then(receipt => {
+        console.log(receipt);
+      });
+  };
+
   // const sendKlay = () => {
   //   caver.klay
   //     .sendTransaction({
@@ -92,6 +121,12 @@ const TestPage = () => {
     <Responsive>
       <Wrapper>
         <Header />
+        <Divider />
+        <button onClick={setFundingSuccess}>setFundingSuccess</button>
+        <Divider />
+        <button onClick={setFundingFailure}>setFundingFailure</button>
+        <Divider />
+        <button onClick={checkState}>check</button>
         <Divider />
         <HeartFull fill="#ccc" />
         <Divider />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { useHistory } from 'react-router';
@@ -186,8 +186,13 @@ const List = ({ buyerMakers, loading }) => {
 };
 
 const Orders = ({ buyerMakers, inProgressMakers, finisedMakers, loading }) => {
+  const history = useHistory();
+  const openOrderDetail = useCallback(() => {
+    history.push('/orders');
+  }, [history]);
+
   return (
-    <Wrapper title="투자한 상품" more="주문상세보기">
+    <Wrapper title="투자한 상품" more="주문상세보기" onClick={openOrderDetail}>
       <TabsThree
         firstTabTitle="전체"
         secondTabTitle="진행중"
@@ -196,7 +201,7 @@ const Orders = ({ buyerMakers, inProgressMakers, finisedMakers, loading }) => {
         secondContent={<List buyerMakers={inProgressMakers} />}
         thirdContent={<List buyerMakers={finisedMakers} />}
       />
-      <More>더보기</More>
+      <More onClick={openOrderDetail}>더보기</More>
     </Wrapper>
   );
 };

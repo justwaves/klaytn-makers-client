@@ -32,6 +32,8 @@ contract MakersContract {
     Makers[] sellerMakersList
   );
 
+  event Checked(Makers[] makersList);
+
   // 전체 makers list
   Makers[] internal makersList;
 
@@ -132,5 +134,20 @@ contract MakersContract {
     returns (address[] memory)
   {
     return makersBuyers[makersId];
+  }
+
+  function checkState() public returns (Makers[] memory) {
+    for (uint256 i = 0; i < makersList.length; i++) {
+      Makers storage currentMakers = makersList[i];
+
+      if (currentMakers.dDay < now) {
+        if (currentMakers.count >= currentMakers.targetCount) {
+          currentMakers.state = State.FundingSuccess;
+        } else if (currentMakers.count < currentMakers.targetCount) {
+          currentMakers.state = State.FundingFailure;
+        }
+      }
+    }
+    return makersList;
   }
 }

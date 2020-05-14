@@ -17,13 +17,16 @@ const OrderDetailContainer = ({ username }) => {
   );
 
   useEffect(() => {
-    if (!buyerMakers || !posts) {
-      if (username) {
-        dispatch(listPosts({ username }));
-        dispatch(setBuyerMakers());
-      }
+    if (posts) return;
+    if (username) {
+      dispatch(listPosts({ username }));
     }
-  }, [dispatch, username]);
+  }, [dispatch, username, posts]);
+
+  useEffect(() => {
+    if (buyerMakers) return;
+    dispatch(setBuyerMakers());
+  }, [dispatch, buyerMakers]);
 
   useEffect(() => {
     if (posts && buyerMakers) {
@@ -31,7 +34,7 @@ const OrderDetailContainer = ({ username }) => {
     }
   }, [buyerMakers, posts, dispatch]);
 
-  return <OrderDetail buyerMakers={combinedList} loading={loading} />;
+  return <OrderDetail buyerMakers={combinedList.reverse()} loading={loading} />;
 };
 
 export default React.memo(OrderDetailContainer);

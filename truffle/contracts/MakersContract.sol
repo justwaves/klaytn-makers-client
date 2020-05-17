@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.6.0 <0.7.0;
 pragma experimental ABIEncoderV2;
 
@@ -134,20 +135,5 @@ contract MakersContract {
     returns (address[] memory)
   {
     return makersBuyers[makersId];
-  }
-
-  function checkState() public returns (Makers[] memory) {
-    for (uint256 i = 0; i < makersList.length; i++) {
-      Makers storage currentMakers = makersList[i];
-
-      if (currentMakers.dDay < now) {
-        if (currentMakers.count >= currentMakers.targetCount) {
-          currentMakers.state = State.FundingSuccess;
-        } else if (currentMakers.count < currentMakers.targetCount) {
-          currentMakers.state = State.FundingFailure;
-        }
-      }
-    }
-    return makersList;
   }
 }

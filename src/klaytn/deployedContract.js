@@ -1,4 +1,4 @@
-export const CA = '0x9eFa6019454aAADE71ABC4C100b690Dd054EEEB2';
+export const CA = '0x2b5afED23ba55b30f5081c694F063F5d04dc8210';
 
 export const ABI = [
   {
@@ -245,63 +245,6 @@ export const ABI = [
     signature: '0x3cbe5e63',
   },
   {
-    inputs: [],
-    name: 'checkState',
-    outputs: [
-      {
-        components: [
-          { internalType: 'uint256', name: 'makersId', type: 'uint256' },
-          { internalType: 'uint256', name: 'price', type: 'uint256' },
-          { internalType: 'uint256', name: 'targetCount', type: 'uint256' },
-          { internalType: 'uint256', name: 'timestamp', type: 'uint256' },
-          { internalType: 'uint256', name: 'dDay', type: 'uint256' },
-          { internalType: 'uint256', name: 'count', type: 'uint256' },
-          { internalType: 'address', name: 'seller', type: 'address' },
-          { internalType: 'string', name: 'postId', type: 'string' },
-          { internalType: 'string', name: 'title', type: 'string' },
-          {
-            internalType: 'enum MakersContract.State',
-            name: 'state',
-            type: 'uint8',
-          },
-        ],
-        internalType: 'struct MakersContract.Makers[]',
-        name: '',
-        type: 'tuple[]',
-      },
-    ],
-    stateMutability: 'nonpayable',
-    type: 'function',
-    signature: '0x96dfcbea',
-  },
-  {
-    inputs: [
-      { internalType: 'string', name: '', type: 'string' },
-      { internalType: 'uint256', name: '', type: 'uint256' },
-    ],
-    name: 'checkedMakers',
-    outputs: [
-      { internalType: 'uint256', name: 'makersId', type: 'uint256' },
-      { internalType: 'uint256', name: 'price', type: 'uint256' },
-      { internalType: 'uint256', name: 'targetCount', type: 'uint256' },
-      { internalType: 'uint256', name: 'timestamp', type: 'uint256' },
-      { internalType: 'uint256', name: 'dDay', type: 'uint256' },
-      { internalType: 'uint256', name: 'count', type: 'uint256' },
-      { internalType: 'address', name: 'seller', type: 'address' },
-      { internalType: 'string', name: 'postId', type: 'string' },
-      { internalType: 'string', name: 'title', type: 'string' },
-      {
-        internalType: 'enum MakersContract.State',
-        name: 'state',
-        type: 'uint8',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-    constant: true,
-    signature: '0xc31bbb24',
-  },
-  {
     inputs: [
       { internalType: 'string', name: 'postId', type: 'string' },
       { internalType: 'string', name: 'title', type: 'string' },
@@ -345,68 +288,6 @@ export const ABI = [
     type: 'function',
     constant: true,
     signature: '0x5720dfb7',
-  },
-  {
-    inputs: [],
-    name: 'getFundingFailure',
-    outputs: [
-      {
-        components: [
-          { internalType: 'uint256', name: 'makersId', type: 'uint256' },
-          { internalType: 'uint256', name: 'price', type: 'uint256' },
-          { internalType: 'uint256', name: 'targetCount', type: 'uint256' },
-          { internalType: 'uint256', name: 'timestamp', type: 'uint256' },
-          { internalType: 'uint256', name: 'dDay', type: 'uint256' },
-          { internalType: 'uint256', name: 'count', type: 'uint256' },
-          { internalType: 'address', name: 'seller', type: 'address' },
-          { internalType: 'string', name: 'postId', type: 'string' },
-          { internalType: 'string', name: 'title', type: 'string' },
-          {
-            internalType: 'enum MakersContract.State',
-            name: 'state',
-            type: 'uint8',
-          },
-        ],
-        internalType: 'struct MakersContract.Makers[]',
-        name: '',
-        type: 'tuple[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-    constant: true,
-    signature: '0x1409eede',
-  },
-  {
-    inputs: [],
-    name: 'getFundingSuccess',
-    outputs: [
-      {
-        components: [
-          { internalType: 'uint256', name: 'makersId', type: 'uint256' },
-          { internalType: 'uint256', name: 'price', type: 'uint256' },
-          { internalType: 'uint256', name: 'targetCount', type: 'uint256' },
-          { internalType: 'uint256', name: 'timestamp', type: 'uint256' },
-          { internalType: 'uint256', name: 'dDay', type: 'uint256' },
-          { internalType: 'uint256', name: 'count', type: 'uint256' },
-          { internalType: 'address', name: 'seller', type: 'address' },
-          { internalType: 'string', name: 'postId', type: 'string' },
-          { internalType: 'string', name: 'title', type: 'string' },
-          {
-            internalType: 'enum MakersContract.State',
-            name: 'state',
-            type: 'uint8',
-          },
-        ],
-        internalType: 'struct MakersContract.Makers[]',
-        name: '',
-        type: 'tuple[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-    constant: true,
-    signature: '0x6af2ed09',
   },
   {
     inputs: [{ internalType: 'uint256', name: 'makersId', type: 'uint256' }],
@@ -639,11 +520,19 @@ export const ABI = [
   },
   {
     inputs: [{ internalType: 'uint256', name: 'makersId', type: 'uint256' }],
-    name: 'changeState',
+    name: 'checkStateByMakerId',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
-    signature: '0xb00741cb',
+    signature: '0xe8eabf4e',
+  },
+  {
+    inputs: [],
+    name: 'checkState',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+    signature: '0x96dfcbea',
   },
   {
     inputs: [{ internalType: 'uint256', name: 'makersId', type: 'uint256' }],
@@ -671,5 +560,14 @@ export const ABI = [
     type: 'function',
     constant: true,
     signature: '0x3d5cd679',
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'makersId', type: 'uint256' }],
+    name: 'getTotalKlayAmount',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+    constant: true,
+    signature: '0x60a286e0',
   },
 ];

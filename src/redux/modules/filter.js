@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { startLoading, finishLoading } from './loading';
 import { createRequestActionTypes } from 'lib/createRequestSaga';
 import { takeLatest, put } from 'redux-saga/effects';
+import moment from 'moment';
 
 const [
   COMBINE_LIST,
@@ -15,6 +16,18 @@ const [
   COMBINE_PRODUCT_FAILURE,
 ] = createRequestActionTypes('filter/COMBINE_PRODUCT');
 
+const [
+  FILTER_STATE,
+  FILTER_STATE_SUCCESS,
+  FILTER_STATE_FAILURE,
+] = createRequestActionTypes('filter/FILTER_STATE');
+
+const SORT_POPULAR = 'filter/SORT_POPULAR';
+const SORT_DEADLINE = 'filter/SORT_DEADLINE';
+const FILTER_FINISHED = 'filter/FILTER_FINISHED';
+
+const FILTER_LIST = 'filter/FILTER_LIST';
+
 export const combineList = createAction(COMBINE_LIST, ({ posts, feed }) => ({
   posts,
   feed,
@@ -27,6 +40,94 @@ export const combineProduct = createAction(
     makers,
   }),
 );
+
+export const filterState = createAction(FILTER_STATE, ({ list }) => ({
+  list,
+}));
+
+export const fliterList = createAction(FILTER_LIST, ({ list }) => ({
+  list,
+}));
+
+export const setDeadline = createAction(SORT_DEADLINE, ({ deadlineList }) => ({
+  deadlineList,
+}));
+
+const filterStateSaga = () => {
+  return function* (action) {
+    const list = action.payload;
+
+    const arr = [];
+    const now = Math.ceil(new Date().getTime() / 1000);
+    console.log(list, now);
+    list.map(product => {
+      if (product.makersDDay < now) {
+        arr.push(product);
+        console.log(arr);
+      }
+    });
+
+    console.log(`
+    ----
+    ${{ arr }}
+    ----
+    `);
+
+    yield put({
+      type: FILTER_STATE_SUCCESS,
+      payload: arr,
+    });
+  };
+};
+
+const filterListSaga = () => {
+  return function* (action) {
+    const list = action.payload;
+
+    // SORT_POPULAR
+    list.sort((a, b) => {
+      const aCount = a.count;
+      const aTargetCount = a.targetCount;
+      const bCount = b.count;
+      const bTargetCount = b.targetCount;
+      const aPercentage = aCount / aTargetCount;
+      const bPercentage = bCount / bTargetCount;
+
+      if (aPercentage > bPercentage) {
+        return -1;
+      }
+      if (aPercentage < bPercentage) {
+        return 1;
+      }
+      return 0;
+    });
+    yield put({
+      type: SORT_POPULAR,
+      payload: list,
+    });
+
+    // SORT_DEADLINE
+    list.sort((a, b) => {
+      if (a.dDay > b.dDay) {
+        return 1;
+      }
+      if (a.dDay < b.dDay) {
+        return -1;
+      }
+      return 0;
+    });
+    yield put({
+      type: SORT_DEADLINE,
+      payload: list,
+    });
+
+    const finishedList = list.filter(product => product.state !== '0');
+    yield put({
+      type: FILTER_FINISHED,
+      payload: finishedList,
+    });
+  };
+};
 
 const combineListSaga = () => {
   return function* (action) {
@@ -42,7 +143,11 @@ const combineListSaga = () => {
               ...post,
               ...makers,
               dDay: post.dDay,
+              makersDDay: makers.dDay,
             };
+            console.log(makers.dDay);
+            const date = moment(makers.dDay).format('YYYY년 MM월 DD일');
+            console.log('================', date);
 
             newArray.push(newPost);
           }
@@ -50,9 +155,16 @@ const combineListSaga = () => {
         });
         return null;
       });
-
       yield put({
         type: COMBINE_LIST_SUCCESS,
+        payload: newArray,
+      });
+      yield put({
+        type: FILTER_LIST,
+        payload: newArray,
+      });
+      yield put({
+        type: FILTER_STATE,
         payload: newArray,
       });
     } catch (e) {
@@ -75,6 +187,7 @@ const combineProductSaga = () => {
       ...post,
       ...makers[0],
       dDay: post.dDay,
+      makersDDay: makers.dDay,
     };
 
     yield put({
@@ -89,12 +202,18 @@ const combineProductSaga = () => {
 export function* filterSaga() {
   yield takeLatest(COMBINE_LIST, combineListSaga());
   yield takeLatest(COMBINE_PRODUCT, combineProductSaga());
+  yield takeLatest(FILTER_LIST, filterListSaga());
+  yield takeLatest(FILTER_STATE, filterStateSaga());
 }
 
 const initialState = {
   combinedList: [],
+  deadlineList: [],
+  popularList: [],
+  finishedList: [],
   combinedProduct: null,
   error: null,
+  listByState: [],
 };
 
 const filter = handleActions(
@@ -114,6 +233,26 @@ const filter = handleActions(
     [COMBINE_PRODUCT_FAILURE]: (state, { payload: e }) => ({
       ...state,
       error: e,
+    }),
+    [FILTER_STATE_SUCCESS]: (state, { payload: list }) => ({
+      ...state,
+      listByState: list,
+    }),
+    [FILTER_STATE_FAILURE]: (state, { payload: e }) => ({
+      ...state,
+      error: e,
+    }),
+    [SORT_POPULAR]: (state, { payload: list }) => ({
+      ...state,
+      popularList: list,
+    }),
+    [SORT_DEADLINE]: (state, { payload: list }) => ({
+      ...state,
+      deadlineList: list,
+    }),
+    [FILTER_FINISHED]: (state, { payload: finishedList }) => ({
+      ...state,
+      finishedList,
     }),
   },
   initialState,

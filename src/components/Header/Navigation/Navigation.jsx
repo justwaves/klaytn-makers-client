@@ -73,13 +73,15 @@ const Navigation = () => {
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/store/new">
-              <NavBoder border={navName === 'new' ? 1 : 0}>신규</NavBoder>
+            <Link to="/store/popular">
+              <NavBoder border={navName === 'popular' ? 1 : 0}>인기</NavBoder>
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/store/popular">
-              <NavBoder border={navName === 'popular' ? 1 : 0}>인기</NavBoder>
+            <Link to="/store/deadline">
+              <NavBoder border={navName === 'deadline' ? 1 : 0}>
+                마감임박
+              </NavBoder>
             </Link>
           </NavItem>
           <NavItem>

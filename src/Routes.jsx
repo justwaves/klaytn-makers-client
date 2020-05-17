@@ -14,17 +14,15 @@ const Routes = () => (
   <>
     <ScrollToTop />
     <Switch>
-      <Route path={['/@:username', '/']} exact component={StorePage} />
       <Route path="/@:username/:postId" component={DetailPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/signup" component={SignupPage} />
       <Route path="/write" component={WritePage} />
       <Route path="/store/:status" component={StorePage} />
-      <Route path="/store" component={StorePage} />
       <Route path="/wallet" component={WalletPage} />
       <Route path="/orders" component={OrderDetailPage} />
       <Route path="/test" component={TestPage} />
-      <Redirect from="*" to="/" />
+      <Redirect from="*" to="/store/home" />
     </Switch>
   </>
 );

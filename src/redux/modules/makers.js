@@ -39,7 +39,6 @@ export const uploadMakersSaga = () => {
     yield put(setFeed());
     const { postId, title, price, targetCount, dDay } = action.payload;
 
-    console.log(postId, title, price, targetCount, dDay);
     try {
       const receipt = yield call(
         contractAPI.methods.createMakers(
@@ -154,6 +153,7 @@ const setFeedSaga = () => {
       }
 
       const feed = feedParser(totalMakers).reverse();
+      console.log('feed => ', feed);
 
       yield put({
         type: SET_FEED_SUCCESS,

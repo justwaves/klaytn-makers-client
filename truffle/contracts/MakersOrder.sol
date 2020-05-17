@@ -1,7 +1,7 @@
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.6.0 <0.7.0;
 pragma experimental ABIEncoderV2;
-
-import "./MakersContract.sol";
+import './MakersContract.sol';
 
 
 contract MakersOrder is MakersContract {
@@ -35,7 +35,7 @@ contract MakersOrder is MakersContract {
   // 주문하기
   function orderMakers(uint256 makersId) public payable {
     Makers storage currentMakers = makersByMakersId[makersId];
-    // require(currentMakers.state == State.InProgress);
+    require(currentMakers.state == State.InProgress);
     // require(msg.value == currentMakers.price);
     string memory postId = currentMakers.postId;
 
@@ -63,18 +63,32 @@ contract MakersOrder is MakersContract {
     );
   }
 
-  function changeState(uint256 makersId) public {
-    Makers memory currentMakers = makersByMakersId[makersId];
+  uint256 today = now;
 
-    require(currentMakers.dDay < now);
+  // makers state check
+  function checkStateByMakerId(uint256 makersId) public {
+    Makers storage currentMakers = makersList[makersId];
+    require(today <= currentMakers.dDay);
 
     if (currentMakers.count >= currentMakers.targetCount) {
       currentMakers.state = State.FundingSuccess;
     } else if (currentMakers.count < currentMakers.targetCount) {
       currentMakers.state = State.FundingFailure;
     }
+  }
 
-    emit FundingEnded(makersId, currentMakers.state);
+  function checkState() public {
+    for (uint256 i = 0; i < makersList.length; i++) {
+      Makers storage currentMakers = makersList[i];
+
+      if (today > makersList[i].dDay) {
+        if (currentMakers.count >= currentMakers.targetCount) {
+          currentMakers.state = State.FundingSuccess;
+        } else if (currentMakers.count < currentMakers.targetCount) {
+          currentMakers.state = State.FundingFailure;
+        }
+      }
+    }
   }
 
   function succeedFunding(uint256 makersId)
@@ -109,5 +123,9 @@ contract MakersOrder is MakersContract {
     require(msg.sender == makersByMakersId[makersId].seller);
     Makers memory currentMakers = makersByMakersId[makersId];
     currentMakers.state = State.FundingFailure;
+  }
+
+  function getTotalKlayAmount(uint256 makersId) public view returns (uint256) {
+    return totalKlayAmount[makersId];
   }
 }

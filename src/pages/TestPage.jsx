@@ -7,7 +7,7 @@ import caver from 'klaytn/caver';
 import WalletLink from 'components/Wallet/WalletLink';
 import { setFeed, uploadMakers } from 'redux/modules/makers';
 import { writeTx } from 'redux/modules/tx';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from 'components/Progress/ProgressBar';
 import Spinner from 'components/Common/Spinner';
 import TabsThree from 'components/Common/TabsThree';
@@ -15,6 +15,8 @@ import TabsThree from 'components/Common/TabsThree';
 import Copy from 'components/Common/Copy';
 import { HeartFull } from 'components/Common/Icons';
 import contractAPI from 'klaytn/contractAPI';
+import { getWallet } from 'lib/crypto';
+import { combineList } from 'redux/modules/filter';
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -71,15 +73,30 @@ const TestPage = () => {
     setWalletAddress(walletInstance.address);
   };
 
-  const checkState = () => {
-    console.log('check!');
-    contractAPI.methods
-      .checkState()
-      .call()
-      .then(receipt => {
-        console.log(receipt);
-      });
-  };
+  const { combinedList } = useSelector(({ filter }) => ({
+    combinedList: filter.combinedList,
+  }));
+
+  async function getCount(address) {
+    const cnt = await caver.klay.getTransactionCount(address);
+    return cnt;
+  }
+
+  // const getFeed = () => dispatch => {
+  //   KlaystagramContract.methods
+  //     .getTotalPhotoCount()
+  //     .call()
+  //     .then(totalPhotoCount => {
+  //       if (!totalPhotoCount) return [];
+  //       const feed = [];
+  //       for (let i = totalPhotoCount; i > 0; i--) {
+  //         const photo = KlaystagramContract.methods.getPhoto(i).call();
+  //         feed.push(photo);
+  //       }
+  //       return Promise.all(feed);
+  //     })
+  //     .then(feed => dispatch(setFeed(feedParser(feed))));
+  // };
 
   const setFundingSuccess = () => {
     contractAPI.methods
@@ -99,17 +116,14 @@ const TestPage = () => {
       });
   };
 
-  // const sendKlay = () => {
-  //   caver.klay
-  //     .sendTransaction({
-  //       type: "VALUE_TRANSFER",
-  //       from: walletAddress,
-  //       to: "0xeF5cd886C7f8d85fbe8023291761341aCBb4DA01",
-  //       gas: "300000",
-  //       value: 1,
-  //     })
-  //     .then(console.log);
-  // };
+  const getTotalKlayAmount = () => {
+    contractAPI.methods
+      .getTotalKlayAmount(1)
+      .call()
+      .then(receipt => {
+        console.log(receipt);
+      });
+  };
 
   const dispatch = useDispatch();
 
@@ -117,17 +131,88 @@ const TestPage = () => {
 
   const klay = caver.utils.fromPeb(0x5d21dba00);
 
+  const checkStateByMakerId = makersId => {
+    console.log('checkState: ', makersId);
+    contractAPI.methods
+      .checkStateByMakerId(makersId)
+      .send({
+        from: getWallet().address,
+        gas: '3000000',
+      })
+      .once('transactionHash', txHash => {
+        console.log('txHash:', txHash);
+      })
+      .once('receipt', receipt => {
+        console.log(receipt);
+      })
+      .once('error', error => {
+        console.log('error: ', error);
+      });
+  };
+
+  const checkState = () => {
+    console.log('check');
+    contractAPI.methods
+      .checkState()
+      .send({
+        from: getWallet().address,
+        gas: '30000000',
+      })
+      .once('transactionHash', txHash => {
+        console.log('txHash:', txHash);
+      })
+      .once('receipt', receipt => {
+        console.log(receipt);
+      })
+      .once('error', error => {
+        console.log('error: ', error);
+      });
+  };
+
   return (
     <Responsive>
       <Wrapper>
         <Header />
         <Divider />
+        <button onClick={checkState}>checkState</button>
+
+        <Divider />
+        <Divider />
+        <ButtonWrapper>
+          <Label>Upload fake makers</Label>
+          <Button
+            onClick={() =>
+              dispatch(
+                uploadMakers({
+                  postId: 'postId',
+                  title: 'title',
+                  price: 1,
+                  targetCount: 12,
+                  dDay: 1588579156,
+                }),
+              )
+            }
+          >
+            Upload
+          </Button>
+        </ButtonWrapper>
+        <Divider />
+        <button onClick={() => checkStateByMakerId(0)}>check1</button>
+        <button onClick={() => checkStateByMakerId(1)}>check2</button>
+
+        <Divider />
+        <ButtonWrapper>
+          <Label>get makers</Label>
+          <Button onClick={() => dispatch(setFeed())}>get makers</Button>
+        </ButtonWrapper>
+        <Divider />
+        <button onClick={getTotalKlayAmount}>getTotalKlayAmount</button>
+        <Divider />
         <button onClick={setFundingSuccess}>setFundingSuccess</button>
         <Divider />
         <button onClick={setFundingFailure}>setFundingFailure</button>
         <Divider />
-        <button onClick={checkState}>check</button>
-        <Divider />
+
         <HeartFull fill="#ccc" />
         <Divider />
         {klay}
@@ -186,11 +271,7 @@ const TestPage = () => {
           </Button>
         </ButtonWrapper>
         <Divider />
-        <ButtonWrapper>
-          <Label>get makers</Label>
-          <Button onClick={() => dispatch(setFeed())}>get makers</Button>
-        </ButtonWrapper>
-        <Divider />
+
         <WalletLink />
         <Divider />
         <ButtonWrapper>

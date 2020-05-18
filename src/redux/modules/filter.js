@@ -2,7 +2,6 @@ import { createAction, handleActions } from 'redux-actions';
 import { startLoading, finishLoading } from './loading';
 import { createRequestActionTypes } from 'lib/createRequestSaga';
 import { takeLatest, put } from 'redux-saga/effects';
-import moment from 'moment';
 
 const [
   COMBINE_LIST,
@@ -15,12 +14,6 @@ const [
   COMBINE_PRODUCT_SUCCESS,
   COMBINE_PRODUCT_FAILURE,
 ] = createRequestActionTypes('filter/COMBINE_PRODUCT');
-
-const [
-  FILTER_STATE,
-  FILTER_STATE_SUCCESS,
-  FILTER_STATE_FAILURE,
-] = createRequestActionTypes('filter/FILTER_STATE');
 
 const SORT_POPULAR = 'filter/SORT_POPULAR';
 const SORT_DEADLINE = 'filter/SORT_DEADLINE';
@@ -41,10 +34,6 @@ export const combineProduct = createAction(
   }),
 );
 
-export const filterState = createAction(FILTER_STATE, ({ list }) => ({
-  list,
-}));
-
 export const fliterList = createAction(FILTER_LIST, ({ list }) => ({
   list,
 }));
@@ -53,39 +42,20 @@ export const setDeadline = createAction(SORT_DEADLINE, ({ deadlineList }) => ({
   deadlineList,
 }));
 
-const filterStateSaga = () => {
-  return function* (action) {
-    const list = action.payload;
-
-    const arr = [];
-    const now = Math.ceil(new Date().getTime() / 1000);
-    console.log(list, now);
-    list.map(product => {
-      if (product.makersDDay < now) {
-        arr.push(product);
-        console.log(arr);
-      }
-    });
-
-    console.log(`
-    ----
-    ${{ arr }}
-    ----
-    `);
-
-    yield put({
-      type: FILTER_STATE_SUCCESS,
-      payload: arr,
-    });
-  };
-};
-
 const filterListSaga = () => {
   return function* (action) {
     const list = action.payload;
 
+    const finishedList = list.filter(product => product.state !== '0');
+    yield put({
+      type: FILTER_FINISHED,
+      payload: finishedList,
+    });
+
+    const inProgressList = list.filter(product => product.state === '0');
+
     // SORT_POPULAR
-    list.sort((a, b) => {
+    inProgressList.sort((a, b) => {
       const aCount = a.count;
       const aTargetCount = a.targetCount;
       const bCount = b.count;
@@ -103,7 +73,7 @@ const filterListSaga = () => {
     });
     yield put({
       type: SORT_POPULAR,
-      payload: list,
+      payload: inProgressList,
     });
 
     // SORT_DEADLINE
@@ -118,13 +88,7 @@ const filterListSaga = () => {
     });
     yield put({
       type: SORT_DEADLINE,
-      payload: list,
-    });
-
-    const finishedList = list.filter(product => product.state !== '0');
-    yield put({
-      type: FILTER_FINISHED,
-      payload: finishedList,
+      payload: inProgressList,
     });
   };
 };
@@ -145,9 +109,6 @@ const combineListSaga = () => {
               dDay: post.dDay,
               makersDDay: makers.dDay,
             };
-            console.log(makers.dDay);
-            const date = moment(makers.dDay).format('YYYY년 MM월 DD일');
-            console.log('================', date);
 
             newArray.push(newPost);
           }
@@ -155,16 +116,15 @@ const combineListSaga = () => {
         });
         return null;
       });
+
+      const inProgressList = newArray.filter(product => product.state === '0');
+
       yield put({
         type: COMBINE_LIST_SUCCESS,
-        payload: newArray,
+        payload: inProgressList,
       });
       yield put({
         type: FILTER_LIST,
-        payload: newArray,
-      });
-      yield put({
-        type: FILTER_STATE,
         payload: newArray,
       });
     } catch (e) {
@@ -203,7 +163,6 @@ export function* filterSaga() {
   yield takeLatest(COMBINE_LIST, combineListSaga());
   yield takeLatest(COMBINE_PRODUCT, combineProductSaga());
   yield takeLatest(FILTER_LIST, filterListSaga());
-  yield takeLatest(FILTER_STATE, filterStateSaga());
 }
 
 const initialState = {
@@ -231,14 +190,6 @@ const filter = handleActions(
       combinedProduct: product,
     }),
     [COMBINE_PRODUCT_FAILURE]: (state, { payload: e }) => ({
-      ...state,
-      error: e,
-    }),
-    [FILTER_STATE_SUCCESS]: (state, { payload: list }) => ({
-      ...state,
-      listByState: list,
-    }),
-    [FILTER_STATE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       error: e,
     }),

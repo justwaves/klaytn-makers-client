@@ -6,7 +6,7 @@ import { createRequestActionTypes } from 'lib/createRequestSaga';
 import { takeLatest, put, call } from 'redux-saga/effects';
 import caver from 'klaytn/caver';
 import { feedParser } from 'lib/parser';
-import { writeTx } from './tx';
+import { writeTx, setTxList } from './tx';
 import ui from 'lib/ui';
 
 const [
@@ -48,6 +48,7 @@ const orderProductSaga = () => {
       );
 
       // const event = receipt.events.MakersOrdered.returnValues;
+      // console.log(event);
 
       console.log(
         `
@@ -82,6 +83,15 @@ const orderProductSaga = () => {
           TxFee: TxFee * -1,
         }),
       );
+
+      yield put({
+        type: SET_BUYER_MAKERS,
+      });
+
+      const { username } = JSON.parse(localStorage.getItem('user'));
+      console.log(username);
+
+      yield put(setTxList({ username }));
 
       yield put({
         type: ORDER_PRODUCT_SUCCESS,

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import ProgressBar from 'components/Progress/ProgressBar';
 
@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   min-width: 360px;
   max-width: 552px;
   border-radius: 4px;
+  position: relative;
 
   background-color: white;
   display: flex;
@@ -16,10 +17,24 @@ const Wrapper = styled.div`
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.5s;
   cursor: pointer;
+  overflow: hidden;
+
+  ${props =>
+    props.state !== '0' &&
+    css`
+      cursor: auto;
+    `}
 
   &:hover {
     transform: translateY(-6px);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+    ${props =>
+      props.state !== '0' &&
+      css`
+        transform: none;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      `}
   }
 
   @media (max-width: 552px) {
@@ -33,6 +48,42 @@ const Wrapper = styled.div`
   }
 `;
 
+const Blur = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  ${props =>
+    props.state !== '0' &&
+    css`
+      filter: blur(3px);
+      -webkit-filter: blur(3px);
+    `}
+`;
+
+const Finished = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  /* background: #a7a7a70e; */
+  z-index: 3;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+`;
+
 const ImageContainer = styled.div`
   width: 100%;
   height: 50%;
@@ -43,6 +94,13 @@ const ImageContainer = styled.div`
     border-radius: 0;
     max-height: 25rem;
   }
+
+  ${props =>
+    props.state !== '0' &&
+    css`
+      filter: blur(7px);
+      -webkit-filter: blur(7px);
+    `}
 
   img {
     width: 100%;
@@ -82,24 +140,34 @@ const ProductDesc = styled.p`
 const ProductCard = ({
   title,
   description,
-  photo = 'https://source.unsplash.com/random/720x500',
+  photo,
   count,
   targetCount,
   user,
-  _id = '5e9c790b3d3ec23556c4ee84',
-}) => (
-  <Link to={`/@${user.username}/${_id}`}>
-    <Wrapper>
-      <ImageContainer>
-        <img src={photo} alt="thumbnail" />
-      </ImageContainer>
-      <InfoContainer>
-        <ProductName>{title}</ProductName>
-        <ProductDesc>{description}</ProductDesc>
-        <ProgressBar count={count} targetCount={targetCount} />
-      </InfoContainer>
-    </Wrapper>
-  </Link>
-);
+  _id,
+  state,
+}) => {
+  return (
+    <Link to={`/@${user.username}/${_id}`}>
+      <Wrapper state={state}>
+        {state && state !== '0' && (
+          <Finished>
+            <div>종료된 상품입니다</div>
+          </Finished>
+        )}
+        <Blur state={state}>
+          <ImageContainer state={state}>
+            <img src={photo} alt="thumbnail" />
+          </ImageContainer>
+          <InfoContainer>
+            <ProductName>{title}</ProductName>
+            <ProductDesc>{description}</ProductDesc>
+            <ProgressBar count={count} targetCount={targetCount} />
+          </InfoContainer>
+        </Blur>
+      </Wrapper>
+    </Link>
+  );
+};
 
 export default ProductCard;

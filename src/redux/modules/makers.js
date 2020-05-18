@@ -6,7 +6,7 @@ import { createRequestActionTypes } from 'lib/createRequestSaga';
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { feedParser } from 'lib/parser';
 import caver from 'klaytn/caver';
-import { writeTx } from './tx';
+import { writeTx, setTxList } from './tx';
 import ui from 'lib/ui';
 
 const [
@@ -31,6 +31,8 @@ const [
   SET_MAKERS_FAILURE,
 ] = createRequestActionTypes('makers/SET_MAKERS');
 
+const CHECK_STATE = 'makers/CHECK_STATE';
+
 const UNLOAD_MAKERS = 'makers/UNLOAD_MAKERS';
 
 export const uploadMakersSaga = () => {
@@ -54,13 +56,7 @@ export const uploadMakersSaga = () => {
         },
       );
 
-      console.log(
-        `
-          Received receipt!
-          receipt:
-        `,
-        receipt,
-      );
+      console.log('receipt: ', receipt);
 
       ui.showToast({
         status: receipt.status ? 'success' : 'fail',
@@ -130,6 +126,9 @@ const updateFeedSaga = () => {
         type: UPDATE_FEED_SUCCESS,
         payload: newFeed,
       });
+
+      const { username } = JSON.parse(localStorage.getItem('user'));
+      yield put(setTxList({ username }));
     } catch (e) {
       console.log(e);
       yield put({
@@ -145,6 +144,7 @@ const updateFeedSaga = () => {
 const setFeedSaga = () => {
   return function* () {
     yield put(startLoading(SET_FEED));
+
     try {
       const totalMakers = yield call(contractAPI.methods.getTotalMakers().call);
 
@@ -153,7 +153,6 @@ const setFeedSaga = () => {
       }
 
       const feed = feedParser(totalMakers).reverse();
-      console.log('feed => ', feed);
 
       yield put({
         type: SET_FEED_SUCCESS,
@@ -187,8 +186,6 @@ const setMakersSaga = () => {
         return;
       }
 
-      console.log(product);
-
       const feed = [];
 
       feed.push(product);
@@ -211,17 +208,38 @@ const setMakersSaga = () => {
   };
 };
 
+const checkStateSaga = () => {
+  return function* () {
+    yield put(startLoading(CHECK_STATE));
+
+    console.log(process.env.REACT_APP_WALLET_ADDRESS);
+    try {
+      const receipt = yield call(contractAPI.methods.checkState().send, {
+        from: process.env.REACT_APP_WALLET_ADDRESS,
+        gas: '30000000',
+      });
+
+      console.log('checkState: ', receipt);
+    } catch (e) {
+      console.log('error: ', e);
+    }
+    yield put(finishLoading(CHECK_STATE));
+  };
+};
+
 export const uploadMakers = createAction(UPLOAD_MAKERS);
 export const updateFeed = createAction(UPDATE_FEED, makersId => makersId);
 export const setFeed = createAction(SET_FEED);
 export const setMakers = createAction(SET_MAKERS);
 export const unloadMakers = createAction(UNLOAD_MAKERS);
+export const checkState = createAction(CHECK_STATE);
 
 export function* makersSaga() {
   yield takeLatest(UPLOAD_MAKERS, uploadMakersSaga());
   yield takeLatest(UPDATE_FEED, updateFeedSaga());
   yield takeLatest(SET_FEED, setFeedSaga());
   yield takeLatest(SET_MAKERS, setMakersSaga());
+  yield takeLatest(CHECK_STATE, checkStateSaga());
 }
 
 const initialState = {

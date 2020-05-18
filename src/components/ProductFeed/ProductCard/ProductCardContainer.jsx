@@ -11,6 +11,7 @@ const ProductCardContainer = ({ post }) => {
     user,
     count,
     targetCount,
+    state,
   } = post;
 
   return (
@@ -23,6 +24,7 @@ const ProductCardContainer = ({ post }) => {
       targetCount={targetCount}
       user={user}
       _id={_id}
+      state={state}
     />
   );
 };

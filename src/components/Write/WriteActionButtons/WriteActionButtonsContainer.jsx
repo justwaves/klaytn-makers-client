@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import moment from 'moment';
 import { writePost, updatePost } from 'redux/modules/write';
 import WriteActionButtons from './WriteActionButtons';
 import { uploadMakers, unloadMakers } from 'redux/modules/makers';
@@ -83,7 +84,7 @@ const WriteActionButtonsContainer = () => {
     if (post) {
       const { _id } = post;
       try {
-        const newdate = Math.ceil(new Date().getTime(dDay) / 1000);
+        const newdate = moment(dDay).unix();
         console.log(newdate);
         dispatch(
           uploadMakers({

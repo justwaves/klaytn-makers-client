@@ -152,7 +152,7 @@ const PostContent = styled.div`
 `;
 
 const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
-  console.log('==', combinedProduct);
+  console.log('Product: ', combinedProduct);
   if (error) {
     if (error.response && error.response.status === 404) {
       return <ResponsiveWrapper>존재하지 않는 포스트입니다.</ResponsiveWrapper>;

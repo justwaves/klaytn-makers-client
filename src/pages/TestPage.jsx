@@ -7,7 +7,7 @@ import caver from 'klaytn/caver';
 import WalletLink from 'components/Wallet/WalletLink';
 import { setFeed, uploadMakers } from 'redux/modules/makers';
 import { writeTx } from 'redux/modules/tx';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ProgressBar from 'components/Progress/ProgressBar';
 import Spinner from 'components/Common/Spinner';
 import TabsThree from 'components/Common/TabsThree';
@@ -16,7 +16,7 @@ import Copy from 'components/Common/Copy';
 import { HeartFull } from 'components/Common/Icons';
 import contractAPI from 'klaytn/contractAPI';
 import { getWallet } from 'lib/crypto';
-import { combineList } from 'redux/modules/filter';
+// import { combineList } from 'redux/modules/filter';
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -73,14 +73,14 @@ const TestPage = () => {
     setWalletAddress(walletInstance.address);
   };
 
-  const { combinedList } = useSelector(({ filter }) => ({
-    combinedList: filter.combinedList,
-  }));
+  // const { combinedList } = useSelector(({ filter }) => ({
+  //   combinedList: filter.combinedList,
+  // }));
 
-  async function getCount(address) {
-    const cnt = await caver.klay.getTransactionCount(address);
-    return cnt;
-  }
+  // async function getCount(address) {
+  //   const cnt = await caver.klay.getTransactionCount(address);
+  //   return cnt;
+  // }
 
   // const getFeed = () => dispatch => {
   //   KlaystagramContract.methods

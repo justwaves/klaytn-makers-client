@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSelector } from 'react-redux';
 import { tempSetUser, check } from 'redux/modules/user';
@@ -7,6 +7,7 @@ import store from 'redux/store';
 import Routes from './Routes';
 import AuthModal from 'components/Common/AuthModal';
 import Toast from 'components/Common/Toast';
+import { checkState } from 'redux/modules/makers';
 
 function loadUser() {
   try {
@@ -38,6 +39,11 @@ const App = () => {
   const { toast } = useSelector(({ ui }) => ({
     toast: ui.toast,
   }));
+
+  useEffect(() => {
+    console.log('checkState');
+    store.dispatch(checkState());
+  }, []);
 
   return (
     <>

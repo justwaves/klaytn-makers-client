@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import Responsive from 'components/Common/Responsive';
 import Tags from 'components/Common/Tags';
-import ProgressBar from 'components/Progress/ProgressBar';
+import ProgressBar from 'components/Common/ProgressBar';
 import Spinner from 'components/Common/Spinner';
 import OrderButton from 'components/ProductDetail/OrderButton/OrderButtonContainer';
 

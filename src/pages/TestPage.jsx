@@ -8,7 +8,7 @@ import WalletLink from 'components/Wallet/WalletLink';
 import { setFeed, uploadMakers } from 'redux/modules/makers';
 import { writeTx } from 'redux/modules/tx';
 import { useDispatch } from 'react-redux';
-import ProgressBar from 'components/Progress/ProgressBar';
+import ProgressBar from 'components/Common/ProgressBar';
 import Spinner from 'components/Common/Spinner';
 import TabsThree from 'components/Common/TabsThree';
 // import { Copy } from "components/Common/Icons";

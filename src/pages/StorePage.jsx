@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from 'components/Header/Header';
 import ProductListContainer from 'components/ProductFeed/ProductList/ProductListContainer';
-import NavigationContainer from 'components/Header/Navigation/NavigationContainer';
+import Navigation from 'components/Header/Navigation';
 import Footer from 'components/Common/Footer';
 
 const StorePage = () => (
   <>
     <Header />
-    <NavigationContainer />
+    <Navigation />
     <ProductListContainer />
     <Footer />
   </>

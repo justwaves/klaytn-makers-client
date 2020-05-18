@@ -4,7 +4,7 @@ import moment from 'moment';
 import { useHistory } from 'react-router';
 import WalletCardFrame from './WalletCardFrame';
 import TabsThree from 'components/Common/TabsThree';
-import ProgressBar from 'components/Progress/ProgressBar';
+import ProgressBar from 'components/Common/ProgressBar';
 import Spinner from 'components/Common/Spinner';
 
 const Wrapper = styled(WalletCardFrame)`

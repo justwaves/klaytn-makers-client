@@ -32,7 +32,6 @@ const [
 ] = createRequestActionTypes('makers/SET_MAKERS');
 
 const CHECK_STATE = 'makers/CHECK_STATE';
-
 const UNLOAD_MAKERS = 'makers/UNLOAD_MAKERS';
 
 export const uploadMakersSaga = () => {
@@ -75,15 +74,7 @@ export const uploadMakersSaga = () => {
 
       yield put(
         writeTx({
-          type: receipt.type,
-          blockNumber: receipt.blockNumber,
-          blockHash: receipt.blockHash,
-          from: receipt.from,
-          to: receipt.to,
-          gas: receipt.gas,
-          gasPrice: receipt.gasPrice,
-          gasUsed: receipt.gasUsed,
-          transactionHash: receipt.transactionHash,
+          ...receipt,
           typeName: '상품 등록',
           klay: 0,
           TxFee: TxFee * -1,
@@ -92,8 +83,6 @@ export const uploadMakersSaga = () => {
 
       const makersId = receipt.events.MakersCreated.returnValues[0];
       yield put(updateFeed(makersId));
-
-      // TODO: dispatch(setTransaction(receipt))
     } catch (e) {
       ui.showToast({
         status: 'fail',
@@ -144,16 +133,9 @@ const updateFeedSaga = () => {
 const setFeedSaga = () => {
   return function* () {
     yield put(startLoading(SET_FEED));
-
     try {
       const totalMakers = yield call(contractAPI.methods.getTotalMakers().call);
-
-      if (!totalMakers) {
-        return [];
-      }
-
       const feed = feedParser(totalMakers).reverse();
-
       yield put({
         type: SET_FEED_SUCCESS,
         payload: feed,
@@ -173,23 +155,18 @@ const setFeedSaga = () => {
 const setMakersSaga = () => {
   return function* (action) {
     yield put(startLoading(SET_MAKERS));
-
     const postId = action.payload;
-
     try {
       const product = yield call(
         contractAPI.methods.getMakersByPostId(postId).call,
       );
-
       if (!product) {
         console.log('상품을 불러 올 수 없습니다.');
         return;
       }
 
       const feed = [];
-
       feed.push(product);
-
       const makers = feedParser(feed);
 
       yield put({
@@ -211,14 +188,11 @@ const setMakersSaga = () => {
 const checkStateSaga = () => {
   return function* () {
     yield put(startLoading(CHECK_STATE));
-
-    console.log(process.env.REACT_APP_WALLET_ADDRESS);
     try {
       const receipt = yield call(contractAPI.methods.checkState().send, {
         from: process.env.REACT_APP_WALLET_ADDRESS,
         gas: '30000000',
       });
-
       console.log('checkState: ', receipt);
     } catch (e) {
       console.log('error: ', e);

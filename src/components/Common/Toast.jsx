@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { KLAYTN_SCOPE } from 'constants/url';
+import { KLAYTN_SCOPE } from 'lib/constants';
 import ui from 'lib/ui';
 import { Close } from 'components/Common/Icons';
 

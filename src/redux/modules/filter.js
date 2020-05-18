@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { startLoading, finishLoading } from './loading';
 import { createRequestActionTypes } from 'lib/createRequestSaga';
 import { takeLatest, put } from 'redux-saga/effects';
+import { sortPopular, sortDeadline } from 'lib/sort';
 
 const [
   COMBINE_LIST,
@@ -18,7 +19,6 @@ const [
 const SORT_POPULAR = 'filter/SORT_POPULAR';
 const SORT_DEADLINE = 'filter/SORT_DEADLINE';
 const FILTER_FINISHED = 'filter/FILTER_FINISHED';
-
 const FILTER_LIST = 'filter/FILTER_LIST';
 
 export const combineList = createAction(COMBINE_LIST, ({ posts, feed }) => ({
@@ -53,42 +53,18 @@ const filterListSaga = () => {
     });
 
     const inProgressList = list.filter(product => product.state === '0');
+    const popularList = sortPopular(inProgressList);
 
-    // SORT_POPULAR
-    inProgressList.sort((a, b) => {
-      const aCount = a.count;
-      const aTargetCount = a.targetCount;
-      const bCount = b.count;
-      const bTargetCount = b.targetCount;
-      const aPercentage = aCount / aTargetCount;
-      const bPercentage = bCount / bTargetCount;
-
-      if (aPercentage > bPercentage) {
-        return -1;
-      }
-      if (aPercentage < bPercentage) {
-        return 1;
-      }
-      return 0;
-    });
     yield put({
       type: SORT_POPULAR,
-      payload: inProgressList,
+      payload: popularList,
     });
 
     // SORT_DEADLINE
-    list.sort((a, b) => {
-      if (a.dDay > b.dDay) {
-        return 1;
-      }
-      if (a.dDay < b.dDay) {
-        return -1;
-      }
-      return 0;
-    });
+    const deadlineList = sortDeadline(inProgressList);
     yield put({
       type: SORT_DEADLINE,
-      payload: inProgressList,
+      payload: deadlineList,
     });
   };
 };
@@ -193,13 +169,13 @@ const filter = handleActions(
       ...state,
       error: e,
     }),
-    [SORT_POPULAR]: (state, { payload: list }) => ({
+    [SORT_POPULAR]: (state, { payload: popularList }) => ({
       ...state,
-      popularList: list,
+      popularList,
     }),
-    [SORT_DEADLINE]: (state, { payload: list }) => ({
+    [SORT_DEADLINE]: (state, { payload: deadlineList }) => ({
       ...state,
-      deadlineList: list,
+      deadlineList,
     }),
     [FILTER_FINISHED]: (state, { payload: finishedList }) => ({
       ...state,

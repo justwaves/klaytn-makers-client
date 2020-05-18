@@ -5,7 +5,7 @@ import WalletCardFrame from './WalletCardFrame';
 import TabsThree from 'components/Common/TabsThree';
 import { Purchase, /* Refund, */ Reward } from 'components/Common/Icons';
 import Spinner from 'components/Common/Spinner';
-import { KLAYTN_SCOPE } from 'constants/url';
+import { KLAYTN_SCOPE } from 'lib/constants';
 
 const StyledWalletCardFrame = styled(WalletCardFrame)`
   min-height: 400px;

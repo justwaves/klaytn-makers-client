@@ -90,7 +90,7 @@ const Menu = styled.div`
   background-color: ${props => props.theme.color.gray[1]};
   display: flex;
   align-items: center;
-  padding: 1.5rem 1rem;
+  padding: 1rem 1rem;
   font-size: 0.875rem;
   cursor: pointer;
   font-weight: 400;

@@ -1,4 +1,4 @@
-export const CA = '0x2b5afED23ba55b30f5081c694F063F5d04dc8210';
+export const CA = '0xdCE3dDb3010609Eb1f4D0a39B7A643ff1f5B7a24';
 
 export const ABI = [
   {
@@ -547,9 +547,8 @@ export const ABI = [
     inputs: [{ internalType: 'uint256', name: 'makersId', type: 'uint256' }],
     name: 'failFunding',
     outputs: [],
-    stateMutability: 'payable',
+    stateMutability: 'nonpayable',
     type: 'function',
-    payable: true,
     signature: '0xc179e4bf',
   },
   {

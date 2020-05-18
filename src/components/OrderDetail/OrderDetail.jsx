@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import OrderList from './OrderList';
+import { buyerMakerFilter } from 'lib/sort';
 
 const Wrapper = styled.div`
   width: 46.5rem;
@@ -19,6 +20,10 @@ const TotalState = styled.h3`
   font-size: 1rem;
   font-weight: 500;
   color: ${props => props.theme.color.gray[7]};
+  display: flex;
+  div {
+    margin-right: 1.5rem;
+  }
 `;
 
 const Table = styled.div`
@@ -62,11 +67,30 @@ const RightHeader = styled.div`
 
 const TableContent = styled.div``;
 
-const OrderDetail = ({ buyerMakers, loading }) => {
+const OrderDetail = ({ buyerMakers, loading, feed }) => {
+  const [inProgressList, setInProgressList] = useState([]);
+  const [successList, setSuccessList] = useState([]);
+  const [failureList, setFailureList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
+
+  useEffect(() => {
+    if (buyerMakers && feed) {
+      const arr = buyerMakerFilter(buyerMakers, feed);
+      setFilteredList(arr);
+      setInProgressList(arr.filter(product => product.state === '0'));
+      setSuccessList(arr.filter(product => product.state === '1'));
+      setFailureList(arr.filter(product => product.state === '2'));
+    }
+  }, [buyerMakers, feed]);
+
   return (
     <Wrapper>
       <PageTitle>주문내역 조회</PageTitle>
-      <TotalState>진행중 30 펀딩성공 12 펀딩실패 8</TotalState>
+      <TotalState>
+        <div>진행중 {inProgressList.length}</div>
+        <div>펀딩성공 {successList.length}</div>
+        <div>펀딩실패 {failureList.length}</div>
+      </TotalState>
       <Table>
         <TableGrid>
           <TableHeader>
@@ -79,7 +103,7 @@ const OrderDetail = ({ buyerMakers, loading }) => {
           </TableHeader>
 
           <TableContent>
-            <OrderList buyerMakers={buyerMakers} loading={loading} />
+            <OrderList filteredList={filteredList} loading={loading} />
           </TableContent>
         </TableGrid>
       </Table>

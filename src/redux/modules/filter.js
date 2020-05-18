@@ -20,6 +20,7 @@ const SORT_POPULAR = 'filter/SORT_POPULAR';
 const SORT_DEADLINE = 'filter/SORT_DEADLINE';
 const FILTER_FINISHED = 'filter/FILTER_FINISHED';
 const FILTER_LIST = 'filter/FILTER_LIST';
+const TOTAL_LIST = 'filter/TOTAL_LIST';
 
 export const combineList = createAction(COMBINE_LIST, ({ posts, feed }) => ({
   posts,
@@ -40,6 +41,10 @@ export const fliterList = createAction(FILTER_LIST, ({ list }) => ({
 
 export const setDeadline = createAction(SORT_DEADLINE, ({ deadlineList }) => ({
   deadlineList,
+}));
+
+export const totalList = createAction(FILTER_LIST, ({ list }) => ({
+  list,
 }));
 
 const filterListSaga = () => {
@@ -100,6 +105,10 @@ const combineListSaga = () => {
         payload: inProgressList,
       });
       yield put({
+        type: TOTAL_LIST,
+        payload: newArray,
+      });
+      yield put({
         type: FILTER_LIST,
         payload: newArray,
       });
@@ -149,6 +158,7 @@ const initialState = {
   combinedProduct: null,
   error: null,
   listByState: [],
+  totalList: [],
 };
 
 const filter = handleActions(
@@ -180,6 +190,10 @@ const filter = handleActions(
     [FILTER_FINISHED]: (state, { payload: finishedList }) => ({
       ...state,
       finishedList,
+    }),
+    [TOTAL_LIST]: (state, { payload: newArray }) => ({
+      ...state,
+      totalList: newArray,
     }),
   },
   initialState,

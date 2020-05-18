@@ -8,6 +8,7 @@ import caver from 'klaytn/caver';
 import { feedParser } from 'lib/parser';
 import { writeTx, setTxList } from './tx';
 import ui from 'lib/ui';
+import { setMakers } from 'redux/modules/makers';
 
 const [
   ORDER_PRODUCT,
@@ -21,6 +22,8 @@ const [
   SET_BUYER_MAKERS_FAILURE,
 ] = createRequestActionTypes('order/SET_BUYER_MAKERS');
 
+const GET_REFUND = 'order/GET_REFUND';
+
 const orderProductSaga = () => {
   return function* (action) {
     yield put(startLoading(ORDER_PRODUCT));
@@ -28,14 +31,7 @@ const orderProductSaga = () => {
     const { makersId, price } = action.payload;
 
     try {
-      // 주소 불러오기
       const { address } = yield call(getWallet);
-
-      console.log(`
-        makersId: ${makersId}
-        price: ${price}
-        address: ${address} 
-      `);
 
       // 주문하기
       const receipt = yield call(
@@ -47,15 +43,10 @@ const orderProductSaga = () => {
         },
       );
 
-      // const event = receipt.events.MakersOrdered.returnValues;
-      // console.log(event);
+      const event = receipt.events.MakersOrdered.returnValues;
+      yield put(setMakers(event.makersList.postId));
 
-      console.log(
-        `
-          receipt:
-        `,
-        receipt,
-      );
+      console.log('receipt:', receipt);
 
       ui.showToast({
         status: receipt.status ? 'success' : 'fail',
@@ -89,8 +80,6 @@ const orderProductSaga = () => {
       });
 
       const { username } = JSON.parse(localStorage.getItem('user'));
-      console.log(username);
-
       yield put(setTxList({ username }));
 
       yield put({
@@ -139,15 +128,41 @@ const setBuyerMakersSaga = () => {
   };
 };
 
+const getRefundSaga = () => {
+  return function* (action) {
+    yield put(startLoading(ORDER_PRODUCT));
+    const { makersId } = action.payload;
+    console.log('getRefundSaga', makersId);
+    try {
+      const receipt = yield call(
+        contractAPI.methods.failFunding(makersId).send,
+        {
+          from: getWallet().address,
+          gas: '30000000',
+        },
+      );
+      console.log(receipt);
+    } catch (e) {
+      console.log(e);
+    }
+
+    yield put(finishLoading(SET_BUYER_MAKERS));
+  };
+};
+
 export const setBuyerMakers = createAction(SET_BUYER_MAKERS);
 export const orderProduct = createAction(
   ORDER_PRODUCT,
   ({ makersId, price }) => ({ makersId, price }),
 );
+export const getRefund = createAction(GET_REFUND, ({ makersId }) => ({
+  makersId,
+}));
 
 export function* orderSaga() {
   yield takeLatest(ORDER_PRODUCT, orderProductSaga());
   yield takeLatest(SET_BUYER_MAKERS, setBuyerMakersSaga());
+  yield takeLatest(GET_REFUND, getRefundSaga());
 }
 
 const initialState = {

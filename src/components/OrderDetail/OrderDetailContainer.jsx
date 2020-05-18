@@ -7,12 +7,13 @@ import { listPosts } from 'redux/modules/posts';
 
 const OrderDetailContainer = ({ username }) => {
   const dispatch = useDispatch();
-  const { buyerMakers, posts, combinedList, loading } = useSelector(
-    ({ posts, loading, filter, order }) => ({
+  const { buyerMakers, posts, totalList, loading, feed } = useSelector(
+    ({ posts, loading, filter, order, makers }) => ({
       buyerMakers: order.buyerMakers,
       posts: posts.posts,
-      combinedList: filter.combinedList,
+      totalList: filter.totalList,
       loading: loading['posts/LIST_POSTS'],
+      feed: makers.feed,
     }),
   );
 
@@ -34,7 +35,13 @@ const OrderDetailContainer = ({ username }) => {
     }
   }, [buyerMakers, posts, dispatch]);
 
-  return <OrderDetail buyerMakers={combinedList.reverse()} loading={loading} />;
+  return (
+    <OrderDetail
+      buyerMakers={totalList.reverse()}
+      loading={loading}
+      feed={feed}
+    />
+  );
 };
 
 export default React.memo(OrderDetailContainer);

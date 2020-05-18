@@ -194,6 +194,7 @@ const checkStateSaga = () => {
         gas: '30000000',
       });
       console.log('checkState: ', receipt);
+      yield put(setFeed());
     } catch (e) {
       console.log('error: ', e);
     }

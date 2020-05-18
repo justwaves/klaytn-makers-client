@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import ProgressBar from 'components/Common/ProgressBar';
 import Spinner from 'components/Common/Spinner';
+import { getRefund } from 'redux/modules/order';
 
 const ListWrapper = styled.div`
   margin-top: 0.75rem;
@@ -96,6 +98,11 @@ const State = styled.div`
   font-weight: 500;
 `;
 
+const ProgressState = styled.div`
+  font-weight: 500;
+  margin: 0 1.375rem;
+`;
+
 const StateButton = styled.button`
   border: 0;
   color: white;
@@ -123,13 +130,19 @@ const TxItem = ({
   postId,
   username,
   price,
+  makersId,
 }) => {
   const [status, setStatus] = useState(state);
   const date = moment(dDay).format('YYYY년 MM월 DD일');
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onClick = () => {
     history.push(`/@${username}/${postId}`);
+  };
+
+  const onRefund = makersId => {
+    dispatch(getRefund({ makersId }));
   };
 
   useEffect(() => {
@@ -165,17 +178,30 @@ const TxItem = ({
             {count}/{targetCount}
           </Info>
           <Info>{price} KLAY</Info>
-          <Info>
-            <State>{state === '0' ? '진행중' : '펀딩성공'}</State>
-            {state === '0' && <StateButton>환불받기</StateButton>}
-          </Info>
+          {state === '0' ? (
+            <Info>
+              <ProgressState> 진행중</ProgressState>
+            </Info>
+          ) : (
+            <Info>
+              <State>{state === '1' ? '펀딩성공' : '펀딩실패'}</State>
+
+              {state === '1' ? (
+                <StateButton>배송조회</StateButton>
+              ) : (
+                <StateButton onClick={() => onRefund(makersId)}>
+                  환불받기
+                </StateButton>
+              )}
+            </Info>
+          )}
         </ProductInfo>
       </TxItemWrapper>
     </>
   );
 };
 
-const OrderList = ({ buyerMakers, loading }) => {
+const OrderList = ({ filteredList, loading }) => {
   if (loading) {
     return (
       <LoadingWrapper>
@@ -187,8 +213,8 @@ const OrderList = ({ buyerMakers, loading }) => {
   return (
     <>
       <ListWrapper>
-        {buyerMakers &&
-          buyerMakers
+        {filteredList &&
+          filteredList
             .slice(0, 8)
             .map(order => (
               <TxItem
@@ -202,6 +228,7 @@ const OrderList = ({ buyerMakers, loading }) => {
                 postId={order._id}
                 username={order.user.username}
                 price={order.price}
+                makersId={order.makersId}
               />
             ))}
       </ListWrapper>

@@ -30,3 +30,28 @@ export const sortDeadline = list => {
   });
   return list;
 };
+
+export const buyerMakerFilter = (buyerMakers, feed) => {
+  const newArray = [];
+  try {
+    buyerMakers.map(makers => {
+      feed.map(product => {
+        if (makers._id === product.postId) {
+          const newMakers = {
+            ...makers,
+            ...product,
+            dDay: makers.dDay,
+          };
+
+          newArray.push(newMakers);
+        }
+        return null;
+      });
+      return null;
+    });
+  } catch (e) {
+    console.log(e);
+  }
+
+  return newArray;
+};

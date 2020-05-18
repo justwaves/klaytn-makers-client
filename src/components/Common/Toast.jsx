@@ -5,7 +5,7 @@ import ui from 'lib/ui';
 import { Close } from 'components/Common/Icons';
 
 const Wrapper = styled.div`
-  width: 460px;
+  width: 400px;
   height: 160px;
   padding: 1.5rem;
   z-index: 100;

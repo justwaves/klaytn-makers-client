@@ -1,4 +1,4 @@
-export const CA = '0x295Bc06E097E3aA9ecB500E27DfF6b77F1D84ECe';
+export const CA = '0x68af5d4eB1a5D528d7BA50658e8E52a035f17E35';
 
 export const ABI = [
   {

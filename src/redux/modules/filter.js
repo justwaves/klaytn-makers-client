@@ -88,7 +88,7 @@ const combineListSaga = () => {
               ...post,
               ...makers,
               dDay: post.dDay,
-              makersDDay: makers.dDay,
+              dDayUnix: makers.dDay,
             };
 
             newArray.push(newPost);
@@ -132,7 +132,7 @@ const combineProductSaga = () => {
       ...post,
       ...makers[0],
       dDay: post.dDay,
-      makersDDay: makers.dDay,
+      dDayUnix: makers.dDay,
     };
 
     yield put({

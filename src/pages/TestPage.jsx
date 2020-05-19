@@ -8,6 +8,7 @@ import { setFeed, uploadMakers } from 'redux/modules/makers';
 import { useDispatch } from 'react-redux';
 import contractAPI from 'klaytn/contractAPI';
 import { getWallet } from 'lib/crypto';
+import { createFakeData } from 'lib/fakeData';
 
 const TestPage = () => {
   const [privateKey, setPrivateKey] = useState(null);
@@ -63,6 +64,12 @@ const TestPage = () => {
     <Responsive>
       <Wrapper>
         <Header />
+
+        <Divider />
+        <ButtonWrapper>
+          <Label>create fake data</Label>
+          <Button onClick={createFakeData}>createFakeData</Button>
+        </ButtonWrapper>
         <Divider />
         <ButtonWrapper>
           <Label>get makers</Label>

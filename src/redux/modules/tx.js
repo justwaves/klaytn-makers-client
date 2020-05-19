@@ -98,15 +98,3 @@ const write = handleActions(
 );
 
 export default write;
-
-// const dd = {
-//   "type": "type1",
-//   "blockNumber": 11111,
-//   "blockHash": "blockHash1",
-//   "from": "from1",
-//   "to": "to1",
-//   "gas": "gas1",
-//   "gasPrice": "gasPrice1",
-//   "gasUsed": 1111,
-//   "transactionHash": "transactionHash1",
-// };

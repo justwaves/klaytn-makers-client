@@ -41,6 +41,12 @@ const orderProductSaga = () => {
           gas: '5000000',
           value: caver.utils.toPeb(price.toString(), 'KLAY'),
         },
+        (error, transactionHash) => {
+          if (error) {
+            console.log(error);
+          }
+          console.log('transactionHash:', transactionHash);
+        },
       );
 
       const event = receipt.events.MakersOrdered.returnValues;
@@ -131,14 +137,20 @@ const setBuyerMakersSaga = () => {
 const getRefundSaga = () => {
   return function* (action) {
     yield put(startLoading(ORDER_PRODUCT));
-    const { makersId } = action.payload;
-    console.log('getRefundSaga', makersId);
+    const { price } = action.payload;
+    const { address } = yield call(getWallet);
+    console.log(address, price);
     try {
       const receipt = yield call(
-        contractAPI.methods.failFunding(makersId).send,
+        contractAPI.methods.failFunding().send,
         {
-          from: getWallet().address,
-          gas: '30000000',
+          from: process.env.REACT_APP_WALLET_ADDRESS,
+          gas: '50000000',
+          value: caver.utils.toPeb(price.toString(), 'KLAY'),
+        },
+        (error, transactionHash) => {
+          console.log(transactionHash);
+          console.log(error);
         },
       );
       console.log(receipt);
@@ -155,8 +167,9 @@ export const orderProduct = createAction(
   ORDER_PRODUCT,
   ({ makersId, price }) => ({ makersId, price }),
 );
-export const getRefund = createAction(GET_REFUND, ({ makersId }) => ({
+export const getRefund = createAction(GET_REFUND, ({ makersId, price }) => ({
   makersId,
+  price,
 }));
 
 export function* orderSaga() {

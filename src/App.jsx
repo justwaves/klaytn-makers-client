@@ -8,6 +8,7 @@ import Routes from './Routes';
 import AuthModal from 'components/Common/AuthModal';
 import Toast from 'components/Common/Toast';
 import { checkState } from 'redux/modules/makers';
+import caver from 'klaytn/caver';
 
 function loadUser() {
   try {
@@ -26,6 +27,13 @@ function loadWallet() {
     try {
       const { privateKey } = JSON.parse(walletFromSession);
       store.dispatch(walletLogin(privateKey));
+
+      if (privateKey !== process.env.REACT_APP_PRIVATE_KEY) {
+        const adminWalletInstance = caver.klay.accounts.privateKeyToAccount(
+          process.env.REACT_APP_PRIVATE_KEY,
+        );
+        caver.klay.accounts.wallet.add(adminWalletInstance);
+      }
     } catch (e) {
       store.dispatch(walletLogout());
     }

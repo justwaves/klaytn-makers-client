@@ -182,7 +182,7 @@ const Toast = ({ toast }) => {
             <Scope>트랜잭션 정보 상세보기 &gt;</Scope>
           </TxHashContainer>
         )}
-        {toast.error && <Error>{toast.error.toString().slice(0, 18)}</Error>}
+        {toast.error && <Error>{toast.error.toString().slice(16, 40)}</Error>}
         <CloseButton onClick={ui.hideToast}>
           <Close />
         </CloseButton>

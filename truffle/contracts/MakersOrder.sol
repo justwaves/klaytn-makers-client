@@ -44,8 +44,7 @@ contract MakersOrder is MakersContract {
     uint256 index = uint256(makersId) - 1;
 
     currentMakers.count++;
-    buyerMakersList.push(currentMakers);
-    buyerMakers[msg.sender] = buyerMakersList;
+    buyerMakers[msg.sender].push(currentMakers);
     totalKlayAmount[makersId] += msg.value;
     makersBuyers[makersId].push(msg.sender);
     makersByMakersId[makersId] = currentMakers;
@@ -106,16 +105,17 @@ contract MakersOrder is MakersContract {
     totalKlayAmount[makersId] = 0;
   }
 
-  function failFunding(uint256 makersId) public payable onlySeller(makersId) {
-    Makers memory currentMakers = makersByMakersId[makersId];
-    require(currentMakers.state == State.FundingFailure);
+  function failFunding() public payable {
+    // Makers memory currentMakers = makersByMakersId[makersId];
+    address payable sender = address(uint160(msg.sender));
+    sender.transfer(msg.value);
+    // msg.sender.call.value(msg.value)('');
 
-    address[] memory refundList = makersBuyers[makersId];
+    // address[] memory refundList = makersBuyers[makersId];
 
-    for (uint256 i = 0; i < refundList.length; i++) {
-      address payable buyer = address(uint160(refundList[i]));
-      buyer.transfer(currentMakers.price);
-    }
+    // for (uint256 i = 0; i < refundList.length; i++) {
+    //   address payable buyer = address(uint160(refundList[i]));
+    // }
   }
 
   // Makers 강제 마감

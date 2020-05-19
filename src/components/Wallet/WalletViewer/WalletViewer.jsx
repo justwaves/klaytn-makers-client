@@ -11,6 +11,10 @@ const ResponsiveWrapper = styled.div`
   margin-top: 1.5rem;
   margin-bottom: 2rem;
   min-height: 100vh;
+
+  @media (max-width: 816px) {
+    width: 380px;
+  }
 `;
 
 const Grid = styled.div`
@@ -18,6 +22,18 @@ const Grid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   grid-auto-rows: repeat(auto-fit, minmax(400px, 1fr));
   gap: 1.5rem;
+
+  @media (max-width: 816px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 380px;
+    margin: 0 auto;
+
+    > div {
+      margin-bottom: 1.5rem;
+    }
+  }
 `;
 
 const WalletViewer = ({

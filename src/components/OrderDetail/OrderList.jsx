@@ -130,7 +130,6 @@ const TxItem = ({
   postId,
   username,
   price,
-  makersId,
 }) => {
   const [status, setStatus] = useState(state);
   const date = moment(dDay).format('YYYY년 MM월 DD일');
@@ -141,8 +140,9 @@ const TxItem = ({
     history.push(`/@${username}/${postId}`);
   };
 
-  const onRefund = makersId => {
-    dispatch(getRefund({ makersId }));
+  const onRefund = price => {
+    console.log(price);
+    dispatch(getRefund({ price }));
   };
 
   useEffect(() => {
@@ -189,7 +189,7 @@ const TxItem = ({
               {state === '1' ? (
                 <StateButton>배송조회</StateButton>
               ) : (
-                <StateButton onClick={() => onRefund(makersId)}>
+                <StateButton onClick={() => onRefund(price)}>
                   환불받기
                 </StateButton>
               )}

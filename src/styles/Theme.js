@@ -25,16 +25,11 @@ export default {
   color: {
     bg: 'white',
     gray: [
-      '#ffffff',
-      '#fafafa',
-      '#f5f5f5',
-      '#e8e8e8',
-      '#d9d9d9',
-      '#bfbfbf',
-      '#8C8C8C',
-      '#595959',
-      '#262626',
-      '#000000',
+      '#fafafa', // gray[1]
+      '#f5f5f5', // gray[2]
+      '#e8e8e8', // gray[3]
+      '#bfbfbf', // gray[5]
+      '#595959', // gray[7]
     ],
     primary: ['#4652DC', '#A6B0FE', '#7F89E3', '#5B63A3', '#383C63'],
     yellow: '#FFE500',

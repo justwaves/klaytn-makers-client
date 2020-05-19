@@ -9,8 +9,8 @@ const Wrapper = styled.div`
   height: 160px;
   padding: 1.5rem;
   z-index: 100;
-  background-color: ${props => props.theme.color.gray[0]};
-  border: 1px solid ${props => props.theme.color.gray[7]};
+  background-color: white;
+  border: 1px solid ${props => props.theme.color.gray[4]};
   opacity: 0;
   animation: showToast 10s;
 
@@ -114,7 +114,7 @@ const TxHash = styled.div`
   text-overflow: ellipsis;
   padding-top: 0.875rem;
   cursor: pointer;
-  border-top: 1px solid ${props => props.theme.color.gray[4]};
+  border-top: 1px solid ${props => props.theme.color.gray[2]};
 
   &:hover {
     color: ${props => props.theme.color.primary[3]};

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Responsive from 'components/Common/Responsive';
-import ProductCardContainer from 'components/ProductFeed/ProductCard/ProductCardContainer';
+import ProductCard from './ProductCard';
 import Spinner from 'components/Common/Spinner';
 
 const ResponsiveWrapper = styled(Responsive)`
@@ -17,8 +17,8 @@ const Grid = styled.div`
   gap: 1.5rem;
 `;
 
-const ProductList = ({ combinedList, loading, error, user }) => {
-  console.log('feed: ', combinedList);
+const ProductList = ({ combinedList, loading, error, status }) => {
+  console.log(`${status.toString()}: `, combinedList);
   if (error) {
     return <ResponsiveWrapper>에러가 발생했습니다.</ResponsiveWrapper>;
   }
@@ -36,7 +36,7 @@ const ProductList = ({ combinedList, loading, error, user }) => {
       {!loading && combinedList && (
         <Grid>
           {combinedList.map(post => (
-            <ProductCardContainer post={post} key={post._id} user={user} />
+            <ProductCard post={post} key={post._id} />
           ))}
         </Grid>
       )}

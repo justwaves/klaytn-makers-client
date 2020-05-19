@@ -24,10 +24,10 @@ const Arrow = styled.div`
   margin-right: 1rem;
   width: 0.875rem;
   height: 0.875rem;
-  border-top: 1px solid ${props => props.theme.color.gray[4]};
-  border-left: 1px solid ${props => props.theme.color.gray[4]};
+  border-top: 1px solid ${props => props.theme.color.gray[2]};
+  border-left: 1px solid ${props => props.theme.color.gray[2]};
   transform: rotate(45deg);
-  background-color: ${props => props.theme.color.gray[1]};
+  background-color: white;
   border-radius: 2px;
   user-select: none;
 `;
@@ -35,9 +35,9 @@ const Arrow = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-rows: repeat(auto, 1fr);
-  background-color: ${props => props.theme.color.gray[0]};
+  background-color: white;
   border-radius: 2px;
-  border: 1px solid ${props => props.theme.color.gray[4]};
+  border: 1px solid ${props => props.theme.color.gray[2]};
   width: 15rem;
 `;
 
@@ -45,7 +45,7 @@ const User = styled.div`
   height: 5.5rem;
   display: flex;
   padding: 1.5rem 1.5rem;
-  border-bottom: 1px solid ${props => props.theme.color.gray[4]};
+  border-bottom: 1px solid ${props => props.theme.color.gray[2]};
 `;
 
 const AvatarUsername = styled.div`
@@ -87,7 +87,7 @@ const Balance = styled.div`
 `;
 
 const Menu = styled.div`
-  background-color: ${props => props.theme.color.gray[1]};
+  background-color: ${props => props.theme.color.gray[0]};
   display: flex;
   align-items: center;
   padding: 1rem 1rem;
@@ -109,7 +109,7 @@ const Logout = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  border-top: 1px solid ${props => props.theme.color.gray[4]};
+  border-top: 1px solid ${props => props.theme.color.gray[2]};
 
   span {
     cursor: pointer;

@@ -14,7 +14,7 @@ const Routes = () => (
   <>
     <ScrollToTop />
     <Switch>
-      <Route path="/@:username/:postId" component={DetailPage} />
+      <Route path="/product/:postId" component={DetailPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/signup" component={SignupPage} />
       <Route path="/write" component={WritePage} />

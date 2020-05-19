@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  border-bottom: 1px solid ${props => props.theme.color.gray[3]};
+  border-bottom: 1px solid ${props => props.theme.color.gray[2]};
   background-color: white;
   z-index: 20;
 `;
@@ -147,7 +147,7 @@ const UsermenuContainer = styled.div`
 `;
 
 const Divider = styled.span`
-  border: 1px solid ${props => props.theme.color.gray[3]};
+  border: 1px solid ${props => props.theme.color.gray[2]};
   width: 1px;
   height: 1.5rem;
   margin-right: 1.25rem;

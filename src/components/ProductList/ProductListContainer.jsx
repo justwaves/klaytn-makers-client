@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import qs from 'qs';
 import { useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,18 +15,16 @@ const ProductListContainer = () => {
     posts,
     error,
     loading,
-    user,
     feed,
     combinedList,
     deadlineList,
     popularList,
     finishedList,
-  } = useSelector(({ posts, loading, user, makers, filter }) => ({
+  } = useSelector(({ posts, loading, makers, filter }) => ({
     posts: posts.posts,
     error: posts.error,
     loading: loading['posts/LIST_POSTS'],
     klaytnLoading: loading['makers/SET_FEED'],
-    user: user.user,
     feed: makers.feed,
     combinedList: filter.combinedList,
     popularList: filter.popularList,
@@ -34,27 +32,19 @@ const ProductListContainer = () => {
     finishedList: filter.finishedList,
   }));
 
-  const onListPost = useCallback(() => {
+  useEffect(() => {
     const { tag, username, page } = qs.parse(location.search, {
       ignoreQueryPrefix: true,
     });
     dispatch(listPosts({ tag, username, page }));
-  }, [dispatch, location]);
-
-  const onSetFeed = useCallback(() => {
     dispatch(setFeed());
-  }, [dispatch]);
-
-  useEffect(() => {
-    onListPost();
-    onSetFeed();
-  }, [dispatch, onListPost, onSetFeed]);
+  }, [dispatch, location.search]);
 
   useEffect(() => {
     if (posts && feed) {
       dispatch(combineList({ feed, posts }));
     }
-  }, [feed, posts, dispatch]);
+  }, [dispatch, feed, posts]);
 
   switch (status) {
     case 'home':
@@ -63,7 +53,7 @@ const ProductListContainer = () => {
           loading={loading}
           error={error}
           combinedList={combinedList}
-          user={user}
+          status={status}
         />
       );
     case 'popular':
@@ -72,7 +62,7 @@ const ProductListContainer = () => {
           loading={loading}
           error={error}
           combinedList={popularList}
-          user={user}
+          status={status}
         />
       );
     case 'deadline':
@@ -81,7 +71,7 @@ const ProductListContainer = () => {
           loading={loading}
           error={error}
           combinedList={deadlineList.slice(0, 10)}
-          user={user}
+          status={status}
         />
       );
     case 'finished':
@@ -90,7 +80,7 @@ const ProductListContainer = () => {
           loading={loading}
           error={error}
           combinedList={finishedList}
-          user={user}
+          status={status}
         />
       );
     default:
@@ -98,4 +88,4 @@ const ProductListContainer = () => {
   }
 };
 
-export default React.memo(ProductListContainer);
+export default ProductListContainer;

@@ -22,7 +22,7 @@ const Layer = styled.div`
   height: 100%;
   top: 45%;
   left: 0;
-  background-color: ${props => props.theme.color.gray[2]};
+  background-color: ${props => props.theme.color.gray[1]};
   z-index: -1;
 `;
 
@@ -45,7 +45,7 @@ const AvatarWrapper = styled.div`
   svg {
     width: 4rem;
     height: 4rem;
-    fill: ${props => props.theme.color.gray[7]};
+    fill: ${props => props.theme.color.gray[4]};
   }
 `;
 
@@ -71,7 +71,7 @@ const RightArrowWrapper = styled.div`
   svg {
     width: 8px;
     height: 8px;
-    fill: ${props => props.theme.color.gray[7]};
+    fill: ${props => props.theme.color.gray[4]};
   }
 `;
 
@@ -86,13 +86,13 @@ const OrderBox = styled.div`
 
 const OrderCount = styled.h3`
   font-size: 1.5rem;
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   margin-bottom: 0.75rem;
 `;
 
 const OrderText = styled.p`
   font-size: 0.625rem;
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   font-weight: 500;
 `;
 
@@ -107,9 +107,9 @@ const ButtonBox = styled.button`
   background-color: white;
   border: 0;
   border-radius: 8px;
-  background-color: ${props => props.theme.color.gray[0]};
+  background-color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   font-weight: 500;
   cursor: pointer;
   display: flex;
@@ -127,19 +127,18 @@ const ButtonIcon = styled.div`
   width: 28px;
   height: 28px;
   margin-bottom: 0.5rem;
-  /* border: 1px solid ${props => props.theme.color.gray[4]}; */
   border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  svg { 
+  svg {
   }
 `;
 
 const ButtonText = styled.p`
   font-size: 0.625rem;
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   font-weight: 500;
 `;
 

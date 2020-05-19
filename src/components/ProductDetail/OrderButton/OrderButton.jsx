@@ -34,13 +34,13 @@ const Wrapper = styled.button`
 
 const LoadingButton = styled(Wrapper)`
   height: 3rem;
-  background: ${props => props.theme.color.gray[2]};
-  border: 1px solid ${props => props.theme.color.gray[3]};
+  background: ${props => props.theme.color.gray[0]};
+  border: 1px solid ${props => props.theme.color.gray[2]};
 
   &:hover {
     cursor: auto;
-    background: ${props => props.theme.color.gray[2]};
-    border: 1px solid ${props => props.theme.color.gray[3]};
+    background: ${props => props.theme.color.gray[0]};
+    border: 1px solid ${props => props.theme.color.gray[2]};
   }
 `;
 

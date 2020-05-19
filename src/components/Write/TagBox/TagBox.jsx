@@ -36,12 +36,12 @@ const TagForm = styled.form`
   button {
     padding: 0rem 2rem;
     cursor: pointer;
-    background-color: ${props => props.theme.color.gray[8]};
+    background-color: black;
     color: white;
     font-weight: 600;
 
     &:hover {
-      background-color: ${props => props.theme.color.gray[6]};
+      background-color: ${props => props.theme.color.gray[4]};
     }
   }
 `;

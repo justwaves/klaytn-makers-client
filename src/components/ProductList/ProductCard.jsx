@@ -49,7 +49,7 @@ const Wrapper = styled.div`
 `;
 
 const Blur = styled.div`
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
@@ -137,18 +137,10 @@ const ProductDesc = styled.p`
   overflow: hidden;
 `;
 
-const ProductCard = ({
-  title,
-  description,
-  photo,
-  count,
-  targetCount,
-  user,
-  _id,
-  state,
-}) => {
+const ProductCard = ({ post }) => {
+  const { title, description, _id, photo, count, targetCount, state } = post;
   return (
-    <Link to={`/@${user.username}/${_id}`}>
+    <Link to={`/product/${_id}`}>
       <Wrapper state={state}>
         {state && state !== '0' && (
           <Finished>

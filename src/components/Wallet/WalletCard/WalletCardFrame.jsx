@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   width: 22.5rem;
   padding: 1.5rem;
   overflow: hidden;
-  background-color: ${props => props.theme.color.gray[1]};
+  background-color: ${props => props.theme.color.gray[0]};
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 `;
@@ -25,7 +25,7 @@ const Title = styled.h3`
 
 const More = styled.span`
   height: 0.875rem;
-  color: ${props => props.theme.color.gray[6]};
+  color: ${props => props.theme.color.gray[4]};
   display: flex;
   align-items: center;
   font-size: 0.75rem;

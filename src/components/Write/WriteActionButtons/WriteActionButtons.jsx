@@ -19,13 +19,13 @@ const LoadingButton = styled(Button)`
   height: 3rem;
   width: 10.5rem;
   margin-right: 1.5rem;
-  background: ${props => props.theme.color.gray[2]};
-  border: 1px solid ${props => props.theme.color.gray[3]};
+  background: ${props => props.theme.color.gray[0]};
+  border: 1px solid ${props => props.theme.color.gray[2]};
 
   &:hover {
     cursor: auto;
-    background: ${props => props.theme.color.gray[2]};
-    border: 1px solid ${props => props.theme.color.gray[3]};
+    background: ${props => props.theme.color.gray[0]};
+    border: 1px solid ${props => props.theme.color.gray[2]};
   }
 `;
 

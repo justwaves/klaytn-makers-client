@@ -15,7 +15,7 @@ const More = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 1.5rem;
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -55,7 +55,7 @@ const TxItemWrapper = styled.div`
 const IconContainer = styled.div`
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid ${props => props.theme.color.gray[3]};
+  border: 1px solid ${props => props.theme.color.gray[2]};
   border-radius: 50%;
   margin-right: 0.75rem;
   display: flex;
@@ -78,7 +78,7 @@ const TxTitle = styled.div`
 
 const TxDate = styled.div`
   font-size: 0.75rem;
-  color: ${props => props.theme.color.gray[6]};
+  color: ${props => props.theme.color.gray[4]};
   font-weight: 500;
 `;
 

@@ -29,7 +29,7 @@ const Klay = styled.h1`
 `;
 
 const Won = styled.div`
-  color: ${props => props.theme.color.gray[6]};
+  color: ${props => props.theme.color.gray[4]};
   font-size: 1rem;
   font-weight: 400;
 `;
@@ -41,7 +41,7 @@ const Divider = styled.div`
   position: absolute;
   left: 0;
   top: 45%;
-  background-color: ${props => props.theme.color.gray[2]};
+  background-color: ${props => props.theme.color.gray[1]};
 `;
 
 const AddressContainer = styled.div``;
@@ -50,15 +50,15 @@ const AddressTitle = styled.div`
   padding-top: 2rem;
   padding-bottom: 1.5rem;
   font-size: 0.875rem;
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   font-weight: 500;
 `;
 
 const AddressBox = styled.div`
   height: 2.5rem;
   border-radius: 0.5rem;
-  background-color: ${props => props.theme.color.gray[0]};
-  border: 1px solid ${props => props.theme.color.gray[3]};
+  background-color: white;
+  border: 1px solid ${props => props.theme.color.gray[2]};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,7 +67,7 @@ const AddressBox = styled.div`
 
 const Address = styled.p`
   font-size: 0.75rem;
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   font-weight: 500;
 `;
 
@@ -82,9 +82,9 @@ const AddressButton = styled.button`
   width: 150px;
   border: 0;
   border-radius: 8px;
-  background-color: ${props => props.theme.color.gray[0]};
+  background-color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   font-weight: 500;
   cursor: pointer;
 

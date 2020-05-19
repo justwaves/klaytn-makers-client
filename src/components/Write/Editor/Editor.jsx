@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   div {
     .MuiFormControl-marginNormal {
       margin-top: 0;
-      border: 1px solid ${props => props.theme.color.gray[4]};
+      border: 1px solid ${props => props.theme.color.gray[3]};
       border-radius: 4px;
       width: 16.5rem;
       padding: 0.5rem 1.75rem;
@@ -81,7 +81,7 @@ const DescriptionInput = styled(TextareaAutosize)`
 `;
 
 const InputContainer = styled.div`
-  border: 1px solid ${props => props.theme.color.gray[4]};
+  border: 1px solid ${props => props.theme.color.gray[3]};
   width: 16.5rem;
   margin-bottom: 2rem;
   border-radius: 4px;
@@ -103,12 +103,12 @@ const TargetCountInput = styled(EditorInput)`
 
 const Unit = styled.span`
   height: 100%;
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   width: 3rem;
 `;
 
 const Divider = styled.div`
-  border-top: 1px solid ${props => props.theme.color.gray[5]};
+  border-top: 1px solid ${props => props.theme.color.gray[3]};
   margin-bottom: 2rem;
   margin-top: 0.5rem;
 `;

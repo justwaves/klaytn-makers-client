@@ -20,7 +20,7 @@ const StyledInput = styled.input`
   width: 100%;
   height: 3.5rem;
   border: 0;
-  border-bottom: 1px solid ${props => props.theme.color.gray[5]};
+  border-bottom: 1px solid ${props => props.theme.color.gray[3]};
   margin-bottom: 1rem;
   font-size: 1rem;
 `;
@@ -35,8 +35,8 @@ const AuthToggle = styled(Link)`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  font-weight: 300;
-  color: ${props => props.theme.color.gray[8]};
+  font-weight: 400;
+  color: ${props => props.theme.color.gray[4]};
   cursor: pointer;
 `;
 
@@ -54,7 +54,7 @@ const ErrorMessage = styled.div`
 
 const ForgotPwd = styled.div`
   width: 50%;
-  color: ${props => props.theme.color.gray[8]};
+  color: ${props => props.theme.color.gray[4]};
 `;
 
 const textMap = {

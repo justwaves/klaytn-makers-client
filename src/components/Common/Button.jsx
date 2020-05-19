@@ -12,9 +12,9 @@ const buttonStyle = css`
   outline: none;
   cursor: pointer;
 
-  background: ${props => props.theme.color.gray[8]};
+  background: black;
   &:hover {
-    background: ${props => props.theme.color.gray[6]};
+    background: ${props => props.theme.color.gray[4]};
   }
 
   ${props =>
@@ -36,8 +36,8 @@ const buttonStyle = css`
     `}
 
   &:disabled {
-    background: ${props => props.theme.color.gray[3]};
-    color: ${props => props.theme.color.gray[5]};
+    background: ${props => props.theme.color.gray[2]};
+    color: ${props => props.theme.color.gray[3]};
     cursor: not-allowed;
   }
 `;

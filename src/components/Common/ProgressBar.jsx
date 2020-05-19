@@ -6,7 +6,7 @@ const Wrapper = styled.div`
 `;
 
 const Background = styled.div`
-  background-color: ${props => props.theme.color.gray[3]};
+  background-color: ${props => props.theme.color.gray[2]};
   height: 0.5rem;
   border-radius: 2px;
   margin-bottom: 0.75rem;

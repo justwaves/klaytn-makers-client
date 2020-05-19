@@ -22,12 +22,12 @@ const Label = styled.h3`
 const InputBox = styled.div`
   display: flex;
   align-items: center;
-  border-bottom: 1px solid ${props => props.theme.color.gray[5]};
+  border-bottom: 1px solid ${props => props.theme.color.gray[3]};
   padding: 0.5rem 0;
   margin-bottom: 2rem;
 
   svg {
-    fill: ${props => props.theme.color.gray[7]};
+    fill: ${props => props.theme.color.gray[4]};
     width: 1.25rem;
     height: 1.25rem;
     margin-left: 0.25rem;
@@ -42,7 +42,7 @@ const SigninInput = styled.input`
   font-size: 13px;
 
   &::placeholder {
-    color: ${props => props.theme.color.gray[5]};
+    color: ${props => props.theme.color.gray[3]};
   }
 `;
 

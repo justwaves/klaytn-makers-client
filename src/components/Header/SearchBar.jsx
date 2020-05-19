@@ -5,7 +5,7 @@ import { Search } from 'components/Common/Icons';
 const Wrapper = styled.div`
   height: 2rem;
   width: 14rem;
-  border: 1px solid ${props => props.theme.color.gray[5]};
+  border: 1px solid ${props => props.theme.color.gray[3]};
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 
 const IconContainer = styled.div`
   padding-right: 6px;
-  color: ${props => props.theme.color.gray[5]};
+  color: ${props => props.theme.color.gray[3]};
 
   svg {
     fill: currentColor;

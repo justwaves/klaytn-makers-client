@@ -19,7 +19,7 @@ const TotalState = styled.h3`
   margin-top: 1.5rem;
   font-size: 1rem;
   font-weight: 500;
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   display: flex;
   div {
     margin-right: 1.5rem;
@@ -28,7 +28,7 @@ const TotalState = styled.h3`
 
 const Table = styled.div`
   margin-top: 1.5rem;
-  border-top: 1.5px solid ${props => props.theme.color.gray[7]};
+  border-top: 1.5px solid ${props => props.theme.color.gray[4]};
 `;
 
 const TableGrid = styled.div`
@@ -43,7 +43,7 @@ const TableHeader = styled.div`
 
 const LeftHeader = styled.div`
   width: 320px;
-  border-bottom: 1px solid ${props => props.theme.color.gray[5]};
+  border-bottom: 1px solid ${props => props.theme.color.gray[3]};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,7 +51,7 @@ const LeftHeader = styled.div`
 
 const RightHeader = styled.div`
   flex: 1;
-  border-bottom: 1px solid ${props => props.theme.color.gray[5]};
+  border-bottom: 1px solid ${props => props.theme.color.gray[3]};
   display: flex;
   justify-content: space-between;
   align-items: center;

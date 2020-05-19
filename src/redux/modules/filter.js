@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { startLoading, finishLoading } from './loading';
 import { createRequestActionTypes } from 'lib/createRequestSaga';
-import { takeLatest, put } from 'redux-saga/effects';
+import { takeLatest, put, call } from 'redux-saga/effects';
 import { sortPopular, sortDeadline } from 'lib/sort';
 
 const [
@@ -58,18 +58,18 @@ const filterListSaga = () => {
     });
 
     const inProgressList = list.filter(product => product.state === '0');
-    const popularList = sortPopular(inProgressList);
+    const inProgressListTwo = list.filter(product => product.state === '0');
 
-    yield put({
-      type: SORT_POPULAR,
-      payload: popularList,
-    });
-
-    // SORT_DEADLINE
-    const deadlineList = sortDeadline(inProgressList);
+    const deadlineList = yield call(sortDeadline, inProgressList);
     yield put({
       type: SORT_DEADLINE,
       payload: deadlineList,
+    });
+
+    const popularList = yield call(sortPopular, inProgressListTwo);
+    yield put({
+      type: SORT_POPULAR,
+      payload: popularList,
     });
   };
 };

@@ -74,6 +74,15 @@ const Content = styled.div`
   }
 `;
 
+const ContentForMobile = styled.div`
+  display: none;
+  border-top: 2px solid ${props => props.theme.color.gray[3]};
+  padding-top: 4rem;
+  @media (max-width: 1200px) {
+    display: block;
+  }
+`;
+
 const Title = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
@@ -110,7 +119,7 @@ const Order = styled.div`
 `;
 
 const MinCount = styled.div`
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
 `;
@@ -121,7 +130,7 @@ const Count = styled.div`
 `;
 
 const Period = styled.div`
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
 `;
@@ -149,6 +158,17 @@ const Price = styled.div`
 
 const PostContent = styled.div`
   line-height: 1.6;
+`;
+
+const ActionButtons = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
@@ -218,6 +238,7 @@ const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
           <Content>
             <PostContent dangerouslySetInnerHTML={{ __html: body }} />
           </Content>
+          <ActionButtons>{actionButtons}</ActionButtons>
         </LeftColumn>
         <RightColumn>
           <Title>{title}</Title>
@@ -249,8 +270,10 @@ const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
           <OrderButton makersId={makersId} price={price}>
             주문하기
           </OrderButton>
+          <ContentForMobile>
+            <PostContent dangerouslySetInnerHTML={{ __html: body }} />
+          </ContentForMobile>
         </RightColumn>
-        {actionButtons}
       </Grid>
     </ResponsiveWrapper>
   );

@@ -16,11 +16,11 @@ const ActionButton = styled.button`
   outline: 0;
   font-size: 0.875rem;
   cursor: pointer;
-  color: ${props => props.theme.color.gray[6]};
+  color: ${props => props.theme.color.gray[4]};
 
   &:hover {
-    background-color: ${props => props.theme.color.gray[1]};
-    color: ${props => props.theme.color.cyan[7]};
+    background-color: ${props => props.theme.color.gray[2]};
+    color: ${props => props.theme.color.primary[0]};
   }
 
   & + & {

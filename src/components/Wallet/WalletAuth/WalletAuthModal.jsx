@@ -27,7 +27,7 @@ const Header = styled.h1`
 `;
 
 const KlaytnWalletLink = styled.div`
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   font-size: 0.75rem;
   cursor: pointer;
   margin-top: 2rem;

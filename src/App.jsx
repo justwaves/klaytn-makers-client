@@ -49,7 +49,6 @@ const App = () => {
   }));
 
   useEffect(() => {
-    console.log('checkState');
     store.dispatch(checkState());
   }, []);
 
@@ -65,4 +64,4 @@ const App = () => {
   );
 };
 
-export default React.memo(App);
+export default App;

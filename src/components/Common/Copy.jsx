@@ -34,7 +34,7 @@ const TooltipWrapper = styled.div`
 const Tooltip = styled.div`
   width: 60px;
   height: 30px;
-  border: 1px solid ${props => props.theme.color.gray[7]};
+  border: 1px solid ${props => props.theme.color.gray[4]};
   position: absolute;
   top: -40px;
   display: flex;
@@ -50,10 +50,10 @@ const Arrow = styled.div`
   justify-content: flex-end;
   width: 0.625rem;
   height: 0.625rem;
-  border-bottom: 1px solid ${props => props.theme.color.gray[7]};
-  border-right: 1px solid ${props => props.theme.color.gray[7]};
+  border-bottom: 1px solid ${props => props.theme.color.gray[4]};
+  border-right: 1px solid ${props => props.theme.color.gray[4]};
   transform: rotate(45deg);
-  background-color: ${props => props.theme.color.gray[0]};
+  background-color: white;
   user-select: none;
   position: absolute;
   top: -15px;

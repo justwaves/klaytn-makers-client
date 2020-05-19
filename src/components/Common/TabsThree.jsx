@@ -18,7 +18,7 @@ const TabContainer = styled.div`
 const StyledButton = styled.button`
   outline: 0;
   border: 0;
-  border-bottom: 1px solid ${props => props.theme.color.gray[4]};
+  border-bottom: 1px solid ${props => props.theme.color.gray[2]};
   padding: 0;
   width: 50%;
   height: 100%;
@@ -26,7 +26,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   font-weight: 500;
   font-size: 1rem;
-  background-color: ${props => props.theme.color.gray[1]};
+  background-color: ${props => props.theme.color.gray[0]};
 `;
 
 const ContentContainer = styled.div`
@@ -35,7 +35,7 @@ const ContentContainer = styled.div`
   flex-direction: row;
   min-height: 370px;
   height: 100%;
-  background-color: ${props => props.theme.color.gray[1]};
+  background-color: ${props => props.theme.color.gray[0]};
   overflow: hidden;
 `;
 
@@ -127,7 +127,7 @@ const ActiveTabBorder = styled.div`
     props.active === '1' &&
     css`
       transform: translateX(0px);
-      border-right: 1px solid ${props => props.theme.color.gray[3]};
+      border-right: 1px solid ${props => props.theme.color.gray[2]};
     `}
 
   ${props =>

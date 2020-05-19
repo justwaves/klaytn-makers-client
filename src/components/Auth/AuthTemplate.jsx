@@ -28,7 +28,7 @@ const WhiteBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid ${props => props.theme.color.gray[5]};
+  border: 1px solid ${props => props.theme.color.gray[3]};
   border-radius: 8px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
 `;

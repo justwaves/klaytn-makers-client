@@ -40,10 +40,10 @@ const CloseButton = styled.button`
   cursor: pointer;
   padding: 0.5rem;
   background: white;
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
 
   svg {
-    fill: ${props => props.theme.color.gray[6]};
+    fill: ${props => props.theme.color.gray[4]};
     width: 0.75rem;
     height: 0.75rem;
   }

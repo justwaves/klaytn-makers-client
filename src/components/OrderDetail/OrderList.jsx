@@ -38,7 +38,7 @@ const ItemImage = styled.div`
   width: 6rem;
   height: 5.5rem;
   border-radius: 8px;
-  border: 1px solid ${props => props.theme.color.gray[3]};
+  border: 1px solid ${props => props.theme.color.gray[2]};
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -51,7 +51,7 @@ const ItemImage = styled.div`
 const ItemInfo = styled.div`
   font-size: 0.75rem;
   font-weight: 500;
-  color: ${props => props.theme.color.gray[7]};
+  color: ${props => props.theme.color.gray[4]};
   margin-left: 0.75rem;
 
   div {

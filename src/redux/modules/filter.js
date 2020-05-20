@@ -11,6 +11,12 @@ const [
 ] = createRequestActionTypes('filter/COMBINE_LIST');
 
 const [
+  COMBINE_ORDER_LIST,
+  COMBINE_ORDER_LIST_SUCCESS,
+  COMBINE_ORDER_LIST_FAILURE,
+] = createRequestActionTypes('filter/COMBINE_ORDER_LIST');
+
+const [
   COMBINE_PRODUCT,
   COMBINE_PRODUCT_SUCCESS,
   COMBINE_PRODUCT_FAILURE,
@@ -26,6 +32,14 @@ export const combineList = createAction(COMBINE_LIST, ({ posts, feed }) => ({
   posts,
   feed,
 }));
+
+export const combineOrderList = createAction(
+  COMBINE_ORDER_LIST,
+  ({ posts, feed }) => ({
+    posts,
+    feed,
+  }),
+);
 
 export const combineProduct = createAction(
   COMBINE_PRODUCT,
@@ -123,6 +137,45 @@ const combineListSaga = () => {
   };
 };
 
+const combineOrderListSaga = () => {
+  return function* (action) {
+    yield put(startLoading(COMBINE_ORDER_LIST));
+    const { posts, feed } = action.payload;
+
+    const newArray = [];
+    try {
+      feed.map(makers => {
+        posts.map(post => {
+          if (post._id === makers.postId) {
+            const newPost = {
+              ...post,
+              ...makers,
+              dDay: post.dDay,
+              dDayUnix: makers.dDay,
+            };
+
+            newArray.push(newPost);
+          }
+          return null;
+        });
+        return null;
+      });
+
+      yield put({
+        type: COMBINE_ORDER_LIST_SUCCESS,
+        payload: newArray,
+      });
+    } catch (e) {
+      yield put({
+        type: COMBINE_ORDER_LIST_FAILURE,
+        payload: e,
+        error: true,
+      });
+    }
+    yield put(finishLoading(COMBINE_ORDER_LIST));
+  };
+};
+
 const combineProductSaga = () => {
   return function* (action) {
     yield put(startLoading(COMBINE_PRODUCT));
@@ -146,12 +199,14 @@ const combineProductSaga = () => {
 
 export function* filterSaga() {
   yield takeLatest(COMBINE_LIST, combineListSaga());
+  yield takeLatest(COMBINE_ORDER_LIST, combineOrderListSaga());
   yield takeLatest(COMBINE_PRODUCT, combineProductSaga());
   yield takeLatest(FILTER_LIST, filterListSaga());
 }
 
 const initialState = {
   combinedList: [],
+  combinedOrderList: [],
   deadlineList: [],
   popularList: [],
   finishedList: [],
@@ -168,6 +223,14 @@ const filter = handleActions(
       combinedList: newArray,
     }),
     [COMBINE_LIST_FAILURE]: (state, { payload: e }) => ({
+      ...state,
+      error: e,
+    }),
+    [COMBINE_ORDER_LIST_SUCCESS]: (state, { payload: newArray }) => ({
+      ...state,
+      combinedOrderList: newArray,
+    }),
+    [COMBINE_ORDER_LIST_FAILURE]: (state, { payload: e }) => ({
       ...state,
       error: e,
     }),

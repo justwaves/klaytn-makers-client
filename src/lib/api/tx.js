@@ -13,6 +13,7 @@ export const writeTx = ({
   typeName,
   klay,
   TxFee,
+  orderDate,
 }) =>
   apiClient.post('/api/tx', {
     type,
@@ -27,6 +28,7 @@ export const writeTx = ({
     typeName,
     klay,
     TxFee,
+    orderDate,
   });
 
 export const listTx = ({ username }) => {

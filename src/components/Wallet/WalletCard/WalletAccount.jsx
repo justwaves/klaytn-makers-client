@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import WalletCardFrame from './WalletCardFrame';
+import { getAddress } from 'lib/crypto';
 
 const Wrapper = styled(WalletCardFrame)`
   height: 400px;
@@ -94,7 +95,9 @@ const AddressButton = styled.button`
   }
 `;
 
-const WalletAccount = ({ address, balance, logout }) => {
+const WalletAccount = ({ balance, logout }) => {
+  const address = getAddress();
+
   const openFaucet = () => {
     window.open(
       'https://baobab.wallet.klaytn.com/access?next=faucet',

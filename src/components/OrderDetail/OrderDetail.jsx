@@ -67,21 +67,21 @@ const RightHeader = styled.div`
 
 const TableContent = styled.div``;
 
-const OrderDetail = ({ buyerMakers, loading, feed }) => {
+const OrderDetail = ({ loading, feed, combinedOrderList }) => {
   const [inProgressList, setInProgressList] = useState([]);
   const [successList, setSuccessList] = useState([]);
   const [failureList, setFailureList] = useState([]);
-  const [filteredList, setFilteredList] = useState([]);
+  const [totalList, setTotalList] = useState([]);
 
   useEffect(() => {
-    if (buyerMakers && feed) {
-      const arr = buyerMakerFilter(buyerMakers, feed);
-      setFilteredList(arr);
+    if (combinedOrderList && feed) {
+      const arr = buyerMakerFilter(combinedOrderList, feed);
       setInProgressList(arr.filter(product => product.state === '0'));
       setSuccessList(arr.filter(product => product.state === '1'));
       setFailureList(arr.filter(product => product.state === '2'));
+      setTotalList(arr.filter(product => product.state !== '3'));
     }
-  }, [buyerMakers, feed]);
+  }, [combinedOrderList, feed]);
 
   return (
     <Wrapper>
@@ -103,7 +103,7 @@ const OrderDetail = ({ buyerMakers, loading, feed }) => {
           </TableHeader>
 
           <TableContent>
-            <OrderList filteredList={filteredList} loading={loading} />
+            <OrderList filteredList={totalList.reverse()} loading={loading} />
           </TableContent>
         </TableGrid>
       </Table>

@@ -1,4 +1,4 @@
-export const CA = '0x68af5d4eB1a5D528d7BA50658e8E52a035f17E35';
+export const CA = '0x1D640806ef78a49cD7Fc6733DF4A630D0572Cb36';
 
 export const ABI = [
   {
@@ -211,11 +211,17 @@ export const ABI = [
         name: 'makersListCount',
         type: 'uint256',
       },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'orderDate',
+        type: 'uint256',
+      },
     ],
     name: 'MakersOrdered',
     type: 'event',
     signature:
-      '0x79d0879214b949e2c38012fc39cf3463be373f5b6f3b59df2a0b9ded8ff130f7',
+      '0x44326a0b872d9ffff3a2d6dd3187c10cd7e763db81d288a0e6237b6336f21779',
   },
   {
     inputs: [

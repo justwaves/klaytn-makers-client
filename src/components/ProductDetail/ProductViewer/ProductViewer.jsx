@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import moment from 'moment';
 import Responsive from 'components/Common/Responsive';
 import Tags from 'components/Common/Tags';
 import ProgressBar from 'components/Common/ProgressBar';
 import Spinner from 'components/Common/Spinner';
 import OrderButton from 'components/ProductDetail/OrderButton/OrderButtonContainer';
+import { getFromNow } from 'lib/sort';
 
 const ResponsiveWrapper = styled(Responsive)`
   padding-top: 2.25rem;
@@ -172,6 +172,7 @@ const ActionButtons = styled.div`
 `;
 
 const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
+  console.log('Product: ', combinedProduct);
   if (error) {
     if (error.response && error.response.status === 404) {
       return <ResponsiveWrapper>존재하지 않는 포스트입니다.</ResponsiveWrapper>;
@@ -186,7 +187,6 @@ const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
       </ResponsiveWrapper>
     );
   }
-  console.log('Product: ', combinedProduct);
 
   const {
     tags,
@@ -201,30 +201,7 @@ const ProductViewer = ({ combinedProduct, loading, error, actionButtons }) => {
     count,
   } = combinedProduct;
 
-  moment.updateLocale('en', {
-    relativeTime: {
-      future: '%s 남음',
-      past: '%s 지남',
-      s: '1초',
-      ss: '%d초',
-      m: '1분',
-      mm: '%d분',
-      h: '1시간',
-      hh: '%d시간',
-      d: '1일',
-      dd: '%d일',
-      M: '1개월',
-      MM: '%d개월',
-      y: '1년',
-      yy: '%d년',
-    },
-  });
-
-  let fromNow = moment(dDay, 'YYYY-MM-DD').fromNow();
-
-  if (fromNow === 0) {
-    fromNow = moment(dDay, 'LTS').fromNow();
-  }
+  const fromNow = getFromNow(dDay);
 
   const percentage = Math.ceil((count / targetCount) * 100);
 

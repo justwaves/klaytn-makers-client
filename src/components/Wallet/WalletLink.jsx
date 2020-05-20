@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const WalletLink = ({ children }) => {
+const WalletLink = ({ children, username }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { hasWallet } = useSelector(({ wallet }) => ({
@@ -22,7 +22,7 @@ const WalletLink = ({ children }) => {
 
   // 로그인됨 -> wallet page로 이동
   const openWallet = () => {
-    history.push('/wallet');
+    history.push(`/wallet/${username}`);
   };
 
   // 로그인 안됨 -> 모달 띄우기

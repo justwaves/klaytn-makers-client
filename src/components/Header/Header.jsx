@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -14,7 +14,6 @@ import {
 } from 'components/Common/Icons';
 import UserMenu from './UserMenu';
 import WalletLink from 'components/Wallet/WalletLink';
-import caver from 'klaytn/caver';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -155,38 +154,27 @@ const Divider = styled.span`
 `;
 
 const Header = () => {
-  const [balance, setBalance] = useState(0);
   const [openMenu, setOpenMenu] = useState(false);
   const [onMouse, setOnMouse] = useState(false);
-  const { user, address } = useSelector(({ user, wallet }) => ({
+  const { user, balance } = useSelector(({ user, wallet }) => ({
     user: user.user,
-    address: wallet.address,
+    balance: wallet.balance,
   }));
 
-  const onMouseEnter = () => {
+  const onMouseEnter = useCallback(() => {
     setOpenMenu(true);
     setOnMouse(true);
-  };
+  }, []);
 
-  const onMouseLeave = () => {
+  const onMouseLeave = useCallback(() => {
     setOpenMenu(false);
     setOnMouse(false);
-  };
+  }, []);
 
   const onMouseLeaveFromIcon = useCallback(() => {
     if (!onMouse) return;
     setOpenMenu(false);
   }, [onMouse]);
-
-  const getBalance = useCallback(async address => {
-    if (!address) return;
-    const result = await caver.klay.getBalance(address);
-    setBalance(caver.utils.fromWei(result, 'ether'));
-  }, []);
-
-  useEffect(() => {
-    getBalance(address);
-  }, [address, getBalance]);
 
   return (
     <>

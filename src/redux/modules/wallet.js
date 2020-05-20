@@ -1,6 +1,6 @@
 import caver from 'klaytn/caver';
 import { createAction, handleActions } from 'redux-actions';
-import { takeLatest, put } from 'redux-saga/effects';
+import { takeLatest, put, call } from 'redux-saga/effects';
 import { createRequestActionTypes } from 'lib/createRequestSaga';
 import { startLoading, finishLoading } from './loading';
 
@@ -16,6 +16,8 @@ const [
   WALLET_LOGOUT_FAILURE,
 ] = createRequestActionTypes('wallet/WALLET_LOGOUT');
 
+const SET_BALANCE = 'wallet/SET_BALANCE';
+
 function integrateWallet() {
   return function* (action) {
     yield put(startLoading(WALLET_LOGIN));
@@ -26,7 +28,6 @@ function integrateWallet() {
       const walletInstance = caver.klay.accounts.privateKeyToAccount(
         privateKey,
       );
-      console.log(walletInstance);
       caver.klay.accounts.wallet.add(walletInstance);
 
       sessionStorage.setItem('walletInstance', JSON.stringify(walletInstance));
@@ -37,6 +38,12 @@ function integrateWallet() {
           privateKey,
           address: walletInstance.address,
         },
+      });
+      const result = yield call(caver.klay.getBalance, walletInstance.address);
+      const balance = caver.utils.fromWei(result, 'ether');
+      yield put({
+        type: SET_BALANCE,
+        payload: balance,
       });
     } catch (e) {
       yield put({ type: WALLET_LOGIN_FAILURE, payload: e, error: true });
@@ -72,6 +79,9 @@ export const walletLogin = createAction(WALLET_LOGIN, privateKey => ({
 }));
 
 export const walletLogout = createAction(WALLET_LOGOUT);
+export const setBalance = createAction(SET_BALANCE, ({ balance }) => ({
+  balance,
+}));
 
 const walletLoginSaga = integrateWallet();
 const walletLogoutSaga = removeWallet();
@@ -85,6 +95,7 @@ const initialState = {
   hasWallet: !!sessionStorage.getItem('walletInstance'),
   privateKey: null,
   address: null,
+  balance: null,
   error: null,
 };
 
@@ -110,6 +121,10 @@ const wallet = handleActions(
     [WALLET_LOGOUT_FAILURE]: (state, { payload: e }) => ({
       ...state,
       error: e,
+    }),
+    [SET_BALANCE]: (state, { payload: balance }) => ({
+      ...state,
+      balance,
     }),
   },
   initialState,

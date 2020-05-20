@@ -63,6 +63,7 @@ const Title = styled.div`
   color: ${props => props.theme.color.primary[4]};
   font-size: 0.875rem;
   margin-top: 0.25rem;
+  width: 180px;
 `;
 
 const Status = styled.div`
@@ -128,7 +129,6 @@ const TxItem = ({
   targetCount,
   count,
   postId,
-  username,
   price,
 }) => {
   const [status, setStatus] = useState(state);
@@ -137,7 +137,7 @@ const TxItem = ({
   const dispatch = useDispatch();
 
   const onClick = () => {
-    history.push(`/@${username}/${postId}`);
+    history.push(`/product/${postId}`);
   };
 
   const onRefund = price => {
@@ -202,6 +202,13 @@ const TxItem = ({
 };
 
 const OrderList = ({ filteredList, loading }) => {
+  const [list, setList] = useState(filteredList);
+  console.log(filteredList);
+
+  useEffect(() => {
+    setList(filteredList);
+  }, [filteredList]);
+
   if (loading) {
     return (
       <LoadingWrapper>
@@ -213,27 +220,25 @@ const OrderList = ({ filteredList, loading }) => {
   return (
     <>
       <ListWrapper>
-        {filteredList &&
-          filteredList
-            .slice(0, 8)
-            .map(order => (
-              <TxItem
-                key={parseInt(order.timestamp) + parseInt(order.count)}
-                photo={order.photo}
-                title={order.title}
-                dDay={order.dDay}
-                state={order.state}
-                targetCount={order.targetCount}
-                count={order.count}
-                postId={order._id}
-                username={order.user.username}
-                price={order.price}
-                makersId={order.makersId}
-              />
-            ))}
+        {list &&
+          list.map(order => (
+            <TxItem
+              key={parseInt(order.timestamp) + parseInt(order.count)}
+              photo={order.photo}
+              title={order.title}
+              dDay={order.dDay}
+              state={order.state}
+              targetCount={order.targetCount}
+              count={order.count}
+              postId={order._id}
+              username={order.user.username}
+              price={order.price}
+              makersId={order.makersId}
+            />
+          ))}
       </ListWrapper>
     </>
   );
 };
 
-export default React.memo(OrderList);
+export default OrderList;

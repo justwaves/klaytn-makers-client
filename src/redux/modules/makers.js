@@ -51,11 +51,12 @@ export const uploadMakersSaga = () => {
         ).send,
         {
           from: getWallet().address,
-          gas: '3000000',
+          gas: '5000000',
         },
       );
 
       console.log('receipt: ', receipt);
+      yield put(setMakers(postId));
 
       ui.showToast({
         status: receipt.status ? 'success' : 'fail',
@@ -164,7 +165,6 @@ const setMakersSaga = () => {
         console.log('상품을 불러 올 수 없습니다.');
         return;
       }
-
       const feed = [];
       feed.push(product);
       const makers = feedParser(feed);

@@ -48,21 +48,6 @@ const Wrapper = styled.div`
   }
 `;
 
-const Blur = styled.div`
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  ${props =>
-    props.state !== '0' &&
-    css`
-      filter: blur(3px);
-      -webkit-filter: blur(3px);
-    `}
-`;
-
 const Finished = styled.div`
   position: absolute;
   top: 0;
@@ -70,8 +55,9 @@ const Finished = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 4px;
-  /* background: #a7a7a70e; */
+  background: #b7a7a70e;
   z-index: 3;
+  backdrop-filter: blur(3px);
 
   div {
     display: flex;
@@ -94,13 +80,6 @@ const ImageContainer = styled.div`
     border-radius: 0;
     max-height: 25rem;
   }
-
-  ${props =>
-    props.state !== '0' &&
-    css`
-      filter: blur(7px);
-      -webkit-filter: blur(7px);
-    `}
 
   img {
     width: 100%;
@@ -147,16 +126,14 @@ const ProductCard = ({ post }) => {
             <div>종료된 상품입니다</div>
           </Finished>
         )}
-        <Blur state={state}>
-          <ImageContainer state={state}>
-            <img src={photo} alt="thumbnail" />
-          </ImageContainer>
-          <InfoContainer>
-            <ProductName>{title}</ProductName>
-            <ProductDesc>{description}</ProductDesc>
-            <ProgressBar count={count} targetCount={targetCount} />
-          </InfoContainer>
-        </Blur>
+        <ImageContainer state={state}>
+          <img src={photo} alt="thumbnail" />
+        </ImageContainer>
+        <InfoContainer>
+          <ProductName>{title}</ProductName>
+          <ProductDesc>{description}</ProductDesc>
+          <ProgressBar count={count} targetCount={targetCount} />
+        </InfoContainer>
       </Wrapper>
     </Link>
   );

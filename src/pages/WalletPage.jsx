@@ -7,9 +7,8 @@ import Footer from 'components/Common/Footer';
 
 const WalletPage = () => {
   const history = useHistory();
-  const { hasWallet, username } = useSelector(({ wallet, user }) => ({
+  const { hasWallet } = useSelector(({ wallet }) => ({
     hasWallet: wallet.hasWallet,
-    username: user.user.username,
   }));
 
   if (!hasWallet) {
@@ -20,7 +19,7 @@ const WalletPage = () => {
   return (
     <>
       <Header />
-      <WalletViewerContainer username={username} />
+      <WalletViewerContainer />
       <Footer />
     </>
   );

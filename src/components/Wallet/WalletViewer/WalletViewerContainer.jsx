@@ -1,91 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { walletLogout } from 'redux/modules/wallet';
 import { setBuyerMakers } from 'redux/modules/order';
-import { listPosts } from 'redux/modules/posts';
-import caver from 'klaytn/caver';
-import { combineList } from 'redux/modules/filter';
+import { combineOrderList } from 'redux/modules/filter';
 import WalletViewer from './WalletViewer';
 import { setTxList } from 'redux/modules/tx';
 
-const WalletViewerContainer = ({ username }) => {
+const WalletViewerContainer = () => {
   const history = useHistory();
-  const location = useLocation();
   const dispatch = useDispatch();
+  const { username } = useParams();
 
   const {
-    address,
     buyerMakers,
     posts,
-    combinedList,
+    combinedOrderList,
     loading,
     txList,
     txListLoading,
+    balance,
+    address,
   } = useSelector(({ posts, loading, filter, wallet, order, tx }) => ({
     address: wallet.address,
+    balance: wallet.balance,
     buyerMakers: order.buyerMakers,
     posts: posts.posts,
-    combinedList: filter.combinedList,
+    combinedOrderList: filter.combinedOrderList,
     loading: loading['posts/LIST_POSTS'],
     txList: tx.txList,
     txListLoading: loading['tx/SET_TX_LIST'],
   }));
 
-  const logout = () => {
-    dispatch(walletLogout());
-    history.push('/');
-  };
-
-  const [balance, setBalance] = useState(0);
-
-  const getBalance = async address => {
-    if (!address) return;
-    const result = await caver.klay.getBalance(address);
-    setBalance(caver.utils.fromWei(result, 'ether'));
-  };
-
   useEffect(() => {
-    if (posts) return;
-    if (username) {
-      dispatch(listPosts({ username }));
+    if (!buyerMakers) {
+      dispatch(setBuyerMakers());
     }
-  }, [dispatch, location.search, username, posts]);
-
-  useEffect(() => {
-    if (txList) return;
-    if (username) {
-      dispatch(setTxList({ username }));
-    }
-  }, [dispatch, location.search, username, txList]);
-
-  useEffect(() => {
-    if (buyerMakers) return;
-    dispatch(setBuyerMakers());
   }, [dispatch, buyerMakers]);
 
   useEffect(() => {
-    if (balance) return;
-    getBalance(address);
-  }, [dispatch, address, balance]);
-
-  useEffect(() => {
     if (posts && buyerMakers) {
-      dispatch(combineList({ posts, feed: buyerMakers }));
+      dispatch(combineOrderList({ posts, feed: buyerMakers }));
     }
   }, [dispatch, buyerMakers, posts]);
 
+  useEffect(() => {
+    if (!txList && username) {
+      dispatch(setTxList({ username }));
+    }
+  }, [dispatch, username, txList]);
+
+  const logout = useCallback(() => {
+    dispatch(walletLogout());
+    history.push('/');
+  }, [dispatch, history]);
+
   return (
     <WalletViewer
-      address={address}
       balance={balance}
       logout={logout}
-      buyerMakers={combinedList.reverse()}
+      buyerMakers={combinedOrderList.reverse()}
       loading={loading}
       username={username}
       txList={txList}
       txListLoading={txListLoading}
+      address={address}
     />
   );
 };

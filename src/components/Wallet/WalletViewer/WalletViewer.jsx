@@ -37,7 +37,6 @@ const Grid = styled.div`
 `;
 
 const WalletViewer = ({
-  address,
   balance,
   logout,
   buyerMakers,
@@ -48,7 +47,6 @@ const WalletViewer = ({
 }) => {
   const [inProgressMakers, setInProgressMakers] = useState(buyerMakers);
   const [finisedMakers, setFinisedMakers] = useState(buyerMakers);
-  const [filteredTxList, setFilteredTxList] = useState(txList);
 
   useEffect(() => {
     const list = buyerMakers.filter(makers => makers.state !== '0');
@@ -56,22 +54,6 @@ const WalletViewer = ({
     const progressList = buyerMakers.filter(makers => makers.state === '0');
     setInProgressMakers(progressList);
   }, [buyerMakers]);
-
-  const txListFilter = txList => {
-    let newList = [];
-    txList.map(({ _doc }) => {
-      newList.push(_doc);
-      return null;
-    });
-    setFilteredTxList(newList);
-    return null;
-  };
-
-  useEffect(() => {
-    if (txList) {
-      txListFilter(txList);
-    }
-  }, [txList]);
 
   return (
     <ResponsiveWrapper>
@@ -81,14 +63,14 @@ const WalletViewer = ({
           finisedMakersCount={finisedMakers.length}
           username={username}
         />
-        <WalletAccount address={address} balance={balance} logout={logout} />
+        <WalletAccount balance={balance} logout={logout} />
         <Orders
-          buyerMakers={buyerMakers}
+          buyerMakers={inProgressMakers}
           inProgressMakers={inProgressMakers}
           finisedMakers={finisedMakers}
           loading={loading}
         />
-        <TxList txList={filteredTxList} txListLoading={txListLoading} />
+        <TxList txList={txList} txListLoading={txListLoading} />
       </Grid>
     </ResponsiveWrapper>
   );

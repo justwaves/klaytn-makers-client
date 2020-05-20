@@ -3,12 +3,13 @@ import contractAPI from 'klaytn/contractAPI';
 import { getWallet } from 'lib/crypto';
 import { startLoading, finishLoading } from './loading';
 import { createRequestActionTypes } from 'lib/createRequestSaga';
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, put, call, select } from 'redux-saga/effects';
 import caver from 'klaytn/caver';
 import { feedParser } from 'lib/parser';
 import { writeTx, setTxList } from './tx';
 import ui from 'lib/ui';
 import { setMakers } from 'redux/modules/makers';
+import { listPosts } from 'redux/modules/posts';
 
 const [
   ORDER_PRODUCT,
@@ -78,6 +79,7 @@ const orderProductSaga = () => {
           typeName: '상품 구매',
           klay: price * -1,
           TxFee: TxFee * -1,
+          orderDate: event.orderDate,
         }),
       );
 
@@ -115,17 +117,19 @@ const setBuyerMakersSaga = () => {
     yield put(startLoading(SET_BUYER_MAKERS));
 
     try {
-      const { address } = yield call(getWallet);
+      const { address } = yield select(state => state.wallet);
       const BuyerMakers = yield call(
         contractAPI.methods.getBuyerMakers(address).call,
       );
 
       const parsedMakersBuyers = feedParser(BuyerMakers);
-
       yield put({
         type: SET_BUYER_MAKERS_SUCCESS,
         payload: parsedMakersBuyers,
       });
+
+      const { username } = JSON.parse(localStorage.getItem('user'));
+      yield put(listPosts({ username }));
     } catch (e) {
       console.log(e);
       yield put({ type: SET_BUYER_MAKERS_FAILURE, payload: e, error: true });

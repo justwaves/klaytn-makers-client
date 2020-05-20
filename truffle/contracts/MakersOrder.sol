@@ -12,7 +12,8 @@ contract MakersOrder is MakersContract {
     Makers[] buyerMakersList,
     address buyer,
     Makers makersList,
-    uint256 makersListCount
+    uint256 makersListCount,
+    uint256 orderDate
   );
 
   event FundingEnded(uint256 makersId, State state);
@@ -58,7 +59,8 @@ contract MakersOrder is MakersContract {
       buyerMakersList,
       msg.sender,
       makersList[index],
-      makersList[index].count
+      makersList[index].count,
+      now
     );
   }
 

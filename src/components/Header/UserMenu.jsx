@@ -158,10 +158,10 @@ const UserMenu = ({ user, onMouseEnter, onMouseLeave, balance }) => {
               <Menu>상품 등록하기</Menu>
             </Link>
           )}
-          <Link to="/wallet">
+          <Link to={`/wallet/${user.username}`}>
             <Menu>클레이튼 지갑</Menu>
           </Link>
-          <Link to="/orders">
+          <Link to={`/orders/${user.username}`}>
             <Menu>주문내역</Menu>
           </Link>
           <Link to="/test">

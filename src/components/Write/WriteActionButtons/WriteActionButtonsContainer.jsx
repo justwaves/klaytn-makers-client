@@ -106,7 +106,7 @@ const WriteActionButtonsContainer = () => {
 
   useEffect(() => {
     if (post) {
-      const { _id, user } = post;
+      const { _id } = post;
       if (!receipt) {
         setKlaytnLoading(true);
         console.log('Klaytn contract API loading...');
@@ -114,7 +114,7 @@ const WriteActionButtonsContainer = () => {
 
       if (receipt) {
         setKlaytnLoading(false);
-        history.push(`/@${user.username}/${_id}`);
+        history.push(`/product/${_id}`);
       }
     }
   }, [history, receipt, post]);

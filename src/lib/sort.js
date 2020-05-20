@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const sortPopular = list => {
   list.sort((a, b) => {
     const aCount = a.count;
@@ -31,6 +33,19 @@ export const sortDeadline = list => {
   return list;
 };
 
+export const sortOrderDate = list => {
+  list.sort((a, b) => {
+    if (a.orderDate > b.orderDate) {
+      return 1;
+    }
+    if (a.orderDate < b.orderDate) {
+      return -1;
+    }
+    return 0;
+  });
+  return list;
+};
+
 export const buyerMakerFilter = (buyerMakers, feed) => {
   const newArray = [];
   try {
@@ -54,4 +69,32 @@ export const buyerMakerFilter = (buyerMakers, feed) => {
   }
 
   return newArray;
+};
+
+export const getFromNow = dDay => {
+  moment.updateLocale('en', {
+    relativeTime: {
+      future: '%s 남음',
+      past: '%s 지남',
+      s: '1초',
+      ss: '%d초',
+      m: '1분',
+      mm: '%d분',
+      h: '1시간',
+      hh: '%d시간',
+      d: '1일',
+      dd: '%d일',
+      M: '1개월',
+      MM: '%d개월',
+      y: '1년',
+      yy: '%d년',
+    },
+  });
+
+  let fromNow = moment(dDay, 'YYYY-MM-DD').fromNow();
+
+  if (fromNow === 0) {
+    fromNow = moment(dDay, 'LTS').fromNow();
+  }
+  return fromNow;
 };

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { readPost, unloadPost } from 'redux/modules/post';
 import PostActionButtons from 'components/ProductDetail/PostActionButtons';
 import { setOriginalPost } from 'redux/modules/write';
-import { setMakers } from 'redux/modules/makers';
+import { setMakers, unloadMakers } from 'redux/modules/makers';
 import { combineProduct } from 'redux/modules/filter';
 import { removePost } from 'lib/api/posts';
 import ProductViewer from './ProductViewer';
@@ -28,9 +28,9 @@ const ProductViewerContainer = () => {
   useEffect(() => {
     dispatch(readPost(postId));
     dispatch(setMakers(postId));
-
     return () => {
       dispatch(unloadPost());
+      dispatch(unloadMakers());
     };
   }, [dispatch, postId]);
 
@@ -40,19 +40,19 @@ const ProductViewerContainer = () => {
     }
   }, [makers, post, dispatch]);
 
-  const onEdit = () => {
+  const onEdit = useCallback(() => {
     dispatch(setOriginalPost(post));
     history.push('/write');
-  };
+  }, [dispatch, history, post]);
 
-  const onRemove = async () => {
+  const onRemove = useCallback(async () => {
     try {
       await removePost(postId);
       history.push('/');
     } catch (e) {
       console.log(e);
     }
-  };
+  }, [history, postId]);
 
   const ownPost = (user && user._id) === (post && post.user._id);
 

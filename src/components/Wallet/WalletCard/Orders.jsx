@@ -97,56 +97,49 @@ const ProgressBarContainer = styled.div`
   width: 11rem;
 `;
 
-const TxItem = ({
-  photo,
-  title,
-  dDay,
-  state,
-  targetCount,
-  count,
-  postId,
-  username,
-}) => {
-  const [status, setStatus] = useState(state);
-  const date = moment(dDay).format('YYYY년 MM월 DD일');
-  const history = useHistory();
+const TxItem = React.memo(
+  ({ photo, title, dDay, state, targetCount, count, postId }) => {
+    const [status, setStatus] = useState(state);
+    const date = moment(dDay).format('YYYY년 MM월 DD일');
+    const history = useHistory();
 
-  const onClick = () => {
-    history.push(`/@${username}/${postId}`);
-  };
+    const onClick = () => {
+      history.push(`/product/${postId}`);
+    };
 
-  useEffect(() => {
-    if (state === '0') {
-      setStatus('진행중');
-    } else if (state === '1') {
-      setStatus('펀딩 성공');
-    } else if (state === '2') {
-      setStatus('펀딩 실패');
-    }
-  }, [state]);
+    useEffect(() => {
+      if (state === '0') {
+        setStatus('진행중');
+      } else if (state === '1') {
+        setStatus('펀딩 성공');
+      } else if (state === '2') {
+        setStatus('펀딩 실패');
+      }
+    }, [state]);
 
-  return (
-    <TxItemWrapper onClick={onClick}>
-      <ItemImage>
-        <img src={photo} alt="item" />
-      </ItemImage>
-      <ItemInfo>
-        <Title>{title}</Title>
-        <Status>진행상태: {status}</Status>
-        <Date>마감일: {date}</Date>
-        <ProgressBarContainer>
-          <ProgressBar
-            cardView={false}
-            targetCount={targetCount}
-            count={count}
-          />
-        </ProgressBarContainer>
-      </ItemInfo>
-    </TxItemWrapper>
-  );
-};
+    return (
+      <TxItemWrapper onClick={onClick}>
+        <ItemImage>
+          <img src={photo} alt="item" />
+        </ItemImage>
+        <ItemInfo>
+          <Title>{title}</Title>
+          <Status>진행상태: {status}</Status>
+          <Date>마감일: {date}</Date>
+          <ProgressBarContainer>
+            <ProgressBar
+              cardView={false}
+              targetCount={targetCount}
+              count={count}
+            />
+          </ProgressBarContainer>
+        </ItemInfo>
+      </TxItemWrapper>
+    );
+  },
+);
 
-const List = ({ buyerMakers, loading }) => {
+const List = React.memo(({ buyerMakers, loading }) => {
   if (loading) {
     return (
       <ListWrapper>
@@ -183,13 +176,19 @@ const List = ({ buyerMakers, loading }) => {
         ))}
     </ListWrapper>
   );
-};
+});
 
-const Orders = ({ buyerMakers, inProgressMakers, finisedMakers, loading }) => {
+const Orders = ({
+  buyerMakers,
+  inProgressMakers,
+  finisedMakers,
+  loading,
+  username,
+}) => {
   const history = useHistory();
   const openOrderDetail = useCallback(() => {
-    history.push('/orders');
-  }, [history]);
+    history.push(`/orders/${username}`);
+  }, [history, username]);
 
   return (
     <Wrapper title="투자한 상품" more="주문상세보기" onClick={openOrderDetail}>

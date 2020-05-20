@@ -3,7 +3,9 @@ import createRequestSaga, {
   createRequestActionTypes,
 } from 'lib/createRequestSaga';
 import * as txAPI from 'lib/api/tx';
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
+import { startLoading, finishLoading } from 'redux/modules/loading';
+import { getAddress } from 'lib/crypto';
 
 const [WRITE_TX, WRITE_TX_SUCCESS, WRITE_TX_FAILURE] = createRequestActionTypes(
   'tx/WRITE_TX',
@@ -30,6 +32,7 @@ export const writeTx = createAction(
     typeName,
     klay,
     TxFee,
+    orderDate,
   }) => ({
     type,
     blockNumber,
@@ -43,6 +46,7 @@ export const writeTx = createAction(
     typeName,
     klay,
     TxFee,
+    orderDate,
   }),
 );
 
@@ -51,11 +55,41 @@ export const setTxList = createAction(SET_TX_LIST, ({ username }) => ({
 }));
 
 const writeTxSaga = createRequestSaga(WRITE_TX, txAPI.writeTx);
-const setTxListSaga = createRequestSaga(SET_TX_LIST, txAPI.listTx);
+
+const setTxListSaga = () => {
+  return function* (action) {
+    yield put(startLoading(SET_TX_LIST));
+    const username = action.payload;
+
+    try {
+      const response = yield call(txAPI.listTx, username);
+      let newList = [];
+      response.data.map(({ _doc }) => {
+        newList.push(_doc);
+        return null;
+      });
+      const address = yield call(getAddress);
+
+      yield put({
+        type: SET_TX_LIST_SUCCESS,
+        payload: newList.filter(tx => tx.from === address),
+        meta: response,
+      });
+    } catch (e) {
+      console.log(e);
+      yield put({
+        type: SET_TX_LIST_FAILURE,
+        payload: e,
+        error: true,
+      });
+    }
+    yield put(finishLoading(SET_TX_LIST));
+  };
+};
 
 export function* txSaga() {
   yield takeLatest(WRITE_TX, writeTxSaga);
-  yield takeLatest(SET_TX_LIST, setTxListSaga);
+  yield takeLatest(SET_TX_LIST, setTxListSaga());
 }
 
 const initialState = {
@@ -79,11 +113,6 @@ const write = handleActions(
     [WRITE_TX_FAILURE]: (state, { payload: txError }) => ({
       ...state,
       txError,
-    }),
-    [SET_TX_LIST]: state => ({
-      ...state,
-      txList: null,
-      txError: null,
     }),
     [SET_TX_LIST_SUCCESS]: (state, { payload: txList }) => ({
       ...state,

@@ -17,3 +17,9 @@ export const getWallet = () => {
   if (!caver.klay.accounts.wallet.length) return null;
   return caver.klay.accounts.wallet[0];
 };
+
+export const getAddress = () => {
+  const walletFromSession = sessionStorage.getItem('walletInstance');
+  const { address } = JSON.parse(walletFromSession);
+  return address;
+};

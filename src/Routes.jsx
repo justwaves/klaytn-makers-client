@@ -19,8 +19,8 @@ const Routes = () => (
       <Route path="/signup" component={SignupPage} />
       <Route path="/write" component={WritePage} />
       <Route path="/store/:status" component={StorePage} />
-      <Route path="/wallet" component={WalletPage} />
-      <Route path="/orders" component={OrderDetailPage} />
+      <Route path="/wallet/:username" component={WalletPage} />
+      <Route path="/orders/:username" component={OrderDetailPage} />
       <Route path="/test" component={TestPage} />
       <Redirect from="*" to="/store/home" />
     </Switch>

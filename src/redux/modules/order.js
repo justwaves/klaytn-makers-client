@@ -23,6 +23,7 @@ const [
   SET_BUYER_MAKERS_FAILURE,
 ] = createRequestActionTypes('order/SET_BUYER_MAKERS');
 
+const UNLOAD_BUYER_MAKERS = 'order/UNLOAD_BUYER_MAKERS';
 const GET_REFUND = 'order/GET_REFUND';
 
 const orderProductSaga = () => {
@@ -125,7 +126,7 @@ const setBuyerMakersSaga = () => {
       const parsedMakersBuyers = feedParser(BuyerMakers);
       yield put({
         type: SET_BUYER_MAKERS_SUCCESS,
-        payload: parsedMakersBuyers,
+        payload: parsedMakersBuyers.reverse(),
       });
 
       const { username } = JSON.parse(localStorage.getItem('user'));
@@ -167,6 +168,7 @@ const getRefundSaga = () => {
 };
 
 export const setBuyerMakers = createAction(SET_BUYER_MAKERS);
+export const unloadBuyerMakers = createAction(UNLOAD_BUYER_MAKERS);
 export const orderProduct = createAction(
   ORDER_PRODUCT,
   ({ makersId, price }) => ({ makersId, price }),
@@ -187,7 +189,6 @@ const initialState = {
   receipt: null,
   feed: null,
   buyerMakers: null,
-  // makersStatus: null,
 };
 
 const order = handleActions(
@@ -208,6 +209,7 @@ const order = handleActions(
       ...state,
       error: e,
     }),
+    [UNLOAD_BUYER_MAKERS]: () => initialState,
   },
   initialState,
 );

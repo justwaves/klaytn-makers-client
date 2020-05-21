@@ -59,11 +59,14 @@ const ItemInfo = styled.div`
   }
 `;
 
-const Title = styled.div`
+const Title = styled.h3`
   color: ${props => props.theme.color.primary[4]};
   font-size: 0.875rem;
   margin-top: 0.25rem;
   width: 180px;
+  height: 0.875rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 const Status = styled.div`

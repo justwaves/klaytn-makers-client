@@ -22,6 +22,8 @@ const [
   COMBINE_PRODUCT_FAILURE,
 ] = createRequestActionTypes('filter/COMBINE_PRODUCT');
 
+const UNLOAD_LIST = 'filter/UNLOAD_LIST';
+
 const SORT_POPULAR = 'filter/SORT_POPULAR';
 const SORT_DEADLINE = 'filter/SORT_DEADLINE';
 const FILTER_FINISHED = 'filter/FILTER_FINISHED';
@@ -60,6 +62,8 @@ export const setDeadline = createAction(SORT_DEADLINE, ({ deadlineList }) => ({
 export const totalList = createAction(FILTER_LIST, ({ list }) => ({
   list,
 }));
+
+export const unloadList = createAction(UNLOAD_LIST);
 
 const filterListSaga = () => {
   return function* (action) {
@@ -205,15 +209,15 @@ export function* filterSaga() {
 }
 
 const initialState = {
-  combinedList: [],
-  combinedOrderList: [],
-  deadlineList: [],
-  popularList: [],
-  finishedList: [],
+  combinedList: null,
+  combinedOrderList: null,
+  deadlineList: null,
+  popularList: null,
+  finishedList: null,
   combinedProduct: null,
   error: null,
-  listByState: [],
-  totalList: [],
+  listByState: null,
+  totalList: null,
 };
 
 const filter = handleActions(
@@ -258,6 +262,7 @@ const filter = handleActions(
       ...state,
       totalList: newArray,
     }),
+    [UNLOAD_LIST]: () => initialState,
   },
   initialState,
 );

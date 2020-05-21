@@ -21,8 +21,10 @@ const WalletViewerContainer = () => {
     txList,
     txListLoading,
     balance,
+    feed,
     address,
-  } = useSelector(({ posts, loading, filter, wallet, order, tx }) => ({
+    buyerMakersLoading,
+  } = useSelector(({ posts, loading, filter, wallet, order, tx, makers }) => ({
     address: wallet.address,
     balance: wallet.balance,
     buyerMakers: order.buyerMakers,
@@ -31,13 +33,15 @@ const WalletViewerContainer = () => {
     loading: loading['posts/LIST_POSTS'],
     txList: tx.txList,
     txListLoading: loading['tx/SET_TX_LIST'],
+    buyerMakersLoading: loading['filter/COMBINE_ORDER_LIST'],
+    feed: makers.feed,
   }));
 
   useEffect(() => {
-    if (!buyerMakers) {
+    if (!combinedOrderList) {
       dispatch(setBuyerMakers());
     }
-  }, [dispatch, buyerMakers]);
+  }, [dispatch, combinedOrderList]);
 
   useEffect(() => {
     if (posts && buyerMakers) {
@@ -60,14 +64,16 @@ const WalletViewerContainer = () => {
     <WalletViewer
       balance={balance}
       logout={logout}
-      buyerMakers={combinedOrderList.reverse()}
+      combinedOrderList={combinedOrderList}
       loading={loading}
       username={username}
       txList={txList}
       txListLoading={txListLoading}
       address={address}
+      feed={feed}
+      buyerMakersLoading={buyerMakersLoading}
     />
   );
 };
 
-export default React.memo(WalletViewerContainer);
+export default WalletViewerContainer;

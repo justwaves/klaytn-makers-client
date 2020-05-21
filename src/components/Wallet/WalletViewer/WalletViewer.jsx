@@ -4,6 +4,7 @@ import WalletAccount from 'components/Wallet/WalletCard/WalletAccount';
 import Profile from 'components/Wallet/WalletCard/Profile';
 import TxList from 'components/Wallet/WalletCard/TxList';
 import Orders from 'components/Wallet/WalletCard/Orders';
+import { buyerMakerFilter } from 'lib/sort';
 
 const ResponsiveWrapper = styled.div`
   width: 744px;
@@ -39,36 +40,42 @@ const Grid = styled.div`
 const WalletViewer = ({
   balance,
   logout,
-  buyerMakers,
+  combinedOrderList,
   loading,
   username,
   txList,
   txListLoading,
+  feed,
+  buyerMakersLoading,
 }) => {
-  const [inProgressMakers, setInProgressMakers] = useState(buyerMakers);
-  const [finisedMakers, setFinisedMakers] = useState(buyerMakers);
+  const [inProgressList, setInProgressList] = useState([]);
+  const [totalList, setTotalList] = useState([]);
+  const [finishedList, setFinishedList] = useState([]);
 
   useEffect(() => {
-    const list = buyerMakers.filter(makers => makers.state !== '0');
-    setFinisedMakers(list);
-    const progressList = buyerMakers.filter(makers => makers.state === '0');
-    setInProgressMakers(progressList);
-  }, [buyerMakers]);
+    if (combinedOrderList && feed) {
+      const arr = buyerMakerFilter(combinedOrderList, feed);
+      setInProgressList(arr.filter(product => product.state === '0'));
+      setTotalList(arr.filter(product => product.state !== '3'));
+      setFinishedList(arr.filter(product => product.state !== '0'));
+    }
+  }, [combinedOrderList, feed]);
 
   return (
     <ResponsiveWrapper>
       <Grid>
         <Profile
-          inProgressMakersCount={inProgressMakers.length}
-          finisedMakersCount={finisedMakers.length}
+          inProgressMakersCount={inProgressList.length}
+          finisedMakersCount={finishedList.length}
           username={username}
         />
         <WalletAccount balance={balance} logout={logout} />
         <Orders
-          buyerMakers={inProgressMakers}
-          inProgressMakers={inProgressMakers}
-          finisedMakers={finisedMakers}
+          buyerMakers={totalList}
+          inProgressMakers={inProgressList}
+          finisedMakers={finishedList}
           loading={loading}
+          buyerMakersLoading={buyerMakersLoading}
         />
         <TxList txList={txList} txListLoading={txListLoading} />
       </Grid>

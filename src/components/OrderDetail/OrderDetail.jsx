@@ -103,7 +103,7 @@ const OrderDetail = ({ loading, feed, combinedOrderList }) => {
           </TableHeader>
 
           <TableContent>
-            <OrderList filteredList={totalList.reverse()} loading={loading} />
+            <OrderList filteredList={totalList} loading={loading} />
           </TableContent>
         </TableGrid>
       </Table>
@@ -111,4 +111,4 @@ const OrderDetail = ({ loading, feed, combinedOrderList }) => {
   );
 };
 
-export default React.memo(OrderDetail);
+export default OrderDetail;

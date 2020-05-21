@@ -18,8 +18,10 @@ const OrderDetailContainer = () => {
   );
 
   useEffect(() => {
-    dispatch(setBuyerMakers());
-  }, [dispatch]);
+    if (!combinedOrderList) {
+      dispatch(setBuyerMakers());
+    }
+  }, [dispatch, combinedOrderList]);
 
   useEffect(() => {
     if (posts && buyerMakers) {
@@ -36,4 +38,4 @@ const OrderDetailContainer = () => {
   );
 };
 
-export default React.memo(OrderDetailContainer);
+export default OrderDetailContainer;

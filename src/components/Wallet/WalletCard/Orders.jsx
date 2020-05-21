@@ -139,8 +139,8 @@ const TxItem = React.memo(
   },
 );
 
-const List = React.memo(({ buyerMakers, loading }) => {
-  if (loading) {
+const List = React.memo(({ buyerMakers, buyerMakersLoading }) => {
+  if (buyerMakersLoading) {
     return (
       <ListWrapper>
         <span>
@@ -150,7 +150,7 @@ const List = React.memo(({ buyerMakers, loading }) => {
     );
   }
 
-  if (buyerMakers.length === 0) {
+  if (buyerMakers && buyerMakers.length === 0) {
     return (
       <ListWrapper>
         <span>상품이 없습니다.</span>
@@ -189,6 +189,7 @@ const Orders = ({
   const openOrderDetail = useCallback(() => {
     history.push(`/orders/${username}`);
   }, [history, username]);
+  console.log(buyerMakers);
 
   return (
     <Wrapper title="투자한 상품" more="주문상세보기" onClick={openOrderDetail}>

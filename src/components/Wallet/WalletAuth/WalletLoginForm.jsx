@@ -57,8 +57,9 @@ const WalletLoginForm = () => {
   const [privateKey, setPrivateKey] = useState('');
   const history = useHistory();
   const dispatch = useDispatch();
-  const { hasWallet } = useSelector(({ wallet }) => ({
+  const { hasWallet, username } = useSelector(({ wallet, user }) => ({
     hasWallet: wallet.hasWallet,
+    username: user.user.username,
   }));
 
   const onwalletLogin = useCallback(
@@ -75,10 +76,10 @@ const WalletLoginForm = () => {
 
   useEffect(() => {
     if (hasWallet) {
-      history.push('/wallet');
+      history.push(`/wallet/${username}`);
       dispatch(hideModal());
     }
-  }, [hasWallet, history, dispatch]);
+  }, [hasWallet, history, dispatch, username]);
 
   return (
     <Views>

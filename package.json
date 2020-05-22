@@ -16,6 +16,7 @@
     "dotenv": "^8.2.0",
     "eslint-config-prettier": "^6.10.1",
     "fs": "^0.0.1-security",
+    "http-proxy-middleware": "^1.0.4",
     "immer": "^6.0.3",
     "moment": "^2.24.0",
     "openzeppelin-solidity": "^2.5.0",
@@ -61,6 +62,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "https://klaytn-makers-server.herokuapp.com/"
+  }
 }

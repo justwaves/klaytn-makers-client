@@ -9,6 +9,7 @@ import AuthModal from 'components/Common/AuthModal';
 import Toast from 'components/Common/Toast';
 import { checkState } from 'redux/modules/makers';
 import caver from 'klaytn/caver';
+import axios from 'axios';
 
 function loadUser() {
   try {
@@ -40,6 +41,19 @@ function loadWallet() {
   }
 }
 
+const requestAPI = async () => {
+  try {
+    const response = await axios.get(
+      'https://klaytn-makers-server.herokuapp.com/api/posts?',
+    );
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+requestAPI();
+
 loadUser();
 loadWallet();
 
@@ -49,7 +63,10 @@ const App = () => {
   }));
 
   useEffect(() => {
-    store.dispatch(checkState());
+    const walletFromSession = sessionStorage.getItem('walletInstance');
+    if (walletFromSession) {
+      store.dispatch(checkState());
+    }
   }, []);
 
   return (

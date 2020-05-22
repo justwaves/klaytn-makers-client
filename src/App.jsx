@@ -60,7 +60,7 @@ const requestAPI = async () => {
 
   try {
     const response = await axios.get('http://localhost:3000/api/posts?');
-    console.log('heroku => ', response.data);
+    console.log('localhost:3000 => ', response.data);
   } catch (e) {
     console.log(e);
   }

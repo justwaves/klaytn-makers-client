@@ -44,7 +44,8 @@ function loadWallet() {
 const requestAPI = async () => {
   try {
     const response = await axios.get(
-      'https://klaytn-makers-server.herokuapp.com/api/posts?',
+      'http://localhost:4000',
+      // 'https://klaytn-makers-server.herokuapp.com/api/posts?',
     );
     console.log(response.data);
   } catch (e) {

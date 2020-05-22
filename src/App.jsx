@@ -43,11 +43,24 @@ function loadWallet() {
 
 const requestAPI = async () => {
   try {
+    const response = await axios.get('http://localhost:4000/api/posts?');
+    console.log('localhost:4000 => ', response.data);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
     const response = await axios.get(
-      'http://localhost:4000',
-      // 'https://klaytn-makers-server.herokuapp.com/api/posts?',
+      'https://klaytn-makers-server.herokuapp.com/api/posts?',
     );
-    console.log(response.data);
+    console.log('heroku => ', response.data);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const response = await axios.get('http://localhost:3000/api/posts?');
+    console.log('heroku => ', response.data);
   } catch (e) {
     console.log(e);
   }

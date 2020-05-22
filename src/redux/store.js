@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import ReduxThunk from 'redux-thunk';
 import { all } from 'redux-saga/effects';
 import loading from 'redux/modules/loading';
 import auth, { authSaga } from 'redux/modules/auth';
@@ -50,7 +49,7 @@ export function* rootSaga() {
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middlewares = [sagaMiddleware, ReduxThunk];
+const middlewares = [sagaMiddleware];
 
 if (env === 'development') {
   // const { createLogger } = require("redux-logger");

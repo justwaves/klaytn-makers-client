@@ -146,7 +146,7 @@ const UserMenu = ({ user, onMouseEnter, onMouseLeave, balance }) => {
             </AvatarUsername>
 
             <UserInfo>
-              <Username>{user.username}</Username>
+              <Username>{user && user.username}</Username>
               <Balance>
                 {balance && balance.slice(0, 7)} <span>KLAY</span>
               </Balance>
@@ -158,18 +158,22 @@ const UserMenu = ({ user, onMouseEnter, onMouseLeave, balance }) => {
               <Menu>상품 등록하기</Menu>
             </Link>
           )}
-          <Link to={`/wallet/${user.username}`}>
-            <Menu>클레이튼 지갑</Menu>
-          </Link>
-          <Link to={`/orders/${user.username}`}>
-            <Menu>주문내역</Menu>
-          </Link>
-          <Link to="/test">
-            <Menu>Test</Menu>
-          </Link>
-          <Logout>
-            <span onClick={onLogout}>로그아웃</span>
-          </Logout>
+          {user && (
+            <>
+              <Link to={`/wallet/${user.username}`}>
+                <Menu>클레이튼 지갑</Menu>
+              </Link>
+              <Link to={`/orders/${user.username}`}>
+                <Menu>주문내역</Menu>
+              </Link>
+              <Link to="/test">
+                <Menu>Test</Menu>
+              </Link>
+              <Logout>
+                <span onClick={onLogout}>로그아웃</span>
+              </Logout>
+            </>
+          )}
         </Grid>
       </Wrapper>
     </>

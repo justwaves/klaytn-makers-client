@@ -64,7 +64,7 @@ const Center = styled.div`
   align-items: center;
 `;
 
-const Right = styled.div`
+const ResponsiveRight = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -75,15 +75,18 @@ const Right = styled.div`
   }
 `;
 
-const DrawerContainer = styled.div`
-  display: none;
+const Right = styled.div`
+  display: flex;
   align-items: center;
   justify-content: flex-end;
   position: relative;
+`;
 
-  @media (max-width: 1200px) {
-    display: flex;
-  }
+const RightLogin = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
 `;
 
 const UserInfo = styled.div`
@@ -195,18 +198,20 @@ const Header = () => {
 
             {user ? (
               <Right>
-                <KlaytnIconContainer>
-                  <WalletLink username={user.username}>
-                    <Klaytn /> Wallet
-                  </WalletLink>
-                </KlaytnIconContainer>
-                <Divider />
-                <IconContainer>
-                  <Notification />
-                </IconContainer>
-                <IconContainer>
-                  <Cart />
-                </IconContainer>
+                <ResponsiveRight>
+                  <KlaytnIconContainer>
+                    <WalletLink username={user.username}>
+                      <Klaytn /> Wallet
+                    </WalletLink>
+                  </KlaytnIconContainer>
+                  <Divider />
+                  <IconContainer>
+                    <Notification />
+                  </IconContainer>
+                  <IconContainer>
+                    <Cart />
+                  </IconContainer>
+                </ResponsiveRight>
                 <UsermenuContainer
                   onMouseEnter={onMouseEnter}
                   onMouseLeave={onMouseLeaveFromIcon}
@@ -226,29 +231,10 @@ const Header = () => {
                 )}
               </Right>
             ) : (
-              <Right>
+              <RightLogin>
                 <LoginButton to="/login">로그인</LoginButton>
-              </Right>
+              </RightLogin>
             )}
-            <DrawerContainer>
-              <UsermenuContainer
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeaveFromIcon}
-              >
-                <Avatar />
-                <UserInfo>
-                  <MenuDown />
-                </UserInfo>
-              </UsermenuContainer>
-              {openMenu && (
-                <UserMenu
-                  user={user}
-                  onMouseEnter={onMouseEnter}
-                  onMouseLeave={onMouseLeave}
-                  balance={balance}
-                />
-              )}
-            </DrawerContainer>
           </Grid>
         </ResponsiveHeader>
       </Wrapper>

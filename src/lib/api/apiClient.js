@@ -1,17 +1,5 @@
 import axios from 'axios';
 
-function getCookie(cookieName) {
-  var cookieValue = null;
-  if (document.cookie) {
-    var array = document.cookie.split(escape(cookieName) + '=');
-    if (array.length >= 2) {
-      var arraySub = array[1].split(';');
-      cookieValue = unescape(arraySub[0]);
-    }
-  }
-  return cookieValue;
-}
-
 const host =
   process.env.NODE_ENV === 'development'
     ? '/'
@@ -21,7 +9,7 @@ const host =
 const apiClient = axios.create({
   baseURL: host,
   headers: {
-    Cookie: `access_token ${getCookie('access_token')} `,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWE2YjU2YTY3M2RiMTAwMTcwYTExNjMiLCJ1c2VybmFtZSI6InVzZXIxIiwiaWF0IjoxNTkwMzg0Njg3LCJleHAiOjE1OTA5ODk0ODd9.hqLBV9lUOixphUWVPbRNZcNGT-x6mk9oKirApV35Ccc`,
   },
 });
 

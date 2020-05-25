@@ -9,8 +9,9 @@ const host =
 const apiClient = axios.create({
   baseURL: host,
   headers: {
-    Cookies:
-      'Bearer access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWE2YjU2YTY3M2RiMTAwMTcwYTExNjMiLCJ1c2VybmFtZSI6InVzZXIxIiwiaWF0IjoxNTkwMzg1NjEyLCJleHAiOjE1OTA5OTA0MTJ9.UnvtwF_-E1rdpzeRnp_dsUch0sjB9Hcsn0Dph5u63Lk',
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
   },
 });
 

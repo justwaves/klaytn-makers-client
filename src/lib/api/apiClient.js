@@ -9,7 +9,8 @@ const host =
 const apiClient = axios.create({
   baseURL: host,
   headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWE2YjU2YTY3M2RiMTAwMTcwYTExNjMiLCJ1c2VybmFtZSI6InVzZXIxIiwiaWF0IjoxNTkwMzg0Njg3LCJleHAiOjE1OTA5ODk0ODd9.hqLBV9lUOixphUWVPbRNZcNGT-x6mk9oKirApV35Ccc`,
+    Cookie:
+      'access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWE2YjU2YTY3M2RiMTAwMTcwYTExNjMiLCJ1c2VybmFtZSI6InVzZXIxIiwiaWF0IjoxNTkwMzg1NjEyLCJleHAiOjE1OTA5OTA0MTJ9.UnvtwF_-E1rdpzeRnp_dsUch0sjB9Hcsn0Dph5u63Lk',
   },
 });
 

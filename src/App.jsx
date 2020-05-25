@@ -69,31 +69,3 @@ const App = () => {
 };
 
 export default App;
-
-// console.log(Application.GetCookie());
-// const requestAPI = async () => {
-//   try {
-//     const response = await axios.get('http://localhost:4000/api/posts?');
-//     console.log('localhost:4000 => ', response.data);
-//   } catch (e) {
-//     console.log(e);
-//   }
-
-//   try {
-//     const response = await axios.get(
-//       'https://klaytn-makers-server.herokuapp.com/api/posts?',
-//     );
-//     console.log('heroku => ', response.data);
-//   } catch (e) {
-//     console.log(e);
-//   }
-
-//   try {
-//     const response = await axios.get('http://localhost:3000/api/posts?');
-//     console.log('localhost:3000 => ', response.data);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
-
-// requestAPI();

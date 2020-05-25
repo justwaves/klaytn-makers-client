@@ -11,8 +11,8 @@ const apiClient = axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
   },
+  withCredentials: true,
 });
 
 export default apiClient;

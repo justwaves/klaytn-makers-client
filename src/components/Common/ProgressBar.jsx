@@ -22,7 +22,7 @@ const ProgressStatus = styled.div`
   ${props =>
     props.percentage >= 100 &&
     css`
-      background-color: ${props => props.theme.color.cyan};
+      background-color: ${props => props.theme.color.secondary[2]};
     `}
 `;
 
@@ -36,7 +36,7 @@ const OrderConut = styled.div`
   ${props =>
     props.percentage >= 100 &&
     css`
-      color: ${props => props.theme.color.cyan};
+      color: ${props => props.theme.color.secondary[2]};
     `}
 `;
 

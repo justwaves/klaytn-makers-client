@@ -7,12 +7,12 @@ const TagsBlock = styled.div`
 
   .tag {
     display: inline-block;
-    color: ${props => props.theme.color.cyan[7]};
+    color: ${props => props.theme.color.secondary[2]};
     text-decoration: none;
     margin-right: 0.5rem;
 
     &:hover {
-      color: ${props => props.theme.color.cyan[6]};
+      color: ${props => props.theme.color.secondary[3]};
     }
   }
 `;

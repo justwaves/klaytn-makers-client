@@ -90,7 +90,7 @@ const AddressButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    border: 2px solid ${props => props.theme.color.primary[2]};
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
   }
 `;
 

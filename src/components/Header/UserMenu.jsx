@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from 'redux/modules/user';
 import { Avatar } from 'components/Common/Icons';
+import WalletLink from 'components/Wallet/WalletLink';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -106,6 +107,17 @@ const Test = styled.div`
   cursor: default;
 `;
 
+const WalletLogin = styled.div`
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: ${props => props.theme.color.primary[3]};
+
+  &:hover {
+    color: ${props => props.theme.color.primary[2]};
+  }
+`;
+
 const Logout = styled.div`
   background-color: white;
   padding: 0.5rem 1rem;
@@ -144,26 +156,26 @@ const UserMenu = ({ user, onMouseEnter, onMouseLeave, balance }) => {
         </Arrow>
         <Grid>
           <User>
-            {hasWallet ? (
-              <>
-                <AvatarUsername>
-                  <AvatarContainer>
-                    <Avatar />
-                  </AvatarContainer>
-                </AvatarUsername>
+            <>
+              <AvatarUsername>
+                <AvatarContainer>
+                  <Avatar />
+                </AvatarContainer>
+              </AvatarUsername>
 
-                <UserInfo>
-                  <Username>{user && user.username}</Username>
-                  {balance && (
-                    <Balance>
-                      {balance.slice(0, 7)} <span>KLAY</span>
-                    </Balance>
-                  )}
-                </UserInfo>
-              </>
-            ) : (
-              <></>
-            )}
+              <UserInfo>
+                <Username>{user && user.username}</Username>
+                {hasWallet ? (
+                  <Balance>
+                    {balance.slice(0, 7)} <span>KLAY</span>
+                  </Balance>
+                ) : (
+                  <WalletLink>
+                    <WalletLogin>wallet login</WalletLogin>
+                  </WalletLink>
+                )}
+              </UserInfo>
+            </>
           </User>
 
           {user && hasWallet && (
@@ -180,12 +192,14 @@ const UserMenu = ({ user, onMouseEnter, onMouseLeave, balance }) => {
             </>
           )}
           {user && (
-            <Logout>
-              <Link to="/test">
-                <Test>Test</Test>
-              </Link>
-              <span onClick={onLogout}>로그아웃</span>
-            </Logout>
+            <>
+              <Logout>
+                <Link to="/test">
+                  <Test>Test</Test>
+                </Link>
+                <span onClick={onLogout}>로그아웃</span>
+              </Logout>
+            </>
           )}
         </Grid>
       </Wrapper>

@@ -99,7 +99,7 @@ const TxKlay = styled.div`
   ${props =>
     props.red === 0 &&
     css`
-      color: ${props => props.theme.color.cyan};
+      color: ${props => props.theme.color.secondary[2]};
     `}
 
   ${props =>

@@ -48,7 +48,7 @@ const PageTitle = styled.h1`
 const Label = styled.h4`
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
   font-weight: 500;
 `;
 

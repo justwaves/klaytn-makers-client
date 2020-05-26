@@ -60,7 +60,7 @@ const ItemInfo = styled.div`
 `;
 
 const Title = styled.h3`
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
   font-size: 0.875rem;
   margin-top: 0.25rem;
   width: 180px;
@@ -112,7 +112,7 @@ const StateButton = styled.button`
   color: white;
   outline: none;
   padding: 0.25rem 1rem;
-  background-color: ${props => props.theme.color.primary[0]};
+  background-color: ${props => props.theme.color.primary[1]};
   font-size: 0.875rem;
   margin-top: 0.75rem;
   font-weight: 400;
@@ -120,7 +120,7 @@ const StateButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background: ${props => props.theme.color.primary[3]};
+    background: ${props => props.theme.color.primary[2]};
   }
 `;
 

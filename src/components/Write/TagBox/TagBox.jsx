@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   h4 {
     margin-top: 0;
     margin-bottom: 0.5rem;
-    color: ${props => props.theme.color.primary[4]};
+    color: ${props => props.theme.color.primary[3]};
     font-weight: 500;
   }
 `;
@@ -53,7 +53,7 @@ const TagListWrapper = styled.div`
 
 const Tag = styled.div`
   margin-right: 0.5rem;
-  color: ${props => props.theme.color.primary[3]};
+  color: ${props => props.theme.color.primary[2]};
   cursor: pointer;
 
   &:hover {

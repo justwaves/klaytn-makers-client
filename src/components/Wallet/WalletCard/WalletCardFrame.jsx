@@ -20,7 +20,7 @@ const Header = styled.div`
 const Title = styled.h3`
   font-size: 1rem;
   font-weight: 600;
-  color: ${props => props.theme.color.primary[0]};
+  color: ${props => props.theme.color.primary[1]};
 `;
 
 const More = styled.span`
@@ -33,7 +33,7 @@ const More = styled.span`
   cursor: pointer;
 
   &:hover {
-    color: ${props => props.theme.color.primary[4]};
+    color: ${props => props.theme.color.primary[3]};
   }
 
   svg {

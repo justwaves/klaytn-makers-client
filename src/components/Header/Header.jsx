@@ -108,7 +108,7 @@ const LoginButton = styled(Button)`
   width: 4.5rem;
   padding: 0.5rem 0;
   text-align: center;
-  background-color: ${props => props.theme.color.primary[0]};
+  background-color: ${props => props.theme.color.primary[1]};
 `;
 
 const IconContainer = styled.span`
@@ -121,20 +121,19 @@ const KlaytnIconContainer = styled.span`
   display: flex;
   align-items: center;
   height: 100%;
-  margin-right: 0.25rem;
   font-weight: 500;
 
   svg {
     width: 24px;
     height: 24px;
-    fill: ${props => props.theme.color.primary[4]};
+    fill: ${props => props.theme.color.primary[3]};
     margin-right: 0.5rem;
   }
 
   &:hover {
     color: ${props => props.theme.color.primary[2]};
     svg {
-      fill: ${props => props.theme.color.primary[3]};
+      fill: ${props => props.theme.color.primary[2]};
     }
   }
 `;
@@ -153,7 +152,7 @@ const Divider = styled.span`
   width: 1px;
   height: 1.5rem;
   margin-right: 1.25rem;
-  margin-left: 1rem;
+  margin-left: 0.75rem;
 `;
 
 const Header = () => {
@@ -201,16 +200,18 @@ const Header = () => {
                 <ResponsiveRight>
                   <KlaytnIconContainer>
                     <WalletLink username={user.username}>
-                      <Klaytn /> Wallet
+                      <Klaytn />
                     </WalletLink>
                   </KlaytnIconContainer>
-                  <Divider />
-                  <IconContainer>
-                    <Notification />
-                  </IconContainer>
-                  <IconContainer>
-                    <Cart />
-                  </IconContainer>
+                  <>
+                    <Divider />
+                    <IconContainer>
+                      <Notification />
+                    </IconContainer>
+                    <IconContainer>
+                      <Cart />
+                    </IconContainer>
+                  </>
                 </ResponsiveRight>
                 <UsermenuContainer
                   onMouseEnter={onMouseEnter}

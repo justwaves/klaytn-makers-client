@@ -16,7 +16,7 @@ const ProgressStatus = styled.div`
   height: 100%;
   max-width: 100%;
   border-radius: 2px;
-  background-color: ${props => props.theme.color.primary[0]};
+  background-color: ${props => props.theme.color.primary[1]};
   width: ${props => props.percentage}%;
 
   ${props =>
@@ -29,7 +29,7 @@ const ProgressStatus = styled.div`
 const OrderConut = styled.div`
   width: 100%;
   font-size: 14px;
-  color: ${props => props.theme.color.primary[0]};
+  color: ${props => props.theme.color.primary[1]};
   display: flex;
   justify-content: space-between;
 

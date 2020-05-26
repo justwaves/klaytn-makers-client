@@ -20,7 +20,7 @@ const ActionButton = styled.button`
 
   &:hover {
     background-color: ${props => props.theme.color.gray[2]};
-    color: ${props => props.theme.color.primary[0]};
+    color: ${props => props.theme.color.primary[1]};
   }
 
   & + & {

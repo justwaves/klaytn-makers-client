@@ -22,7 +22,7 @@ const StyledButton = styled.button`
   padding: 0;
   width: 50%;
   height: 100%;
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
   cursor: pointer;
   font-weight: 500;
   font-size: 1rem;
@@ -116,7 +116,7 @@ const BorderUnderTabs = styled.div`
 `;
 
 const ActiveTabBorder = styled.div`
-  background: ${props => props.theme.color.primary[4]};
+  background: ${props => props.theme.color.primary[3]};
   height: 3px;
   width: 33.33%;
   position: absolute;

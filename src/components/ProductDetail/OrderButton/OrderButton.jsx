@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Spinner from 'components/Common/Spinner';
 
 const Wrapper = styled.button`
-  background-color: ${props => props.theme.color.primary[0]};
+  background-color: ${props => props.theme.color.primary[1]};
   width: 100%;
   border: 0;
   border-radius: 4px;

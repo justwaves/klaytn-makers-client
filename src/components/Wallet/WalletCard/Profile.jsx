@@ -118,8 +118,7 @@ const ButtonBox = styled.button`
   align-items: center;
 
   &:hover {
-    background-color: ${props => props.theme.color.primary[1]};
-    color: white;
+    border: 2px solid ${props => props.theme.color.primary[2]};
   }
 `;
 

@@ -9,7 +9,6 @@ import AuthModal from 'components/Common/AuthModal';
 import Toast from 'components/Common/Toast';
 import { checkState } from 'redux/modules/makers';
 import caver from 'klaytn/caver';
-// import axios from 'axios';
 
 function loadUser() {
   try {

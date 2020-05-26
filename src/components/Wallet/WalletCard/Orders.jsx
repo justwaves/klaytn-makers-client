@@ -79,7 +79,7 @@ const ItemInfo = styled.div`
 `;
 
 const Title = styled.div`
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
   font-size: 0.875rem;
   margin-top: 0.25rem;
 `;

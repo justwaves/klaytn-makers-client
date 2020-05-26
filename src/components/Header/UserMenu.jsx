@@ -38,7 +38,7 @@ const Grid = styled.div`
   background-color: white;
   border-radius: 2px;
   border: 1px solid ${props => props.theme.color.gray[2]};
-  width: 15rem;
+  width: 14rem;
 `;
 
 const User = styled.div`
@@ -78,7 +78,7 @@ const Username = styled.div`
 const Balance = styled.div`
   margin-top: 0.5rem;
   font-weight: 700;
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
 
   span {
     font-weight: 500;
@@ -96,19 +96,24 @@ const Menu = styled.div`
   font-weight: 400;
 
   &:hover {
-    background-color: ${props => props.theme.color.primary[4]};
+    background-color: ${props => props.theme.color.primary[3]};
     color: white;
   }
 `;
 
+const Test = styled.div`
+  color: white;
+  cursor: default;
+`;
+
 const Logout = styled.div`
   background-color: white;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem 1rem;
   font-size: 0.75rem;
   font-weight: 500;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   border-top: 1px solid ${props => props.theme.color.gray[2]};
 
   span {
@@ -116,7 +121,7 @@ const Logout = styled.div`
     padding: 0.5rem 0.5rem;
 
     &:hover {
-      color: ${props => props.theme.color.primary[4]};
+      color: ${props => props.theme.color.primary[3]};
     }
   }
 `;
@@ -139,40 +144,48 @@ const UserMenu = ({ user, onMouseEnter, onMouseLeave, balance }) => {
         </Arrow>
         <Grid>
           <User>
-            <AvatarUsername>
-              <AvatarContainer>
-                <Avatar />
-              </AvatarContainer>
-            </AvatarUsername>
+            {hasWallet ? (
+              <>
+                <AvatarUsername>
+                  <AvatarContainer>
+                    <Avatar />
+                  </AvatarContainer>
+                </AvatarUsername>
 
-            <UserInfo>
-              <Username>{user && user.username}</Username>
-              <Balance>
-                {balance && balance.slice(0, 7)} <span>KLAY</span>
-              </Balance>
-            </UserInfo>
+                <UserInfo>
+                  <Username>{user && user.username}</Username>
+                  {balance && (
+                    <Balance>
+                      {balance.slice(0, 7)} <span>KLAY</span>
+                    </Balance>
+                  )}
+                </UserInfo>
+              </>
+            ) : (
+              <></>
+            )}
           </User>
 
-          {hasWallet && (
-            <Link to="/write">
-              <Menu>상품 등록하기</Menu>
-            </Link>
-          )}
-          {user && (
+          {user && hasWallet && (
             <>
               <Link to={`/wallet/${user.username}`}>
-                <Menu>클레이튼 지갑</Menu>
+                <Menu>마이페이지</Menu>
               </Link>
               <Link to={`/orders/${user.username}`}>
                 <Menu>주문내역</Menu>
               </Link>
-              <Link to="/test">
-                <Menu>Test</Menu>
+              <Link to="/write">
+                <Menu>상품 등록하기</Menu>
               </Link>
-              <Logout>
-                <span onClick={onLogout}>로그아웃</span>
-              </Logout>
             </>
+          )}
+          {user && (
+            <Logout>
+              <Link to="/test">
+                <Test>Test</Test>
+              </Link>
+              <span onClick={onLogout}>로그아웃</span>
+            </Logout>
           )}
         </Grid>
       </Wrapper>

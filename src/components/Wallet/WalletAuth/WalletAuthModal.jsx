@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 const Header = styled.h1`
   font-size: 1.5rem;
   font-weight: 600;
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
   margin-bottom: 2.5rem;
   display: flex;
   align-items: center;
@@ -21,7 +21,7 @@ const Header = styled.h1`
 
   svg {
     margin-right: 0.75rem;
-    fill: ${props => props.theme.color.primary[4]};
+    fill: ${props => props.theme.color.primary[3]};
     margin-top: 0.125rem;
   }
 `;

@@ -10,7 +10,7 @@ const ResponsiveWrapper = styled(Responsive)`
   width: 100%;
   height: 8rem;
   background-color: ${props => props.theme.color.gray[0]};
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
 
   @media (max-width: 816px) {
     display: none;

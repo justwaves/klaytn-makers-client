@@ -18,7 +18,7 @@ const Balance = styled.div`
 `;
 
 const Klay = styled.h1`
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
   font-size: 2.5rem;
   font-weight: 600;
   margin-top: 1rem;
@@ -90,8 +90,7 @@ const AddressButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: ${props => props.theme.color.primary[1]};
-    color: white;
+    border: 2px solid ${props => props.theme.color.primary[2]};
   }
 `;
 

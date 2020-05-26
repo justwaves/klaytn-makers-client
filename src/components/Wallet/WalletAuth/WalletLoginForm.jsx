@@ -15,7 +15,7 @@ const Views = styled.div`
 const Label = styled.h3`
   font-size: 0.75rem;
   font-weight: 600;
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
   margin-bottom: 1rem;
 `;
 
@@ -49,7 +49,7 @@ const SigninInput = styled.input`
 const AccessButton = styled(Button)`
   width: 100%;
   height: 3rem;
-  background-color: ${props => props.theme.color.primary[4]};
+  background-color: ${props => props.theme.color.primary[3]};
   margin-bottom: 2rem;
 `;
 

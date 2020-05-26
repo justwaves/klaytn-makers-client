@@ -1,5 +1,31 @@
 export default {
-  // size
+  // color
+  color: {
+    primary: {
+      1: '#4652DC',
+      2: '#7F89E3',
+      3: '#383C63',
+    },
+    secondary: {
+      1: '#125050',
+      2: '#229B9B',
+      3: '#04CECE',
+    },
+    gray: {
+      0: '#fafafa',
+      1: '#f5f5f5',
+      2: '#e8e8e8',
+      3: '#bfbfbf',
+      4: '#595959',
+      5: '#3A3A3C',
+    },
+    red: '#FF3B30',
+    orange: '#FF9500',
+    yellow: '#FFCC00',
+    teal: '#5AC8FA',
+    purple: '#AF52DE',
+    pink: '#FF2D55',
+  },
 
   // width
   width: {
@@ -19,24 +45,5 @@ export default {
       '10.5rem', // 6 column - 168px
       '4.5rem', // 12 column - 72px
     ],
-  },
-
-  // color
-  color: {
-    bg: 'white',
-    gray: [
-      '#fafafa', // gray[1]
-      '#f5f5f5', // gray[2]
-      '#e8e8e8', // gray[3]
-      '#bfbfbf', // gray[5]
-      '#595959', // gray[7]
-    ],
-    primary: ['#4652DC', '#A6B0FE', '#7F89E3', '#5B63A3', '#383C63'],
-    yellow: '#FFE500',
-    yellowDark: '#ECCE34',
-    green: '#006666',
-    cyan: '#04CECE',
-    red: '#FF1A40',
-    lightRed: '#ea5f76',
   },
 };

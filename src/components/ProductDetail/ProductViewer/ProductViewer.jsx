@@ -86,18 +86,18 @@ const ContentForMobile = styled.div`
 const Title = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
 `;
 
 const TagsContainer = styled.div`
-  color: ${props => props.theme.color.primary[0]};
+  color: ${props => props.theme.color.primary[1]};
   margin-top: 0.75rem;
   font-size: 0.875rem;
   font-weight: 500;
 `;
 
 const Percentage = styled.div`
-  color: ${props => props.theme.color.primary[0]};
+  color: ${props => props.theme.color.primary[1]};
   font-size: 1.5rem;
   font-weight: 600;
   margin-top: 3rem;
@@ -125,7 +125,7 @@ const MinCount = styled.div`
 `;
 
 const Count = styled.div`
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
   font-weight: 500;
 `;
 
@@ -136,12 +136,12 @@ const Period = styled.div`
 `;
 
 const Dday = styled.div`
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
   font-weight: 500;
 `;
 
 const Price = styled.div`
-  color: ${props => props.theme.color.primary[0]};
+  color: ${props => props.theme.color.primary[1]};
   font-size: 1.5rem;
   font-weight: 600;
   text-align: end;

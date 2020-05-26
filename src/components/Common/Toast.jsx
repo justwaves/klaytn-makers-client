@@ -56,7 +56,7 @@ const ProgressBar = styled.div`
   left: 0;
   width: 100%;
   height: 0.5rem;
-  background-color: ${props => props.theme.color.primary[0]};
+  background-color: ${props => props.theme.color.primary[1]};
   animation: progress 10s linear;
 
   ${props =>
@@ -81,7 +81,7 @@ const Status = styled.div`
   font-size: 0.75rem;
   font-weight: bold;
   text-transform: uppercase;
-  color: ${props => props.theme.color.primary[0]};
+  color: ${props => props.theme.color.primary[1]};
 
   ${props =>
     props.status === 'pending' &&
@@ -109,7 +109,7 @@ const TxHash = styled.div`
   font-size: 0.75rem;
   line-height: 1;
   font-weight: 500;
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
   overflow: hidden;
   text-overflow: ellipsis;
   padding-top: 0.875rem;
@@ -117,7 +117,7 @@ const TxHash = styled.div`
   border-top: 1px solid ${props => props.theme.color.gray[2]};
 
   &:hover {
-    color: ${props => props.theme.color.primary[3]};
+    color: ${props => props.theme.color.primary[2]};
   }
 
   ${props =>

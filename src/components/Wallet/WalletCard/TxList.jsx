@@ -63,7 +63,7 @@ const IconContainer = styled.div`
   align-items: center;
 
   svg {
-    fill: ${props => props.theme.color.primary[4]};
+    fill: ${props => props.theme.color.primary[3]};
   }
 `;
 
@@ -71,7 +71,7 @@ const TxInfo = styled.div``;
 
 const TxTitle = styled.div`
   font-size: 0.875rem;
-  color: ${props => props.theme.color.primary[4]};
+  color: ${props => props.theme.color.primary[3]};
   font-weight: 600;
   margin-bottom: 0.5rem;
 `;
@@ -87,7 +87,7 @@ const TxKlay = styled.div`
   display: flex;
   justify-content: flex-end;
   font-weight: 600;
-  color: ${props => props.theme.color.primary[0]};
+  color: ${props => props.theme.color.primary[1]};
   align-items: center;
 
   span {

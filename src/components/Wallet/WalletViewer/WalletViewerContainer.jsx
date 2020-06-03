@@ -38,9 +38,7 @@ const WalletViewerContainer = () => {
   }));
 
   useEffect(() => {
-    if (!combinedOrderList) {
-      dispatch(setBuyerMakers());
-    }
+    dispatch(setBuyerMakers());
   }, [dispatch, combinedOrderList]);
 
   useEffect(() => {

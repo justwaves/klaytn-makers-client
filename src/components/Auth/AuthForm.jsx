@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Button from 'components/Common/Button';
+import Spinner from 'components/Common/Spinner';
 
 const Wrapper = styled.div`
   display: flex;
@@ -45,6 +46,20 @@ const StyledButton = styled(Button)`
   margin-bottom: 2rem;
 `;
 
+const LoadingButton = styled.button`
+  border-radius: 4px;
+  outline: none;
+  cursor: default;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  height: 51px;
+  width: 100%;
+  padding: 0;
+  padding-top: 0.375rem;
+  background-color: ${props => props.theme.color.gray[1]};
+  border: 1px solid ${props => props.theme.color.gray[2]};
+`;
+
 const ErrorMessage = styled.div`
   color: red;
   text-align: center;
@@ -62,7 +77,15 @@ const textMap = {
   signup: '회원가입',
 };
 
-const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
+const AuthForm = ({
+  type,
+  form,
+  onChange,
+  onSubmit,
+  error,
+  loading,
+  checkLoading,
+}) => {
   return (
     <Wrapper>
       <Title>{textMap[type]}</Title>
@@ -93,9 +116,15 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           />
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        <StyledButton cyan fullWidth>
-          {textMap[type]}
-        </StyledButton>
+        {loading || checkLoading ? (
+          <LoadingButton fullWidth>
+            <Spinner />
+          </LoadingButton>
+        ) : (
+          <StyledButton cyan fullWidth>
+            {textMap[type]}
+          </StyledButton>
+        )}
       </form>
       {type === 'login' && (
         <LoginToggleWrapper>

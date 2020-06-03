@@ -9,12 +9,16 @@ export default () => {
   const [error, setError] = useState(null);
   const history = useHistory();
   const dispatch = useDispatch();
-  const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
-    form: auth.signup,
-    auth: auth.auth,
-    authError: auth.authError,
-    user: user.user,
-  }));
+  const { form, auth, authError, user, loading, checkLoading } = useSelector(
+    ({ auth, user, loading }) => ({
+      form: auth.signup,
+      auth: auth.auth,
+      authError: auth.authError,
+      user: user.user,
+      loading: loading['auth/SIGNUP'],
+      checkLoading: loading['user/CHECK'],
+    }),
+  );
 
   const onChange = e => {
     const { value, name } = e.target;
@@ -81,6 +85,8 @@ export default () => {
       error={error}
       onChange={onChange}
       onSubmit={onSubmit}
+      loading={loading}
+      checkLoading={checkLoading}
     />
   );
 };

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import WalletCardFrame from './WalletCardFrame';
 import { getAddress } from 'lib/crypto';
+import AskModal from 'components/Common/AskModal';
 
 const Wrapper = styled(WalletCardFrame)`
   height: 400px;
@@ -95,7 +96,7 @@ const AddressButton = styled.button`
 `;
 
 const WalletAccount = ({ balance, logout }) => {
-  const address = getAddress();
+  const [modal, setModal] = useState(!balance);
 
   const openFaucet = () => {
     window.open(
@@ -107,6 +108,17 @@ const WalletAccount = ({ balance, logout }) => {
   const openKlayWallet = () => {
     window.open('https://baobab.wallet.klaytn.com/', '_blank');
   };
+
+  const onCancel = () => {
+    setModal(false);
+  };
+
+  const onConfirm = () => {
+    setModal(false);
+    openFaucet();
+  };
+
+  const address = getAddress();
 
   if (balance) {
     balance = balance.slice(0, 7);
@@ -138,6 +150,17 @@ const WalletAccount = ({ balance, logout }) => {
           <AddressButton onClick={logout}>로그아웃</AddressButton>
         </Buttons>
       </AddressContainer>
+      {balance === '0' && (
+        <AskModal
+          visible={modal}
+          title="KLAY가 부족합니다."
+          description="테스트를 위한 KLAY를 받으시겠습니까?"
+          confirmText="받기"
+          cancelText="아니오"
+          onConfirm={onConfirm}
+          onCancel={onCancel}
+        />
+      )}
     </Wrapper>
   );
 };

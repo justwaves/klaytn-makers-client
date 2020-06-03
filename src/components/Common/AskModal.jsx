@@ -21,14 +21,18 @@ const Wrapper = styled.div`
   padding: 1.5rem;
   border-radius: 4px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
+  font-weight: 500;
 
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
+    color: ${props => props.theme.color.gray[5]};
   }
 
   p {
     margin-bottom: 3rem;
+    color: ${props => props.theme.color.primary[3]};
+    font-size: 0.875rem;
   }
 
   .buttons {
@@ -37,12 +41,26 @@ const Wrapper = styled.div`
   }
 `;
 
-const StyledButton = styled(Button)`
+const CancelButton = styled(Button)`
   height: 2rem;
+  background-color: ${props => props.theme.color.gray[1]};
+  border: 1px solid ${props => props.theme.color.gray[2]};
+  color: black;
+  font-weight: 400;
+
+  &:hover {
+    background-color: ${props => props.theme.color.gray[0]};
+  }
 
   & + & {
     margin-left: 0.75rem;
   }
+`;
+
+const ConfirmButton = styled(Button)`
+  height: 2rem;
+  font-weight: 500;
+  margin-left: 0.75rem;
 `;
 
 const AskModal = ({
@@ -61,10 +79,10 @@ const AskModal = ({
         <h2>{title}</h2>
         <p>{description}</p>
         <div className="buttons">
-          <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
-          <StyledButton cyan onClick={onConfirm}>
+          <CancelButton onClick={onCancel}>{cancelText}</CancelButton>
+          <ConfirmButton cyan onClick={onConfirm}>
             {confirmText}
-          </StyledButton>
+          </ConfirmButton>
         </div>
       </Wrapper>
     </Fullscreen>

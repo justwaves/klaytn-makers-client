@@ -165,7 +165,7 @@ const UserMenu = ({ user, onMouseEnter, onMouseLeave, balance }) => {
 
               <UserInfo>
                 <Username>{user && user.username}</Username>
-                {hasWallet ? (
+                {balance && hasWallet ? (
                   <Balance>
                     {balance.slice(0, 7)} <span>KLAY</span>
                   </Balance>

@@ -76,6 +76,7 @@ const WalletViewer = ({
           finisedMakers={finishedList}
           loading={loading}
           buyerMakersLoading={buyerMakersLoading}
+          username={username}
         />
         <TxList txList={txList} txListLoading={txListLoading} />
       </Grid>

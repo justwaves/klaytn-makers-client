@@ -10,6 +10,7 @@ import { writeTx, setTxList } from './tx';
 import ui from 'lib/ui';
 import { setMakers } from 'redux/modules/makers';
 import { listPosts } from 'redux/modules/posts';
+import { updateBalance } from 'redux/modules/wallet';
 
 const [
   ORDER_PRODUCT,
@@ -95,6 +96,8 @@ const orderProductSaga = () => {
         type: ORDER_PRODUCT_SUCCESS,
         payload: receipt,
       });
+
+      yield put(updateBalance());
     } catch (e) {
       yield put({
         type: ORDER_PRODUCT_FAILURE,

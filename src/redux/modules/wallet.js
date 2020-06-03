@@ -3,6 +3,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { takeLatest, put, call } from 'redux-saga/effects';
 import { createRequestActionTypes } from 'lib/createRequestSaga';
 import { startLoading, finishLoading } from './loading';
+import { getWallet } from 'lib/crypto';
 
 const [
   WALLET_LOGIN,
@@ -15,6 +16,12 @@ const [
   WALLET_LOGOUT_SUCCESS,
   WALLET_LOGOUT_FAILURE,
 ] = createRequestActionTypes('wallet/WALLET_LOGOUT');
+
+export const [
+  UPDATE_BALANCE,
+  UPDATE_BALANCE_SUCCESS,
+  UPDATE_BALANCE_FAILURE,
+] = createRequestActionTypes('wallet/UPDATE_BALANCE');
 
 const SET_BALANCE = 'wallet/SET_BALANCE';
 
@@ -40,7 +47,7 @@ function integrateWallet() {
         },
       });
       const result = yield call(caver.klay.getBalance, walletInstance.address);
-      const balance = caver.utils.fromWei(result, 'ether');
+      const balance = caver.utils.fromPeb(result, 'KLAY');
       yield put({
         type: SET_BALANCE,
         payload: balance,
@@ -74,11 +81,37 @@ function removeWallet() {
   };
 }
 
+function updateBalanceSaga() {
+  return function* () {
+    yield put(startLoading(UPDATE_BALANCE));
+    try {
+      const { address } = yield call(getWallet);
+      const result = yield call(caver.klay.getBalance, address);
+      const balance = caver.utils.fromPeb(result, 'KLAY');
+
+      yield put({
+        type: UPDATE_BALANCE_SUCCESS,
+        payload: balance,
+      });
+    } catch (e) {
+      yield put({
+        type: UPDATE_BALANCE_FAILURE,
+        payload: e,
+        error: true,
+      });
+      yield put(finishLoading(UPDATE_BALANCE));
+      throw e;
+    }
+    yield put(finishLoading(UPDATE_BALANCE));
+  };
+}
+
 export const walletLogin = createAction(WALLET_LOGIN, privateKey => ({
   privateKey,
 }));
 
 export const walletLogout = createAction(WALLET_LOGOUT);
+export const updateBalance = createAction(UPDATE_BALANCE);
 export const setBalance = createAction(SET_BALANCE, ({ balance }) => ({
   balance,
 }));
@@ -89,6 +122,7 @@ const walletLogoutSaga = removeWallet();
 export function* walletSaga() {
   yield takeLatest(WALLET_LOGIN, walletLoginSaga);
   yield takeLatest(WALLET_LOGOUT, walletLogoutSaga);
+  yield takeLatest(UPDATE_BALANCE, updateBalanceSaga());
 }
 
 const initialState = {
@@ -119,6 +153,14 @@ const wallet = handleActions(
       address: null,
     }),
     [WALLET_LOGOUT_FAILURE]: (state, { payload: e }) => ({
+      ...state,
+      error: e,
+    }),
+    [UPDATE_BALANCE_SUCCESS]: (state, { payload: balance }) => ({
+      ...state,
+      balance,
+    }),
+    [UPDATE_BALANCE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       error: e,
     }),

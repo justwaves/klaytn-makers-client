@@ -139,8 +139,8 @@ const TxItem = React.memo(
   },
 );
 
-const List = React.memo(({ buyerMakers, buyerMakersLoading }) => {
-  if (buyerMakersLoading) {
+const List = React.memo(({ buyerMakers, buyerMakersLoading, loading }) => {
+  if ((!buyerMakers && buyerMakersLoading) || loading) {
     return (
       <ListWrapper>
         <span>

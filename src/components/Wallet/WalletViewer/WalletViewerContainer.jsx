@@ -39,7 +39,7 @@ const WalletViewerContainer = () => {
 
   useEffect(() => {
     dispatch(setBuyerMakers());
-  }, [dispatch, combinedOrderList]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (posts && buyerMakers) {
@@ -48,10 +48,10 @@ const WalletViewerContainer = () => {
   }, [dispatch, buyerMakers, posts]);
 
   useEffect(() => {
-    if (!txList && username) {
+    if (username) {
       dispatch(setTxList({ username }));
     }
-  }, [dispatch, username, txList]);
+  }, [dispatch, username]);
 
   const logout = useCallback(() => {
     dispatch(walletLogout());

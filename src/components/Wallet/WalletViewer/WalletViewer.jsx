@@ -47,6 +47,8 @@ const WalletViewer = ({
   txListLoading,
   feed,
   buyerMakersLoading,
+  totalLoading,
+  makersLoading,
 }) => {
   const [inProgressList, setInProgressList] = useState([]);
   const [totalList, setTotalList] = useState([]);
@@ -77,6 +79,9 @@ const WalletViewer = ({
           loading={loading}
           buyerMakersLoading={buyerMakersLoading}
           username={username}
+          combinedOrderList={combinedOrderList}
+          totalLoading={totalLoading}
+          makersLoading={makersLoading}
         />
         <TxList txList={txList} txListLoading={txListLoading} />
       </Grid>

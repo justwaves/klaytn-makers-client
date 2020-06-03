@@ -139,44 +139,53 @@ const TxItem = React.memo(
   },
 );
 
-const List = React.memo(({ buyerMakers, buyerMakersLoading, loading }) => {
-  if ((!buyerMakers && buyerMakersLoading) || loading) {
+const List = React.memo(
+  ({
+    buyerMakers,
+    buyerMakersLoading,
+    loading,
+    totalLoading,
+    makersLoading,
+  }) => {
+    console.log('======', buyerMakers);
+    if (buyerMakersLoading || loading || totalLoading || makersLoading) {
+      return (
+        <ListWrapper>
+          <span>
+            <Spinner />
+          </span>
+        </ListWrapper>
+      );
+    }
+
+    if (buyerMakers && buyerMakers.length === 0) {
+      return (
+        <ListWrapper>
+          <span>상품이 없습니다.</span>
+        </ListWrapper>
+      );
+    }
+
     return (
       <ListWrapper>
-        <span>
-          <Spinner />
-        </span>
+        {buyerMakers &&
+          buyerMakers.map(order => (
+            <TxItem
+              key={parseInt(order.timestamp) + parseInt(order.count)}
+              photo={order.photo}
+              title={order.title}
+              dDay={order.dDay}
+              state={order.state}
+              targetCount={order.targetCount}
+              count={order.count}
+              postId={order._id}
+              username={order.user.username}
+            />
+          ))}
       </ListWrapper>
     );
-  }
-
-  if (buyerMakers && buyerMakers.length === 0) {
-    return (
-      <ListWrapper>
-        <span>상품이 없습니다.</span>
-      </ListWrapper>
-    );
-  }
-
-  return (
-    <ListWrapper>
-      {buyerMakers &&
-        buyerMakers.map(order => (
-          <TxItem
-            key={parseInt(order.timestamp) + parseInt(order.count)}
-            photo={order.photo}
-            title={order.title}
-            dDay={order.dDay}
-            state={order.state}
-            targetCount={order.targetCount}
-            count={order.count}
-            postId={order._id}
-            username={order.user.username}
-          />
-        ))}
-    </ListWrapper>
-  );
-});
+  },
+);
 
 const Orders = ({
   buyerMakers,
@@ -184,6 +193,9 @@ const Orders = ({
   finisedMakers,
   loading,
   username,
+  makersLoading,
+  buyerMakersLoading,
+  totalLoading,
 }) => {
   const history = useHistory();
   const openOrderDetail = useCallback(() => {
@@ -197,7 +209,15 @@ const Orders = ({
         firstTabTitle="전체"
         secondTabTitle="진행중"
         thirdTabTitle="완료"
-        firstContent={<List buyerMakers={buyerMakers} loading={loading} />}
+        firstContent={
+          <List
+            buyerMakers={buyerMakers}
+            loading={loading}
+            makersLoading={makersLoading}
+            buyerMakersLoading={buyerMakersLoading}
+            totalLoading={totalLoading}
+          />
+        }
         secondContent={<List buyerMakers={inProgressMakers} />}
         thirdContent={<List buyerMakers={finisedMakers} />}
       />

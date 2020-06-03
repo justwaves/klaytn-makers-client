@@ -24,6 +24,8 @@ const WalletViewerContainer = () => {
     feed,
     address,
     buyerMakersLoading,
+    totalLoading,
+    makersLoading,
   } = useSelector(({ posts, loading, filter, wallet, order, tx, makers }) => ({
     address: wallet.address,
     balance: wallet.balance,
@@ -34,12 +36,16 @@ const WalletViewerContainer = () => {
     txList: tx.txList,
     txListLoading: loading['tx/SET_TX_LIST'],
     buyerMakersLoading: loading['filter/COMBINE_ORDER_LIST'],
+    totalLoading: loading['makers/SET_FEED'],
     feed: makers.feed,
+    makersLoading: loading['order/SET_BUYER_MAKERS'],
   }));
 
   useEffect(() => {
-    dispatch(setBuyerMakers());
-  }, [dispatch]);
+    if (!combinedOrderList) {
+      dispatch(setBuyerMakers());
+    }
+  }, [dispatch, combinedOrderList]);
 
   useEffect(() => {
     if (posts && buyerMakers) {
@@ -70,6 +76,8 @@ const WalletViewerContainer = () => {
       address={address}
       feed={feed}
       buyerMakersLoading={buyerMakersLoading}
+      totalLoading={totalLoading}
+      makersLoading={makersLoading}
     />
   );
 };

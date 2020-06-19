@@ -147,7 +147,6 @@ const List = React.memo(
     totalLoading,
     makersLoading,
   }) => {
-    console.log('======', buyerMakers);
     if (buyerMakersLoading || loading || totalLoading || makersLoading) {
       return (
         <ListWrapper>
@@ -201,7 +200,6 @@ const Orders = ({
   const openOrderDetail = useCallback(() => {
     history.push(`/orders/${username}`);
   }, [history, username]);
-  console.log(buyerMakers);
 
   return (
     <Wrapper title="투자한 상품" more="주문상세보기" onClick={openOrderDetail}>

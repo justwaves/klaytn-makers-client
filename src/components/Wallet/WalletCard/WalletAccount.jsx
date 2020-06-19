@@ -124,7 +124,7 @@ const WalletAccount = ({ balance, logout }) => {
     balance = balance.slice(0, 7);
   }
 
-  const won = parseInt(balance) * 98;
+  const won = parseInt(balance) * 300;
   const parsedWon = (won - (won % 10)).toLocaleString();
 
   return (

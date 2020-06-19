@@ -100,7 +100,7 @@ const fakeData = [
       'https://t1.daumcdn.net/makers_smith/file/items/100001306/masters/ac0de1737a6d4f8cb5e78022b1b8418b.jpg?type=thumb&opt=C640x448.i',
     price: '1',
     targetCount: '15',
-    dDay: '2020-05-30T16:20:00+09:00',
+    dDay: '2020-07-30T16:20:00+09:00',
   },
   {
     tags: ['아이스크림', '철판아이스크림'],
@@ -201,7 +201,7 @@ const fakeData = [
     description:
       '채소와 잡곡을 따로 불리거나 씻어줄 필요 없어 쉽게 만듭니다. 우수 산지에서 생산한 22곡 외에 대표 주요 잡곡인 표고버섯, 곤드레나물, 다시마를 넣었습니다. 하루 5분으로 맛있고 건강한 밥상을 즐길 수 있습니다.',
     photo:
-      'https://t1.daumcdn.net/makers_smith/file/items/100001715/masters/05169566c3954285a744f289c94b2830.jpg?type=thumb&opt=C640x448.i',
+      'https://t1.daumcdn.net/makers_smith/file/items/100001715/masters/07169566c3954285a744f289c94b2830.jpg?type=thumb&opt=C640x448.i',
     price: '1',
     targetCount: '40',
     dDay: '2020-06-01T16:14:00+09:00',
@@ -210,14 +210,14 @@ const fakeData = [
     tags: ['헛개나무', '젤리', '비타민'],
     title: '헛개나무 담은 젤리',
     body:
-      '국내 특허 헛개나무과병추출분말 1,005mg을 함유한 젤리 스틱. 배, 대추농축액, 사양벌꿀로, 달콤함을, 밀크씨슬, 표고버섯균사체, 비타민B₂로 건강을 생각했습니다. 무부형제, 무보존료, 무착색료로 만들었습니다.',
+      '국내 특허 헛개나무과병추출분말 1,007mg을 함유한 젤리 스틱. 배, 대추농축액, 사양벌꿀로, 달콤함을, 밀크씨슬, 표고버섯균사체, 비타민B₂로 건강을 생각했습니다. 무부형제, 무보존료, 무착색료로 만들었습니다.',
     description:
-      '국내 특허 헛개나무과병추출분말 1,005mg을 함유한 젤리 스틱. 배, 대추농축액, 사양벌꿀로, 달콤함을, 밀크씨슬, 표고버섯균사체, 비타민B₂로 건강을 생각했습니다. 무부형제, 무보존료, 무착색료로 만들었습니다.',
+      '국내 특허 헛개나무과병추출분말 1,007mg을 함유한 젤리 스틱. 배, 대추농축액, 사양벌꿀로, 달콤함을, 밀크씨슬, 표고버섯균사체, 비타민B₂로 건강을 생각했습니다. 무부형제, 무보존료, 무착색료로 만들었습니다.',
     photo:
       'https://t1.daumcdn.net/makers_smith/file/items/100001736/masters/67422a4c9b4c4fdf9931beac314459dd.jpg?type=thumb&opt=C640x448.i',
     price: '1',
     targetCount: '500',
-    dDay: '2020-05-30T16:13:00+09:00',
+    dDay: '2020-07-30T16:13:00+09:00',
   },
   {
     tags: ['EGF', 'EGF원액'],
@@ -230,7 +230,7 @@ const fakeData = [
       'https://t1.daumcdn.net/makers_smith/file/items/100001772/masters/6de30875dc8e4b0c8d7ca003d4fb10d0.jpg?type=thumb&opt=C640x448.i',
     price: '1',
     targetCount: '6',
-    dDay: '2020-05-26T16:12:00+09:00',
+    dDay: '2020-07-26T16:12:00+09:00',
   },
   {
     tags: ['파운데이션', '자외선차단제'],
@@ -243,7 +243,7 @@ const fakeData = [
       'https://t1.daumcdn.net/makers_smith/file/items/100001551/masters/d516a56c87b44ffdad82266fc44f3594.jpg?type=thumb&opt=C640x448.i',
     price: '1',
     targetCount: '80',
-    dDay: '2020-05-19T16:11:23+09:00',
+    dDay: '2020-07-19T16:11:23+09:00',
   },
   {
     tags: ['액정강화', '코팅제'],
@@ -269,7 +269,7 @@ const fakeData = [
       'https://t1.daumcdn.net/makers_smith/file/items/100001769/masters/e4e65218b0ff431ea72e0b558f022335.jpg?type=thumb&opt=C640x448.i',
     price: '1',
     targetCount: '15',
-    dDay: '2020-05-18T16:09:00+09:00',
+    dDay: '2020-07-18T16:09:00+09:00',
   },
   {
     tags: ['옷장정리', '정리', '가방', '옷장'],
@@ -282,7 +282,7 @@ const fakeData = [
       'https://t1.daumcdn.net/makers_smith/file/items/100001776/masters/8c6cf9300e39413f9f13fad4c77bd57a.jpg?type=thumb&opt=C640x448.i',
     price: '1',
     targetCount: '45',
-    dDay: '2020-05-15T16:08:00+09:00',
+    dDay: '2020-07-15T16:08:00+09:00',
   },
   {
     tags: ['샴푸', '제주', '동백나무', '동백샴푸'],
@@ -295,7 +295,7 @@ const fakeData = [
       'https://t1.daumcdn.net/makers_smith/file/items/100001731/masters/cf727267d7744bc8a6fc8aee326557a9.jpg?type=thumb&opt=C640x448.i',
     price: '1',
     targetCount: '30',
-    dDay: '2020-05-13T16:07:00+09:00',
+    dDay: '2020-07-13T16:07:00+09:00',
   },
   {
     tags: ['모니터', '스탠드'],
@@ -308,7 +308,7 @@ const fakeData = [
       'https://t1.daumcdn.net/makers_smith/file/items/100001185/masters/d41ae216063740e4858e6c23ba4533d9.jpg?type=thumb&opt=C640x448.i',
     price: '1',
     targetCount: '55',
-    dDay: '2020-05-07T16:06:00+09:00',
+    dDay: '2020-07-07T16:06:00+09:00',
   },
   {
     tags: ['복분자술', '복분자', '술'],
@@ -321,7 +321,7 @@ const fakeData = [
       'https://t1.daumcdn.net/makers_smith/file/items/100001745/masters/ad22df4f68994317a5830734c9fb624b.jpg?type=thumb&opt=C640x448.i',
     price: '1',
     targetCount: '12',
-    dDay: '2020-05-06T16:05:00+09:00',
+    dDay: '2020-07-06T16:07:00+09:00',
   },
   {
     tags: ['쿠션', '콜라겐', '화장품'],
@@ -334,7 +334,7 @@ const fakeData = [
       'https://t1.daumcdn.net/makers_smith/file/items/100001651/masters/744143210382456c99b9c7845fd31563.jpg?type=thumb&opt=C640x448.i',
     price: '1',
     targetCount: '4',
-    dDay: '2020-04-08T16:05:00+09:00',
+    dDay: '2020-04-08T16:07:00+09:00',
   },
   {
     tags: ['스프레이건', '욕실청소', '샤워'],
@@ -347,7 +347,7 @@ const fakeData = [
       'https://t1.daumcdn.net/makers_smith/file/items/100001737/masters/43a1f2614aae46f2ade2769293411009.jpg?type=thumb&opt=C640x448.i',
     price: '1',
     targetCount: '7',
-    dDay: '2020-05-01T16:03:00+09:00',
+    dDay: '2020-07-01T16:03:00+09:00',
   },
   {
     tags: ['로봇', '블루투스스피커', '스피커'],

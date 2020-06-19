@@ -39,6 +39,7 @@
     "serve": "^11.3.0",
     "styled-components": "^5.1.0",
     "styled-reset": "^4.1.2",
+    "truffle": "^5.1.31",
     "truffle-hdwallet-provider-klaytn": "^1.0.13-a"
   },
   "devDependencies": {

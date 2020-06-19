@@ -114,6 +114,7 @@ const ProductDesc = styled.p`
   text-align: justify;
   max-height: 100px;
   overflow: hidden;
+  height: 100px;
 `;
 
 const ProductCard = ({ post }) => {

@@ -51,7 +51,7 @@ export const uploadMakersSaga = () => {
         ).send,
         {
           from: getWallet().address,
-          gas: '5000000',
+          gas: '10000000',
         },
       );
 
@@ -118,6 +118,7 @@ const updateFeedSaga = () => {
       });
 
       const { username } = JSON.parse(localStorage.getItem('user'));
+
       yield put(setTxList({ username }));
     } catch (e) {
       console.log(e);

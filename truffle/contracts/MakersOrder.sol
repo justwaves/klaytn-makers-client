@@ -3,7 +3,6 @@ pragma solidity >=0.6.0 <0.7.0;
 pragma experimental ABIEncoderV2;
 import './MakersContract.sol';
 
-
 contract MakersOrder is MakersContract {
   event MakersOrdered(
     uint256 count,
@@ -121,11 +120,11 @@ contract MakersOrder is MakersContract {
   }
 
   // Makers 강제 마감
-  function forcedClosure(uint256 makersId) public view {
-    require(msg.sender == makersByMakersId[makersId].seller);
-    Makers memory currentMakers = makersByMakersId[makersId];
-    currentMakers.state = State.FundingFailure;
-  }
+  // function forcedClosure(uint256 makersId) public view {
+  //   require(msg.sender == makersByMakersId[makersId].seller);
+  //   Makers memory currentMakers = makersByMakersId[makersId];
+  //   currentMakers.state = State.FundingFailure;
+  // }
 
   function getTotalKlayAmount(uint256 makersId) public view returns (uint256) {
     return totalKlayAmount[makersId];

@@ -22,17 +22,21 @@ const Grid = styled.div`
   grid-template-columns: 1fr 360px;
   gap: 1.5rem;
   margin-bottom: 100px;
-
   position: relative;
+  min-height: 150vh;
 
   @media (max-width: 1200px) {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    min-height: 0;
   }
 `;
 
-const LeftColumn = styled.div``;
+const LeftColumn = styled.div`
+  height: 100%;
+`;
 
 const RightColumn = styled.div`
   max-height: 30rem;
@@ -158,6 +162,11 @@ const Price = styled.div`
 
 const PostContent = styled.div`
   line-height: 1.6;
+  margin-bottom: 10rem;
+
+  img {
+    width: 100%;
+  }
 `;
 
 const ActionButtons = styled.div`
